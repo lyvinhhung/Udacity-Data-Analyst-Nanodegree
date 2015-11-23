@@ -215,7 +215,11 @@ div#notebook {
 <h2 id="Table-of-Contents-">Table of Contents <a class="anchor-link" href="#Table-of-Contents-">&#182;</a></h2><p><a href="#top"></a></p>
 <ol>
 <li><a href="#audit">Data Audit</a></li>
-<li><a href="#problems">Problems encountered</a></li>
+<li><a href="#problems">Problems encountered</a><ul>
+<li><a href="#street">Street address abbreviations</a></li>
+<li><a href="#postal">Zip codes</a></li>
+</ul>
+</li>
 <li><a href="#data_overview">Data Overview with MongoDB</a></li>
 <li><a href="#exploration">Additional Insight using MongoDB</a></li>
 <li><a href="#conclusion">Conclusion</a></li>
@@ -244,7 +248,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[143]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="kn">import</span> <span class="nn">xml.etree.cElementTree</span> <span class="kn">as</span> <span class="nn">ET</span>
@@ -263,10 +267,11 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span class="n">datadir</span> <span class="o">=</span> <span class="s">&quot;data&quot;</span>
+<div class=" highlight hl-ipython2"><pre><span class="kn">import</span> <span class="nn">os</span>
+<span class="n">datadir</span> <span class="o">=</span> <span class="s">&quot;data&quot;</span>
 <span class="n">datafile</span> <span class="o">=</span> <span class="s">&quot;san-jose_california.osm&quot;</span>
 <span class="n">cal_data</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">datadir</span><span class="p">,</span> <span class="n">datafile</span><span class="p">)</span>
 </pre></div>
@@ -493,6 +498,15 @@ have contributed to the map in San Jose area, we have 1022 uniques users have al
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h3><a name="street"></a> **2.1 Street address abbreviation **</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <blockquote><p>The main problem we encountered in this dataset come from the street name abbreviation inconsistency. In this following code, we build the regex matching the last element in the string, where usually the street type is based. Then we come up with a list of mapping that need not to be cleaned.</p>
 </blockquote>
 
@@ -551,7 +565,7 @@ have contributed to the map in San Jose area, we have 1022 uniques users have al
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span class="k">def</span> <span class="nf">audit_street_type</span><span class="p">(</span><span class="n">street_types</span><span class="p">,</span> <span class="n">street_name</span><span class="p">):</span>
@@ -594,6 +608,17 @@ have contributed to the map in San Jose area, we have 1022 uniques users have al
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><p>We then take a brief look at the unclean street name using pretty print below</p>
+</blockquote>
+
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
@@ -1123,6 +1148,4035 @@ Walsh Ave =&gt; Walsh Avenue
 Cabrillo Ave =&gt; Cabrillo Avenue
 Santana Row =&gt; Santana Row
 Perivale Ct =&gt; Perivale Court
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="#top"><div align="center">Back to top</div></a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3><a name="postal"></a> **2.2 Zip codes **</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><p>We can re-use part of the code in street abbreviation problem and briefly modify it to use it here. Although most of the zip code is correct, there're still a lot of zip code with incorrect 5 digit formats.</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[65]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+
+<span class="k">def</span> <span class="nf">audit_zipcode</span><span class="p">(</span><span class="n">invalid_zipcodes</span><span class="p">,</span> <span class="n">zipcode</span><span class="p">):</span>
+    <span class="n">twoDigits</span> <span class="o">=</span> <span class="n">zipcode</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">twoDigits</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+        <span class="n">invalid_zipcodes</span><span class="p">[</span><span class="n">twoDigits</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">zipcode</span><span class="p">)</span>
+    
+    <span class="k">elif</span> <span class="n">twoDigits</span> <span class="o">!=</span> <span class="mi">95</span><span class="p">:</span>
+        <span class="n">invalid_zipcodes</span><span class="p">[</span><span class="n">twoDigits</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">zipcode</span><span class="p">)</span>
+        
+<span class="k">def</span> <span class="nf">is_zipcode</span><span class="p">(</span><span class="n">elem</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s">&#39;k&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&quot;addr:postcode&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">audit_zip</span><span class="p">(</span><span class="n">osmfile</span><span class="p">):</span>
+    <span class="n">osm_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">osmfile</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">)</span>
+    <span class="n">invalid_zipcodes</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">set</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">event</span><span class="p">,</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">ET</span><span class="o">.</span><span class="n">iterparse</span><span class="p">(</span><span class="n">osm_file</span><span class="p">,</span> <span class="n">events</span><span class="o">=</span><span class="p">(</span><span class="s">&quot;start&quot;</span><span class="p">,)):</span>
+
+        <span class="k">if</span> <span class="n">elem</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s">&quot;node&quot;</span> <span class="ow">or</span> <span class="n">elem</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s">&quot;way&quot;</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">elem</span><span class="o">.</span><span class="n">iter</span><span class="p">(</span><span class="s">&quot;tag&quot;</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">is_zipcode</span><span class="p">(</span><span class="n">tag</span><span class="p">):</span>
+                    <span class="n">audit_zipcode</span><span class="p">(</span><span class="n">invalid_zipcodes</span><span class="p">,</span><span class="n">tag</span><span class="o">.</span><span class="n">attrib</span><span class="p">[</span><span class="s">&#39;v&#39;</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">invalid_zipcodes</span>
+
+<span class="n">cal_zipcode</span> <span class="o">=</span> <span class="n">audit_zip</span><span class="p">(</span><span class="n">cal_data</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[66]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">cal_zipcode</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>{&apos;94&apos;: set([&apos;94084&apos;,
+            &apos;94085&apos;,
+            &apos;94086&apos;,
+            &apos;94086-6406&apos;,
+            &apos;94087&apos;,
+            u&apos;94087\u200e&apos;,
+            &apos;94088-3707&apos;,
+            &apos;94089&apos;,
+            &apos;94089-2701&apos;,
+            &apos;94807&apos;]),
+ &apos;95&apos;: set([&apos;95002&apos;,
+            &apos;95008&apos;,
+            &apos;95013&apos;,
+            &apos;95014&apos;,
+            &apos;95014-0200&apos;,
+            &apos;95014-0202&apos;,
+            &apos;95014-0236&apos;,
+            &apos;95014-0238&apos;,
+            &apos;95014-0240&apos;,
+            &apos;95014-030&apos;,
+            &apos;95014-0337&apos;,
+            &apos;95014-0353&apos;,
+            &apos;95014-0355&apos;,
+            &apos;95014-0358&apos;,
+            &apos;95014-0400&apos;,
+            &apos;95014-0431&apos;,
+            &apos;95014-0433&apos;,
+            &apos;95014-0434&apos;,
+            &apos;95014-0436&apos;,
+            &apos;95014-0437&apos;,
+            &apos;95014-0438&apos;,
+            &apos;95014-0439&apos;,
+            &apos;95014-0440&apos;,
+            &apos;95014-0444&apos;,
+            &apos;95014-0445&apos;,
+            &apos;95014-0446&apos;,
+            &apos;95014-0447&apos;,
+            &apos;95014-0448&apos;,
+            &apos;95014-0449&apos;,
+            &apos;95014-0450&apos;,
+            &apos;95014-0451&apos;,
+            &apos;95014-0453&apos;,
+            &apos;95014-0454&apos;,
+            &apos;95014-0455&apos;,
+            &apos;95014-0456&apos;,
+            &apos;95014-0457&apos;,
+            &apos;95014-0459&apos;,
+            &apos;95014-0492&apos;,
+            &apos;95014-0493&apos;,
+            &apos;95014-0494&apos;,
+            &apos;95014-0495&apos;,
+            &apos;95014-0496&apos;,
+            &apos;95014-0497&apos;,
+            &apos;95014-0499&apos;,
+            &apos;95014-0500&apos;,
+            &apos;95014-0501&apos;,
+            &apos;95014-0502&apos;,
+            &apos;95014-0503&apos;,
+            &apos;95014-0504&apos;,
+            &apos;95014-0505&apos;,
+            &apos;95014-0506&apos;,
+            &apos;95014-0507&apos;,
+            &apos;95014-0508&apos;,
+            &apos;95014-0509&apos;,
+            &apos;95014-0510&apos;,
+            &apos;95014-0511&apos;,
+            &apos;95014-0512&apos;,
+            &apos;95014-0513&apos;,
+            &apos;95014-0514&apos;,
+            &apos;95014-0515&apos;,
+            &apos;95014-0516&apos;,
+            &apos;95014-0517&apos;,
+            &apos;95014-0518&apos;,
+            &apos;95014-0519&apos;,
+            &apos;95014-0520&apos;,
+            &apos;95014-0521&apos;,
+            &apos;95014-0522&apos;,
+            &apos;95014-0523&apos;,
+            &apos;95014-0525&apos;,
+            &apos;95014-0526&apos;,
+            &apos;95014-0527&apos;,
+            &apos;95014-0528&apos;,
+            &apos;95014-0529&apos;,
+            &apos;95014-0530&apos;,
+            &apos;95014-0531&apos;,
+            &apos;95014-0532&apos;,
+            &apos;95014-0533&apos;,
+            &apos;95014-0534&apos;,
+            &apos;95014-0535&apos;,
+            &apos;95014-0536&apos;,
+            &apos;95014-0537&apos;,
+            &apos;95014-0538&apos;,
+            &apos;95014-0539&apos;,
+            &apos;95014-0540&apos;,
+            &apos;95014-0541&apos;,
+            &apos;95014-0542&apos;,
+            &apos;95014-0543&apos;,
+            &apos;95014-0544&apos;,
+            &apos;95014-0545&apos;,
+            &apos;95014-0546&apos;,
+            &apos;95014-0547&apos;,
+            &apos;95014-0548&apos;,
+            &apos;95014-0549&apos;,
+            &apos;95014-0550&apos;,
+            &apos;95014-0551&apos;,
+            &apos;95014-0552&apos;,
+            &apos;95014-0553&apos;,
+            &apos;95014-0554&apos;,
+            &apos;95014-0555&apos;,
+            &apos;95014-0556&apos;,
+            &apos;95014-0557&apos;,
+            &apos;95014-0560&apos;,
+            &apos;95014-0562&apos;,
+            &apos;95014-0563&apos;,
+            &apos;95014-0564&apos;,
+            &apos;95014-0565&apos;,
+            &apos;95014-0566&apos;,
+            &apos;95014-0567&apos;,
+            &apos;95014-0568&apos;,
+            &apos;95014-0599&apos;,
+            &apos;95014-0605&apos;,
+            &apos;95014-0607&apos;,
+            &apos;95014-0608&apos;,
+            &apos;95014-061&apos;,
+            &apos;95014-0614&apos;,
+            &apos;95014-0615&apos;,
+            &apos;95014-0616&apos;,
+            &apos;95014-0617&apos;,
+            &apos;95014-0619&apos;,
+            &apos;95014-0621&apos;,
+            &apos;95014-0706&apos;,
+            &apos;95014-0708&apos;,
+            &apos;95014-0717&apos;,
+            &apos;95014-0721&apos;,
+            &apos;95014-0739&apos;,
+            &apos;95014-1100&apos;,
+            &apos;95014-1125&apos;,
+            &apos;95014-1126&apos;,
+            &apos;95014-1418&apos;,
+            &apos;95014-1421&apos;,
+            &apos;95014-1435&apos;,
+            &apos;95014-1600&apos;,
+            &apos;95014-1601&apos;,
+            &apos;95014-1604&apos;,
+            &apos;95014-1605&apos;,
+            &apos;95014-1606&apos;,
+            &apos;95014-1607&apos;,
+            &apos;95014-1608&apos;,
+            &apos;95014-1609&apos;,
+            &apos;95014-1610&apos;,
+            &apos;95014-1611&apos;,
+            &apos;95014-1612&apos;,
+            &apos;95014-1613&apos;,
+            &apos;95014-1614&apos;,
+            &apos;95014-1615&apos;,
+            &apos;95014-1616&apos;,
+            &apos;95014-1617&apos;,
+            &apos;95014-1618&apos;,
+            &apos;95014-1619&apos;,
+            &apos;95014-1620&apos;,
+            &apos;95014-1621&apos;,
+            &apos;95014-1622&apos;,
+            &apos;95014-1623&apos;,
+            &apos;95014-1624&apos;,
+            &apos;95014-1625&apos;,
+            &apos;95014-1626&apos;,
+            &apos;95014-1627&apos;,
+            &apos;95014-1628&apos;,
+            &apos;95014-1629&apos;,
+            &apos;95014-1630&apos;,
+            &apos;95014-1631&apos;,
+            &apos;95014-1632&apos;,
+            &apos;95014-1638&apos;,
+            &apos;95014-1639&apos;,
+            &apos;95014-1643&apos;,
+            &apos;95014-1644&apos;,
+            &apos;95014-1645&apos;,
+            &apos;95014-1646&apos;,
+            &apos;95014-1647&apos;,
+            &apos;95014-1649&apos;,
+            &apos;95014-1650&apos;,
+            &apos;95014-1651&apos;,
+            &apos;95014-1652&apos;,
+            &apos;95014-1653&apos;,
+            &apos;95014-1654&apos;,
+            &apos;95014-1655&apos;,
+            &apos;95014-1656&apos;,
+            &apos;95014-1657&apos;,
+            &apos;95014-1658&apos;,
+            &apos;95014-1659&apos;,
+            &apos;95014-1660&apos;,
+            &apos;95014-1662&apos;,
+            &apos;95014-1663&apos;,
+            &apos;95014-1664&apos;,
+            &apos;95014-1665&apos;,
+            &apos;95014-1666&apos;,
+            &apos;95014-1697&apos;,
+            &apos;95014-1701&apos;,
+            &apos;95014-1702&apos;,
+            &apos;95014-1703&apos;,
+            &apos;95014-1704&apos;,
+            &apos;95014-1735&apos;,
+            &apos;95014-1754&apos;,
+            &apos;95014-1755&apos;,
+            &apos;95014-1756&apos;,
+            &apos;95014-1763&apos;,
+            &apos;95014-1786&apos;,
+            &apos;95014-1799&apos;,
+            &apos;95014-1800&apos;,
+            &apos;95014-1801&apos;,
+            &apos;95014-1802&apos;,
+            &apos;95014-1803&apos;,
+            &apos;95014-1804&apos;,
+            &apos;95014-1805&apos;,
+            &apos;95014-1806&apos;,
+            &apos;95014-1807&apos;,
+            &apos;95014-1808&apos;,
+            &apos;95014-1809&apos;,
+            &apos;95014-1810&apos;,
+            &apos;95014-1811&apos;,
+            &apos;95014-1812&apos;,
+            &apos;95014-1813&apos;,
+            &apos;95014-1814&apos;,
+            &apos;95014-1815&apos;,
+            &apos;95014-1816&apos;,
+            &apos;95014-1817&apos;,
+            &apos;95014-1818&apos;,
+            &apos;95014-1819&apos;,
+            &apos;95014-1820&apos;,
+            &apos;95014-1822&apos;,
+            &apos;95014-1823&apos;,
+            &apos;95014-1824&apos;,
+            &apos;95014-1825&apos;,
+            &apos;95014-1826&apos;,
+            &apos;95014-1829&apos;,
+            &apos;95014-1849&apos;,
+            &apos;95014-1875&apos;,
+            &apos;95014-1877&apos;,
+            &apos;95014-1878&apos;,
+            &apos;95014-1899&apos;,
+            &apos;95014-1901&apos;,
+            &apos;95014-1902&apos;,
+            &apos;95014-1903&apos;,
+            &apos;95014-1904&apos;,
+            &apos;95014-1905&apos;,
+            &apos;95014-1906&apos;,
+            &apos;95014-1907&apos;,
+            &apos;95014-1908&apos;,
+            &apos;95014-1909&apos;,
+            &apos;95014-1910&apos;,
+            &apos;95014-1911&apos;,
+            &apos;95014-1912&apos;,
+            &apos;95014-1913&apos;,
+            &apos;95014-1914&apos;,
+            &apos;95014-1915&apos;,
+            &apos;95014-1916&apos;,
+            &apos;95014-1917&apos;,
+            &apos;95014-1918&apos;,
+            &apos;95014-1919&apos;,
+            &apos;95014-1920&apos;,
+            &apos;95014-1922&apos;,
+            &apos;95014-1923&apos;,
+            &apos;95014-1927&apos;,
+            &apos;95014-1928&apos;,
+            &apos;95014-1929&apos;,
+            &apos;95014-1930&apos;,
+            &apos;95014-1931&apos;,
+            &apos;95014-1932&apos;,
+            &apos;95014-1933&apos;,
+            &apos;95014-1934&apos;,
+            &apos;95014-1935&apos;,
+            &apos;95014-1936&apos;,
+            &apos;95014-1937&apos;,
+            &apos;95014-1938&apos;,
+            &apos;95014-1939&apos;,
+            &apos;95014-1940&apos;,
+            &apos;95014-1941&apos;,
+            &apos;95014-1942&apos;,
+            &apos;95014-1944&apos;,
+            &apos;95014-1945&apos;,
+            &apos;95014-1946&apos;,
+            &apos;95014-1947&apos;,
+            &apos;95014-1948&apos;,
+            &apos;95014-1949&apos;,
+            &apos;95014-1950&apos;,
+            &apos;95014-1951&apos;,
+            &apos;95014-1952&apos;,
+            &apos;95014-1953&apos;,
+            &apos;95014-1954&apos;,
+            &apos;95014-1955&apos;,
+            &apos;95014-1956&apos;,
+            &apos;95014-1957&apos;,
+            &apos;95014-1958&apos;,
+            &apos;95014-1959&apos;,
+            &apos;95014-1960&apos;,
+            &apos;95014-1961&apos;,
+            &apos;95014-1962&apos;,
+            &apos;95014-1963&apos;,
+            &apos;95014-1964&apos;,
+            &apos;95014-1965&apos;,
+            &apos;95014-1966&apos;,
+            &apos;95014-1967&apos;,
+            &apos;95014-1968&apos;,
+            &apos;95014-1972&apos;,
+            &apos;95014-2001&apos;,
+            &apos;95014-2002&apos;,
+            &apos;95014-2003&apos;,
+            &apos;95014-2004&apos;,
+            &apos;95014-2005&apos;,
+            &apos;95014-2006&apos;,
+            &apos;95014-2007&apos;,
+            &apos;95014-2008&apos;,
+            &apos;95014-2009&apos;,
+            &apos;95014-2010&apos;,
+            &apos;95014-2011&apos;,
+            &apos;95014-2012&apos;,
+            &apos;95014-2013&apos;,
+            &apos;95014-2014&apos;,
+            &apos;95014-2015&apos;,
+            &apos;95014-2016&apos;,
+            &apos;95014-2017&apos;,
+            &apos;95014-2018&apos;,
+            &apos;95014-2019&apos;,
+            &apos;95014-2020&apos;,
+            &apos;95014-2021&apos;,
+            &apos;95014-2022&apos;,
+            &apos;95014-2023&apos;,
+            &apos;95014-2024&apos;,
+            &apos;95014-2025&apos;,
+            &apos;95014-2028&apos;,
+            &apos;95014-2029&apos;,
+            &apos;95014-2030&apos;,
+            &apos;95014-2031&apos;,
+            &apos;95014-2032&apos;,
+            &apos;95014-2034&apos;,
+            &apos;95014-2035&apos;,
+            &apos;95014-2036&apos;,
+            &apos;95014-2037&apos;,
+            &apos;95014-2038&apos;,
+            &apos;95014-2039&apos;,
+            &apos;95014-2040&apos;,
+            &apos;95014-2054&apos;,
+            &apos;95014-2055&apos;,
+            &apos;95014-2056&apos;,
+            &apos;95014-2057&apos;,
+            &apos;95014-2058&apos;,
+            &apos;95014-2072&apos;,
+            &apos;95014-2073&apos;,
+            &apos;95014-2074&apos;,
+            &apos;95014-2078&apos;,
+            &apos;95014-2080&apos;,
+            &apos;95014-2081&apos;,
+            &apos;95014-2098&apos;,
+            &apos;95014-2101&apos;,
+            &apos;95014-2102&apos;,
+            &apos;95014-2105&apos;,
+            &apos;95014-2106&apos;,
+            &apos;95014-2107&apos;,
+            &apos;95014-2120&apos;,
+            &apos;95014-2121&apos;,
+            &apos;95014-2122&apos;,
+            &apos;95014-2123&apos;,
+            &apos;95014-2124&apos;,
+            &apos;95014-2126&apos;,
+            &apos;95014-2128&apos;,
+            &apos;95014-2130&apos;,
+            &apos;95014-2131&apos;,
+            &apos;95014-2133&apos;,
+            &apos;95014-2134&apos;,
+            &apos;95014-2135&apos;,
+            &apos;95014-2136&apos;,
+            &apos;95014-2137&apos;,
+            &apos;95014-2138&apos;,
+            &apos;95014-2139&apos;,
+            &apos;95014-2140&apos;,
+            &apos;95014-2141&apos;,
+            &apos;95014-2142&apos;,
+            &apos;95014-2143&apos;,
+            &apos;95014-2144&apos;,
+            &apos;95014-2145&apos;,
+            &apos;95014-2146&apos;,
+            &apos;95014-2147&apos;,
+            &apos;95014-2148&apos;,
+            &apos;95014-2149&apos;,
+            &apos;95014-2170&apos;,
+            &apos;95014-2171&apos;,
+            &apos;95014-2175&apos;,
+            &apos;95014-2176&apos;,
+            &apos;95014-218&apos;,
+            &apos;95014-2193&apos;,
+            &apos;95014-2201&apos;,
+            &apos;95014-2202&apos;,
+            &apos;95014-2203&apos;,
+            &apos;95014-2204&apos;,
+            &apos;95014-2205&apos;,
+            &apos;95014-2206&apos;,
+            &apos;95014-2207&apos;,
+            &apos;95014-2208&apos;,
+            &apos;95014-2210&apos;,
+            &apos;95014-2211&apos;,
+            &apos;95014-2212&apos;,
+            &apos;95014-2214&apos;,
+            &apos;95014-2215&apos;,
+            &apos;95014-2216&apos;,
+            &apos;95014-2218&apos;,
+            &apos;95014-2219&apos;,
+            &apos;95014-2220&apos;,
+            &apos;95014-2221&apos;,
+            &apos;95014-2222&apos;,
+            &apos;95014-2223&apos;,
+            &apos;95014-2224&apos;,
+            &apos;95014-2225&apos;,
+            &apos;95014-2227&apos;,
+            &apos;95014-2228&apos;,
+            &apos;95014-2231&apos;,
+            &apos;95014-2232&apos;,
+            &apos;95014-2233&apos;,
+            &apos;95014-2235&apos;,
+            &apos;95014-2236&apos;,
+            &apos;95014-2238&apos;,
+            &apos;95014-225&apos;,
+            &apos;95014-2257&apos;,
+            &apos;95014-2258&apos;,
+            &apos;95014-2259&apos;,
+            &apos;95014-2260&apos;,
+            &apos;95014-2261&apos;,
+            &apos;95014-2262&apos;,
+            &apos;95014-2263&apos;,
+            &apos;95014-2265&apos;,
+            &apos;95014-2279&apos;,
+            &apos;95014-2280&apos;,
+            &apos;95014-2301&apos;,
+            &apos;95014-2302&apos;,
+            &apos;95014-2303&apos;,
+            &apos;95014-2304&apos;,
+            &apos;95014-2305&apos;,
+            &apos;95014-2306&apos;,
+            &apos;95014-2307&apos;,
+            &apos;95014-2308&apos;,
+            &apos;95014-2309&apos;,
+            &apos;95014-2310&apos;,
+            &apos;95014-2311&apos;,
+            &apos;95014-2312&apos;,
+            &apos;95014-2313&apos;,
+            &apos;95014-2314&apos;,
+            &apos;95014-2316&apos;,
+            &apos;95014-2317&apos;,
+            &apos;95014-2318&apos;,
+            &apos;95014-2319&apos;,
+            &apos;95014-232&apos;,
+            &apos;95014-2320&apos;,
+            &apos;95014-2321&apos;,
+            &apos;95014-2322&apos;,
+            &apos;95014-2323&apos;,
+            &apos;95014-2324&apos;,
+            &apos;95014-2325&apos;,
+            &apos;95014-2326&apos;,
+            &apos;95014-2327&apos;,
+            &apos;95014-2329&apos;,
+            &apos;95014-2330&apos;,
+            &apos;95014-2331&apos;,
+            &apos;95014-2332&apos;,
+            &apos;95014-2333&apos;,
+            &apos;95014-2334&apos;,
+            &apos;95014-2335&apos;,
+            &apos;95014-2336&apos;,
+            &apos;95014-2337&apos;,
+            &apos;95014-2338&apos;,
+            &apos;95014-2339&apos;,
+            &apos;95014-2340&apos;,
+            &apos;95014-2341&apos;,
+            &apos;95014-2342&apos;,
+            &apos;95014-2343&apos;,
+            &apos;95014-2344&apos;,
+            &apos;95014-2346&apos;,
+            &apos;95014-2347&apos;,
+            &apos;95014-2348&apos;,
+            &apos;95014-2350&apos;,
+            &apos;95014-2351&apos;,
+            &apos;95014-2354&apos;,
+            &apos;95014-2356&apos;,
+            &apos;95014-2360&apos;,
+            &apos;95014-2361&apos;,
+            &apos;95014-2362&apos;,
+            &apos;95014-2366&apos;,
+            &apos;95014-2380&apos;,
+            &apos;95014-2389&apos;,
+            &apos;95014-2398&apos;,
+            &apos;95014-2401&apos;,
+            &apos;95014-2402&apos;,
+            &apos;95014-2403&apos;,
+            &apos;95014-2404&apos;,
+            &apos;95014-2405&apos;,
+            &apos;95014-2406&apos;,
+            &apos;95014-2407&apos;,
+            &apos;95014-2408&apos;,
+            &apos;95014-2409&apos;,
+            &apos;95014-2410&apos;,
+            &apos;95014-2411&apos;,
+            &apos;95014-2412&apos;,
+            &apos;95014-2413&apos;,
+            &apos;95014-2414&apos;,
+            &apos;95014-2415&apos;,
+            &apos;95014-2416&apos;,
+            &apos;95014-2417&apos;,
+            &apos;95014-2418&apos;,
+            &apos;95014-2419&apos;,
+            &apos;95014-2420&apos;,
+            &apos;95014-2421&apos;,
+            &apos;95014-2422&apos;,
+            &apos;95014-2423&apos;,
+            &apos;95014-2424&apos;,
+            &apos;95014-2425&apos;,
+            &apos;95014-2426&apos;,
+            &apos;95014-2427&apos;,
+            &apos;95014-2428&apos;,
+            &apos;95014-2429&apos;,
+            &apos;95014-2430&apos;,
+            &apos;95014-2431&apos;,
+            &apos;95014-2432&apos;,
+            &apos;95014-2433&apos;,
+            &apos;95014-2434&apos;,
+            &apos;95014-2435&apos;,
+            &apos;95014-2437&apos;,
+            &apos;95014-2438&apos;,
+            &apos;95014-2439&apos;,
+            &apos;95014-2440&apos;,
+            &apos;95014-2441&apos;,
+            &apos;95014-2442&apos;,
+            &apos;95014-2443&apos;,
+            &apos;95014-2444&apos;,
+            &apos;95014-2445&apos;,
+            &apos;95014-2446&apos;,
+            &apos;95014-2447&apos;,
+            &apos;95014-2448&apos;,
+            &apos;95014-2449&apos;,
+            &apos;95014-2450&apos;,
+            &apos;95014-2451&apos;,
+            &apos;95014-2452&apos;,
+            &apos;95014-2453&apos;,
+            &apos;95014-2454&apos;,
+            &apos;95014-2455&apos;,
+            &apos;95014-2456&apos;,
+            &apos;95014-2457&apos;,
+            &apos;95014-2458&apos;,
+            &apos;95014-2459&apos;,
+            &apos;95014-246&apos;,
+            &apos;95014-2460&apos;,
+            &apos;95014-2461&apos;,
+            &apos;95014-2465&apos;,
+            &apos;95014-2469&apos;,
+            &apos;95014-2502&apos;,
+            &apos;95014-2504&apos;,
+            &apos;95014-2505&apos;,
+            &apos;95014-2508&apos;,
+            &apos;95014-2522&apos;,
+            &apos;95014-2525&apos;,
+            &apos;95014-2526&apos;,
+            &apos;95014-2540&apos;,
+            &apos;95014-2541&apos;,
+            &apos;95014-2557&apos;,
+            &apos;95014-2558&apos;,
+            &apos;95014-2582&apos;,
+            &apos;95014-2722&apos;,
+            &apos;95014-2900&apos;,
+            &apos;95014-2902&apos;,
+            &apos;95014-2903&apos;,
+            &apos;95014-2904&apos;,
+            &apos;95014-2905&apos;,
+            &apos;95014-2906&apos;,
+            &apos;95014-2907&apos;,
+            &apos;95014-2908&apos;,
+            &apos;95014-2909&apos;,
+            &apos;95014-2910&apos;,
+            &apos;95014-2911&apos;,
+            &apos;95014-2912&apos;,
+            &apos;95014-2913&apos;,
+            &apos;95014-2914&apos;,
+            &apos;95014-2915&apos;,
+            &apos;95014-2916&apos;,
+            &apos;95014-2917&apos;,
+            &apos;95014-2918&apos;,
+            &apos;95014-2919&apos;,
+            &apos;95014-2920&apos;,
+            &apos;95014-2921&apos;,
+            &apos;95014-2922&apos;,
+            &apos;95014-2923&apos;,
+            &apos;95014-2924&apos;,
+            &apos;95014-2925&apos;,
+            &apos;95014-2926&apos;,
+            &apos;95014-2927&apos;,
+            &apos;95014-2928&apos;,
+            &apos;95014-2929&apos;,
+            &apos;95014-2930&apos;,
+            &apos;95014-2931&apos;,
+            &apos;95014-2932&apos;,
+            &apos;95014-2933&apos;,
+            &apos;95014-2934&apos;,
+            &apos;95014-2935&apos;,
+            &apos;95014-2936&apos;,
+            &apos;95014-2937&apos;,
+            &apos;95014-2938&apos;,
+            &apos;95014-2939&apos;,
+            &apos;95014-2940&apos;,
+            &apos;95014-2941&apos;,
+            &apos;95014-2942&apos;,
+            &apos;95014-2943&apos;,
+            &apos;95014-2944&apos;,
+            &apos;95014-2945&apos;,
+            &apos;95014-2947&apos;,
+            &apos;95014-2948&apos;,
+            &apos;95014-2949&apos;,
+            &apos;95014-2950&apos;,
+            &apos;95014-2952&apos;,
+            &apos;95014-2953&apos;,
+            &apos;95014-2954&apos;,
+            &apos;95014-2955&apos;,
+            &apos;95014-2956&apos;,
+            &apos;95014-2957&apos;,
+            &apos;95014-2958&apos;,
+            &apos;95014-2959&apos;,
+            &apos;95014-2960&apos;,
+            &apos;95014-2961&apos;,
+            &apos;95014-2962&apos;,
+            &apos;95014-2963&apos;,
+            &apos;95014-2964&apos;,
+            &apos;95014-2965&apos;,
+            &apos;95014-2966&apos;,
+            &apos;95014-2967&apos;,
+            &apos;95014-2968&apos;,
+            &apos;95014-2969&apos;,
+            &apos;95014-2970&apos;,
+            &apos;95014-2971&apos;,
+            &apos;95014-2972&apos;,
+            &apos;95014-2974&apos;,
+            &apos;95014-2975&apos;,
+            &apos;95014-2976&apos;,
+            &apos;95014-2999&apos;,
+            &apos;95014-3000&apos;,
+            &apos;95014-3001&apos;,
+            &apos;95014-3002&apos;,
+            &apos;95014-3003&apos;,
+            &apos;95014-3004&apos;,
+            &apos;95014-3005&apos;,
+            &apos;95014-3007&apos;,
+            &apos;95014-3008&apos;,
+            &apos;95014-3009&apos;,
+            &apos;95014-3010&apos;,
+            &apos;95014-3011&apos;,
+            &apos;95014-3012&apos;,
+            &apos;95014-3014&apos;,
+            &apos;95014-3015&apos;,
+            &apos;95014-3018&apos;,
+            &apos;95014-3023&apos;,
+            &apos;95014-3026&apos;,
+            &apos;95014-3027&apos;,
+            &apos;95014-3028&apos;,
+            &apos;95014-3029&apos;,
+            &apos;95014-3100&apos;,
+            &apos;95014-3101&apos;,
+            &apos;95014-3102&apos;,
+            &apos;95014-3103&apos;,
+            &apos;95014-3104&apos;,
+            &apos;95014-3105&apos;,
+            &apos;95014-3106&apos;,
+            &apos;95014-3107&apos;,
+            &apos;95014-3108&apos;,
+            &apos;95014-3109&apos;,
+            &apos;95014-3110&apos;,
+            &apos;95014-3111&apos;,
+            &apos;95014-3112&apos;,
+            &apos;95014-3113&apos;,
+            &apos;95014-3114&apos;,
+            &apos;95014-3115&apos;,
+            &apos;95014-3116&apos;,
+            &apos;95014-3117&apos;,
+            &apos;95014-3119&apos;,
+            &apos;95014-3120&apos;,
+            &apos;95014-3121&apos;,
+            &apos;95014-3122&apos;,
+            &apos;95014-3123&apos;,
+            &apos;95014-3124&apos;,
+            &apos;95014-3125&apos;,
+            &apos;95014-3126&apos;,
+            &apos;95014-3127&apos;,
+            &apos;95014-3128&apos;,
+            &apos;95014-3129&apos;,
+            &apos;95014-3130&apos;,
+            &apos;95014-3131&apos;,
+            &apos;95014-3132&apos;,
+            &apos;95014-3133&apos;,
+            &apos;95014-3134&apos;,
+            &apos;95014-3136&apos;,
+            &apos;95014-3139&apos;,
+            &apos;95014-3142&apos;,
+            &apos;95014-3144&apos;,
+            &apos;95014-3147&apos;,
+            &apos;95014-3148&apos;,
+            &apos;95014-3149&apos;,
+            &apos;95014-3151&apos;,
+            &apos;95014-3152&apos;,
+            &apos;95014-3153&apos;,
+            &apos;95014-3155&apos;,
+            &apos;95014-3156&apos;,
+            &apos;95014-3158&apos;,
+            &apos;95014-3160&apos;,
+            &apos;95014-3161&apos;,
+            &apos;95014-3164&apos;,
+            &apos;95014-3167&apos;,
+            &apos;95014-3169&apos;,
+            &apos;95014-3182&apos;,
+            &apos;95014-3184&apos;,
+            &apos;95014-3185&apos;,
+            &apos;95014-3188&apos;,
+            &apos;95014-3189&apos;,
+            &apos;95014-3190&apos;,
+            &apos;95014-3191&apos;,
+            &apos;95014-3192&apos;,
+            &apos;95014-3193&apos;,
+            &apos;95014-3194&apos;,
+            &apos;95014-3195&apos;,
+            &apos;95014-3196&apos;,
+            &apos;95014-3197&apos;,
+            &apos;95014-3198&apos;,
+            &apos;95014-3199&apos;,
+            &apos;95014-3202&apos;,
+            &apos;95014-3203&apos;,
+            &apos;95014-321&apos;,
+            &apos;95014-3217&apos;,
+            &apos;95014-3300&apos;,
+            &apos;95014-3301&apos;,
+            &apos;95014-3303&apos;,
+            &apos;95014-3304&apos;,
+            &apos;95014-3305&apos;,
+            &apos;95014-3306&apos;,
+            &apos;95014-3307&apos;,
+            &apos;95014-3308&apos;,
+            &apos;95014-3309&apos;,
+            &apos;95014-3310&apos;,
+            &apos;95014-3311&apos;,
+            &apos;95014-3312&apos;,
+            &apos;95014-3313&apos;,
+            &apos;95014-3314&apos;,
+            &apos;95014-3315&apos;,
+            &apos;95014-3316&apos;,
+            &apos;95014-3317&apos;,
+            &apos;95014-3318&apos;,
+            &apos;95014-3319&apos;,
+            &apos;95014-3320&apos;,
+            &apos;95014-3321&apos;,
+            &apos;95014-3322&apos;,
+            &apos;95014-3323&apos;,
+            &apos;95014-3324&apos;,
+            &apos;95014-3325&apos;,
+            &apos;95014-3326&apos;,
+            &apos;95014-3327&apos;,
+            &apos;95014-3328&apos;,
+            &apos;95014-3329&apos;,
+            &apos;95014-3330&apos;,
+            &apos;95014-3331&apos;,
+            &apos;95014-3335&apos;,
+            &apos;95014-3336&apos;,
+            &apos;95014-3337&apos;,
+            &apos;95014-3338&apos;,
+            &apos;95014-3339&apos;,
+            &apos;95014-3340&apos;,
+            &apos;95014-3341&apos;,
+            &apos;95014-3342&apos;,
+            &apos;95014-3343&apos;,
+            &apos;95014-3344&apos;,
+            &apos;95014-3346&apos;,
+            &apos;95014-3348&apos;,
+            &apos;95014-3349&apos;,
+            &apos;95014-3350&apos;,
+            &apos;95014-3351&apos;,
+            &apos;95014-3352&apos;,
+            &apos;95014-3353&apos;,
+            &apos;95014-3354&apos;,
+            &apos;95014-3355&apos;,
+            &apos;95014-3357&apos;,
+            &apos;95014-3358&apos;,
+            &apos;95014-3359&apos;,
+            &apos;95014-3360&apos;,
+            &apos;95014-3361&apos;,
+            &apos;95014-3362&apos;,
+            &apos;95014-3363&apos;,
+            &apos;95014-3364&apos;,
+            &apos;95014-3365&apos;,
+            &apos;95014-3366&apos;,
+            &apos;95014-3367&apos;,
+            &apos;95014-3369&apos;,
+            &apos;95014-3370&apos;,
+            &apos;95014-3371&apos;,
+            &apos;95014-3372&apos;,
+            &apos;95014-3373&apos;,
+            &apos;95014-3374&apos;,
+            &apos;95014-3375&apos;,
+            &apos;95014-3376&apos;,
+            &apos;95014-3377&apos;,
+            &apos;95014-3378&apos;,
+            &apos;95014-3400&apos;,
+            &apos;95014-3403&apos;,
+            &apos;95014-3404&apos;,
+            &apos;95014-3405&apos;,
+            &apos;95014-3406&apos;,
+            &apos;95014-3407&apos;,
+            &apos;95014-3410&apos;,
+            &apos;95014-3412&apos;,
+            &apos;95014-3413&apos;,
+            &apos;95014-3414&apos;,
+            &apos;95014-3415&apos;,
+            &apos;95014-3421&apos;,
+            &apos;95014-3422&apos;,
+            &apos;95014-3423&apos;,
+            &apos;95014-3424&apos;,
+            &apos;95014-3426&apos;,
+            &apos;95014-3427&apos;,
+            &apos;95014-3428&apos;,
+            &apos;95014-3429&apos;,
+            &apos;95014-3432&apos;,
+            &apos;95014-3433&apos;,
+            &apos;95014-3435&apos;,
+            &apos;95014-3436&apos;,
+            &apos;95014-3437&apos;,
+            &apos;95014-3446&apos;,
+            &apos;95014-3449&apos;,
+            &apos;95014-3451&apos;,
+            &apos;95014-3452&apos;,
+            &apos;95014-3453&apos;,
+            &apos;95014-3454&apos;,
+            &apos;95014-3456&apos;,
+            &apos;95014-3457&apos;,
+            &apos;95014-3458&apos;,
+            &apos;95014-3459&apos;,
+            &apos;95014-346&apos;,
+            &apos;95014-3460&apos;,
+            &apos;95014-3462&apos;,
+            &apos;95014-3463&apos;,
+            &apos;95014-3465&apos;,
+            &apos;95014-3468&apos;,
+            &apos;95014-3471&apos;,
+            &apos;95014-3474&apos;,
+            &apos;95014-3475&apos;,
+            &apos;95014-3476&apos;,
+            &apos;95014-3477&apos;,
+            &apos;95014-3478&apos;,
+            &apos;95014-3479&apos;,
+            &apos;95014-3480&apos;,
+            &apos;95014-3481&apos;,
+            &apos;95014-3483&apos;,
+            &apos;95014-3484&apos;,
+            &apos;95014-3487&apos;,
+            &apos;95014-3488&apos;,
+            &apos;95014-3489&apos;,
+            &apos;95014-3490&apos;,
+            &apos;95014-3491&apos;,
+            &apos;95014-3493&apos;,
+            &apos;95014-3496&apos;,
+            &apos;95014-3497&apos;,
+            &apos;95014-3499&apos;,
+            &apos;95014-3500&apos;,
+            &apos;95014-3501&apos;,
+            &apos;95014-3502&apos;,
+            &apos;95014-3503&apos;,
+            &apos;95014-3504&apos;,
+            &apos;95014-3505&apos;,
+            &apos;95014-3506&apos;,
+            &apos;95014-3507&apos;,
+            &apos;95014-3508&apos;,
+            &apos;95014-3509&apos;,
+            &apos;95014-3510&apos;,
+            &apos;95014-3511&apos;,
+            &apos;95014-3512&apos;,
+            &apos;95014-3513&apos;,
+            &apos;95014-3514&apos;,
+            &apos;95014-3515&apos;,
+            &apos;95014-3516&apos;,
+            &apos;95014-3517&apos;,
+            &apos;95014-3518&apos;,
+            &apos;95014-3519&apos;,
+            &apos;95014-3520&apos;,
+            &apos;95014-3521&apos;,
+            &apos;95014-3522&apos;,
+            &apos;95014-3523&apos;,
+            &apos;95014-3524&apos;,
+            &apos;95014-3525&apos;,
+            &apos;95014-3526&apos;,
+            &apos;95014-3527&apos;,
+            &apos;95014-3528&apos;,
+            &apos;95014-3529&apos;,
+            &apos;95014-3530&apos;,
+            &apos;95014-3531&apos;,
+            &apos;95014-3532&apos;,
+            &apos;95014-3533&apos;,
+            &apos;95014-3535&apos;,
+            &apos;95014-3536&apos;,
+            &apos;95014-3537&apos;,
+            &apos;95014-3538&apos;,
+            &apos;95014-3539&apos;,
+            &apos;95014-3540&apos;,
+            &apos;95014-3541&apos;,
+            &apos;95014-3542&apos;,
+            &apos;95014-3543&apos;,
+            &apos;95014-3544&apos;,
+            &apos;95014-3545&apos;,
+            &apos;95014-3546&apos;,
+            &apos;95014-3547&apos;,
+            &apos;95014-3548&apos;,
+            &apos;95014-3549&apos;,
+            &apos;95014-3550&apos;,
+            &apos;95014-3551&apos;,
+            &apos;95014-3552&apos;,
+            &apos;95014-3553&apos;,
+            &apos;95014-3554&apos;,
+            &apos;95014-3555&apos;,
+            &apos;95014-3556&apos;,
+            &apos;95014-3557&apos;,
+            &apos;95014-3558&apos;,
+            &apos;95014-3559&apos;,
+            &apos;95014-3560&apos;,
+            &apos;95014-3561&apos;,
+            &apos;95014-3562&apos;,
+            &apos;95014-3563&apos;,
+            &apos;95014-3564&apos;,
+            &apos;95014-3565&apos;,
+            &apos;95014-3601&apos;,
+            &apos;95014-3602&apos;,
+            &apos;95014-3603&apos;,
+            &apos;95014-3604&apos;,
+            &apos;95014-3605&apos;,
+            &apos;95014-3606&apos;,
+            &apos;95014-3607&apos;,
+            &apos;95014-3608&apos;,
+            &apos;95014-3609&apos;,
+            &apos;95014-3610&apos;,
+            &apos;95014-3611&apos;,
+            &apos;95014-3612&apos;,
+            &apos;95014-3613&apos;,
+            &apos;95014-3614&apos;,
+            &apos;95014-3615&apos;,
+            &apos;95014-3616&apos;,
+            &apos;95014-3617&apos;,
+            &apos;95014-3618&apos;,
+            &apos;95014-3619&apos;,
+            &apos;95014-3620&apos;,
+            &apos;95014-3621&apos;,
+            &apos;95014-3622&apos;,
+            &apos;95014-3623&apos;,
+            &apos;95014-3624&apos;,
+            &apos;95014-3625&apos;,
+            &apos;95014-3626&apos;,
+            &apos;95014-3627&apos;,
+            &apos;95014-3628&apos;,
+            &apos;95014-3629&apos;,
+            &apos;95014-3630&apos;,
+            &apos;95014-3631&apos;,
+            &apos;95014-3632&apos;,
+            &apos;95014-3633&apos;,
+            &apos;95014-3634&apos;,
+            &apos;95014-3635&apos;,
+            &apos;95014-3636&apos;,
+            &apos;95014-3637&apos;,
+            &apos;95014-3638&apos;,
+            &apos;95014-3639&apos;,
+            &apos;95014-3640&apos;,
+            &apos;95014-3641&apos;,
+            &apos;95014-3642&apos;,
+            &apos;95014-3643&apos;,
+            &apos;95014-3644&apos;,
+            &apos;95014-3645&apos;,
+            &apos;95014-3646&apos;,
+            &apos;95014-3647&apos;,
+            &apos;95014-3648&apos;,
+            &apos;95014-3649&apos;,
+            &apos;95014-3650&apos;,
+            &apos;95014-3652&apos;,
+            &apos;95014-3653&apos;,
+            &apos;95014-3654&apos;,
+            &apos;95014-3655&apos;,
+            &apos;95014-3656&apos;,
+            &apos;95014-3657&apos;,
+            &apos;95014-3658&apos;,
+            &apos;95014-3659&apos;,
+            &apos;95014-366&apos;,
+            &apos;95014-3660&apos;,
+            &apos;95014-3661&apos;,
+            &apos;95014-3662&apos;,
+            &apos;95014-3663&apos;,
+            &apos;95014-3664&apos;,
+            &apos;95014-3665&apos;,
+            &apos;95014-3666&apos;,
+            &apos;95014-3667&apos;,
+            &apos;95014-3668&apos;,
+            &apos;95014-3669&apos;,
+            &apos;95014-3670&apos;,
+            &apos;95014-3672&apos;,
+            &apos;95014-3673&apos;,
+            &apos;95014-3674&apos;,
+            &apos;95014-3676&apos;,
+            &apos;95014-3677&apos;,
+            &apos;95014-3678&apos;,
+            &apos;95014-3679&apos;,
+            &apos;95014-3680&apos;,
+            &apos;95014-3681&apos;,
+            &apos;95014-3682&apos;,
+            &apos;95014-3683&apos;,
+            &apos;95014-3684&apos;,
+            &apos;95014-3685&apos;,
+            &apos;95014-3686&apos;,
+            &apos;95014-3687&apos;,
+            &apos;95014-3688&apos;,
+            &apos;95014-3689&apos;,
+            &apos;95014-3690&apos;,
+            &apos;95014-3691&apos;,
+            &apos;95014-3702&apos;,
+            &apos;95014-3799&apos;,
+            &apos;95014-3800&apos;,
+            &apos;95014-3801&apos;,
+            &apos;95014-3802&apos;,
+            &apos;95014-3803&apos;,
+            &apos;95014-3804&apos;,
+            &apos;95014-3805&apos;,
+            &apos;95014-3806&apos;,
+            &apos;95014-3807&apos;,
+            &apos;95014-3808&apos;,
+            &apos;95014-3809&apos;,
+            &apos;95014-3810&apos;,
+            &apos;95014-3811&apos;,
+            &apos;95014-3812&apos;,
+            &apos;95014-3813&apos;,
+            &apos;95014-3814&apos;,
+            &apos;95014-3815&apos;,
+            &apos;95014-3816&apos;,
+            &apos;95014-3817&apos;,
+            &apos;95014-3818&apos;,
+            &apos;95014-3819&apos;,
+            &apos;95014-3820&apos;,
+            &apos;95014-3821&apos;,
+            &apos;95014-3822&apos;,
+            &apos;95014-3823&apos;,
+            &apos;95014-3824&apos;,
+            &apos;95014-3825&apos;,
+            &apos;95014-3826&apos;,
+            &apos;95014-3827&apos;,
+            &apos;95014-3828&apos;,
+            &apos;95014-3829&apos;,
+            &apos;95014-3830&apos;,
+            &apos;95014-3831&apos;,
+            &apos;95014-3832&apos;,
+            &apos;95014-3833&apos;,
+            &apos;95014-3834&apos;,
+            &apos;95014-3835&apos;,
+            &apos;95014-3836&apos;,
+            &apos;95014-3837&apos;,
+            &apos;95014-3838&apos;,
+            &apos;95014-3839&apos;,
+            &apos;95014-3840&apos;,
+            &apos;95014-3841&apos;,
+            &apos;95014-3842&apos;,
+            &apos;95014-3843&apos;,
+            &apos;95014-3844&apos;,
+            &apos;95014-3845&apos;,
+            &apos;95014-3846&apos;,
+            &apos;95014-3847&apos;,
+            &apos;95014-3848&apos;,
+            &apos;95014-3849&apos;,
+            &apos;95014-3850&apos;,
+            &apos;95014-3851&apos;,
+            &apos;95014-3852&apos;,
+            &apos;95014-3853&apos;,
+            &apos;95014-3854&apos;,
+            &apos;95014-3855&apos;,
+            &apos;95014-3856&apos;,
+            &apos;95014-3857&apos;,
+            &apos;95014-3858&apos;,
+            &apos;95014-3859&apos;,
+            &apos;95014-3860&apos;,
+            &apos;95014-3861&apos;,
+            &apos;95014-3862&apos;,
+            &apos;95014-3863&apos;,
+            &apos;95014-3864&apos;,
+            &apos;95014-3865&apos;,
+            &apos;95014-3866&apos;,
+            &apos;95014-3867&apos;,
+            &apos;95014-3868&apos;,
+            &apos;95014-3869&apos;,
+            &apos;95014-3870&apos;,
+            &apos;95014-3871&apos;,
+            &apos;95014-3872&apos;,
+            &apos;95014-3873&apos;,
+            &apos;95014-3874&apos;,
+            &apos;95014-3875&apos;,
+            &apos;95014-3876&apos;,
+            &apos;95014-3877&apos;,
+            &apos;95014-3878&apos;,
+            &apos;95014-3879&apos;,
+            &apos;95014-3880&apos;,
+            &apos;95014-3881&apos;,
+            &apos;95014-3882&apos;,
+            &apos;95014-3883&apos;,
+            &apos;95014-3884&apos;,
+            &apos;95014-3885&apos;,
+            &apos;95014-4100&apos;,
+            &apos;95014-4111&apos;,
+            &apos;95014-4112&apos;,
+            &apos;95014-4116&apos;,
+            &apos;95014-4117&apos;,
+            &apos;95014-4119&apos;,
+            &apos;95014-4123&apos;,
+            &apos;95014-4128&apos;,
+            &apos;95014-4129&apos;,
+            &apos;95014-4130&apos;,
+            &apos;95014-4131&apos;,
+            &apos;95014-4141&apos;,
+            &apos;95014-4143&apos;,
+            &apos;95014-4144&apos;,
+            &apos;95014-4151&apos;,
+            &apos;95014-4153&apos;,
+            &apos;95014-4154&apos;,
+            &apos;95014-4155&apos;,
+            &apos;95014-4156&apos;,
+            &apos;95014-4157&apos;,
+            &apos;95014-4158&apos;,
+            &apos;95014-4161&apos;,
+            &apos;95014-4168&apos;,
+            &apos;95014-4200&apos;,
+            &apos;95014-4201&apos;,
+            &apos;95014-4202&apos;,
+            &apos;95014-4203&apos;,
+            &apos;95014-4204&apos;,
+            &apos;95014-4205&apos;,
+            &apos;95014-4206&apos;,
+            &apos;95014-4207&apos;,
+            &apos;95014-4208&apos;,
+            &apos;95014-4209&apos;,
+            &apos;95014-4210&apos;,
+            &apos;95014-4211&apos;,
+            &apos;95014-4212&apos;,
+            &apos;95014-4213&apos;,
+            &apos;95014-4214&apos;,
+            &apos;95014-4215&apos;,
+            &apos;95014-4216&apos;,
+            &apos;95014-4217&apos;,
+            &apos;95014-4218&apos;,
+            &apos;95014-4219&apos;,
+            &apos;95014-4221&apos;,
+            &apos;95014-4222&apos;,
+            &apos;95014-4223&apos;,
+            &apos;95014-4224&apos;,
+            &apos;95014-4225&apos;,
+            &apos;95014-4226&apos;,
+            &apos;95014-4227&apos;,
+            &apos;95014-4228&apos;,
+            &apos;95014-4229&apos;,
+            &apos;95014-4230&apos;,
+            &apos;95014-4231&apos;,
+            &apos;95014-4232&apos;,
+            &apos;95014-4233&apos;,
+            &apos;95014-4234&apos;,
+            &apos;95014-4235&apos;,
+            &apos;95014-4236&apos;,
+            &apos;95014-4237&apos;,
+            &apos;95014-4238&apos;,
+            &apos;95014-4239&apos;,
+            &apos;95014-4240&apos;,
+            &apos;95014-4241&apos;,
+            &apos;95014-4242&apos;,
+            &apos;95014-4243&apos;,
+            &apos;95014-4244&apos;,
+            &apos;95014-4245&apos;,
+            &apos;95014-4246&apos;,
+            &apos;95014-4247&apos;,
+            &apos;95014-4248&apos;,
+            &apos;95014-4249&apos;,
+            &apos;95014-4250&apos;,
+            &apos;95014-4251&apos;,
+            &apos;95014-4252&apos;,
+            &apos;95014-4253&apos;,
+            &apos;95014-4254&apos;,
+            &apos;95014-4255&apos;,
+            &apos;95014-4256&apos;,
+            &apos;95014-4257&apos;,
+            &apos;95014-4258&apos;,
+            &apos;95014-4259&apos;,
+            &apos;95014-4260&apos;,
+            &apos;95014-4261&apos;,
+            &apos;95014-4262&apos;,
+            &apos;95014-4263&apos;,
+            &apos;95014-4265&apos;,
+            &apos;95014-4267&apos;,
+            &apos;95014-4268&apos;,
+            &apos;95014-4269&apos;,
+            &apos;95014-4270&apos;,
+            &apos;95014-4271&apos;,
+            &apos;95014-4273&apos;,
+            &apos;95014-4275&apos;,
+            &apos;95014-4301&apos;,
+            &apos;95014-4302&apos;,
+            &apos;95014-4303&apos;,
+            &apos;95014-4304&apos;,
+            &apos;95014-4305&apos;,
+            &apos;95014-4306&apos;,
+            &apos;95014-4307&apos;,
+            &apos;95014-4308&apos;,
+            &apos;95014-4309&apos;,
+            &apos;95014-4310&apos;,
+            &apos;95014-4311&apos;,
+            &apos;95014-4312&apos;,
+            &apos;95014-4313&apos;,
+            &apos;95014-4314&apos;,
+            &apos;95014-4315&apos;,
+            &apos;95014-4316&apos;,
+            &apos;95014-4317&apos;,
+            &apos;95014-4318&apos;,
+            &apos;95014-4320&apos;,
+            &apos;95014-4321&apos;,
+            &apos;95014-4322&apos;,
+            &apos;95014-4323&apos;,
+            &apos;95014-4324&apos;,
+            &apos;95014-4325&apos;,
+            &apos;95014-4326&apos;,
+            &apos;95014-4327&apos;,
+            &apos;95014-4329&apos;,
+            &apos;95014-4330&apos;,
+            &apos;95014-4331&apos;,
+            &apos;95014-4332&apos;,
+            &apos;95014-4333&apos;,
+            &apos;95014-4334&apos;,
+            &apos;95014-4335&apos;,
+            &apos;95014-4336&apos;,
+            &apos;95014-4337&apos;,
+            &apos;95014-4338&apos;,
+            &apos;95014-4339&apos;,
+            &apos;95014-4341&apos;,
+            &apos;95014-4342&apos;,
+            &apos;95014-4343&apos;,
+            &apos;95014-4344&apos;,
+            &apos;95014-4345&apos;,
+            &apos;95014-4346&apos;,
+            &apos;95014-4347&apos;,
+            &apos;95014-4348&apos;,
+            &apos;95014-4349&apos;,
+            &apos;95014-4350&apos;,
+            &apos;95014-4351&apos;,
+            &apos;95014-4352&apos;,
+            &apos;95014-4353&apos;,
+            &apos;95014-4356&apos;,
+            &apos;95014-4357&apos;,
+            &apos;95014-4360&apos;,
+            &apos;95014-4361&apos;,
+            &apos;95014-4400&apos;,
+            &apos;95014-4401&apos;,
+            &apos;95014-4402&apos;,
+            &apos;95014-4403&apos;,
+            &apos;95014-4404&apos;,
+            &apos;95014-4405&apos;,
+            &apos;95014-4406&apos;,
+            &apos;95014-4407&apos;,
+            &apos;95014-4408&apos;,
+            &apos;95014-4409&apos;,
+            &apos;95014-4410&apos;,
+            &apos;95014-4411&apos;,
+            &apos;95014-4412&apos;,
+            &apos;95014-4413&apos;,
+            &apos;95014-4414&apos;,
+            &apos;95014-4415&apos;,
+            &apos;95014-4416&apos;,
+            &apos;95014-4417&apos;,
+            &apos;95014-4418&apos;,
+            &apos;95014-4419&apos;,
+            &apos;95014-4420&apos;,
+            &apos;95014-4421&apos;,
+            &apos;95014-4422&apos;,
+            &apos;95014-4423&apos;,
+            &apos;95014-4424&apos;,
+            &apos;95014-4425&apos;,
+            &apos;95014-4426&apos;,
+            &apos;95014-4427&apos;,
+            &apos;95014-4428&apos;,
+            &apos;95014-4430&apos;,
+            &apos;95014-4431&apos;,
+            &apos;95014-4434&apos;,
+            &apos;95014-4435&apos;,
+            &apos;95014-4436&apos;,
+            &apos;95014-4437&apos;,
+            &apos;95014-4438&apos;,
+            &apos;95014-4439&apos;,
+            &apos;95014-4440&apos;,
+            &apos;95014-4441&apos;,
+            &apos;95014-4442&apos;,
+            &apos;95014-4443&apos;,
+            &apos;95014-4444&apos;,
+            &apos;95014-4445&apos;,
+            &apos;95014-4447&apos;,
+            &apos;95014-4449&apos;,
+            &apos;95014-445&apos;,
+            &apos;95014-4450&apos;,
+            &apos;95014-4451&apos;,
+            &apos;95014-4452&apos;,
+            &apos;95014-4453&apos;,
+            &apos;95014-4457&apos;,
+            &apos;95014-4459&apos;,
+            &apos;95014-4460&apos;,
+            &apos;95014-4461&apos;,
+            &apos;95014-4462&apos;,
+            &apos;95014-4465&apos;,
+            &apos;95014-4500&apos;,
+            &apos;95014-4501&apos;,
+            &apos;95014-4502&apos;,
+            &apos;95014-4503&apos;,
+            &apos;95014-4504&apos;,
+            &apos;95014-4505&apos;,
+            &apos;95014-4506&apos;,
+            &apos;95014-4507&apos;,
+            &apos;95014-4508&apos;,
+            &apos;95014-4509&apos;,
+            &apos;95014-4510&apos;,
+            &apos;95014-4511&apos;,
+            &apos;95014-4512&apos;,
+            &apos;95014-4513&apos;,
+            &apos;95014-4514&apos;,
+            &apos;95014-4515&apos;,
+            &apos;95014-4516&apos;,
+            &apos;95014-4517&apos;,
+            &apos;95014-4518&apos;,
+            &apos;95014-4519&apos;,
+            &apos;95014-4520&apos;,
+            &apos;95014-4521&apos;,
+            &apos;95014-4522&apos;,
+            &apos;95014-4523&apos;,
+            &apos;95014-4524&apos;,
+            &apos;95014-4525&apos;,
+            &apos;95014-4526&apos;,
+            &apos;95014-4527&apos;,
+            &apos;95014-4528&apos;,
+            &apos;95014-4529&apos;,
+            &apos;95014-4530&apos;,
+            &apos;95014-4531&apos;,
+            &apos;95014-4532&apos;,
+            &apos;95014-4533&apos;,
+            &apos;95014-4534&apos;,
+            &apos;95014-4535&apos;,
+            &apos;95014-4536&apos;,
+            &apos;95014-4537&apos;,
+            &apos;95014-4538&apos;,
+            &apos;95014-4539&apos;,
+            &apos;95014-4540&apos;,
+            &apos;95014-4541&apos;,
+            &apos;95014-4542&apos;,
+            &apos;95014-4543&apos;,
+            &apos;95014-4544&apos;,
+            &apos;95014-4545&apos;,
+            &apos;95014-4546&apos;,
+            &apos;95014-4547&apos;,
+            &apos;95014-4548&apos;,
+            &apos;95014-4549&apos;,
+            &apos;95014-4550&apos;,
+            &apos;95014-4551&apos;,
+            &apos;95014-4552&apos;,
+            &apos;95014-4553&apos;,
+            &apos;95014-4554&apos;,
+            &apos;95014-4555&apos;,
+            &apos;95014-4556&apos;,
+            &apos;95014-4557&apos;,
+            &apos;95014-4558&apos;,
+            &apos;95014-4559&apos;,
+            &apos;95014-4560&apos;,
+            &apos;95014-4561&apos;,
+            &apos;95014-4562&apos;,
+            &apos;95014-4563&apos;,
+            &apos;95014-4564&apos;,
+            &apos;95014-4565&apos;,
+            &apos;95014-4566&apos;,
+            &apos;95014-4567&apos;,
+            &apos;95014-4568&apos;,
+            &apos;95014-4569&apos;,
+            &apos;95014-4570&apos;,
+            &apos;95014-4571&apos;,
+            &apos;95014-4572&apos;,
+            &apos;95014-4573&apos;,
+            &apos;95014-4574&apos;,
+            &apos;95014-4575&apos;,
+            &apos;95014-4576&apos;,
+            &apos;95014-4577&apos;,
+            &apos;95014-4600&apos;,
+            &apos;95014-4601&apos;,
+            &apos;95014-4602&apos;,
+            &apos;95014-4603&apos;,
+            &apos;95014-4604&apos;,
+            &apos;95014-4605&apos;,
+            &apos;95014-4606&apos;,
+            &apos;95014-4607&apos;,
+            &apos;95014-4608&apos;,
+            &apos;95014-4609&apos;,
+            &apos;95014-4610&apos;,
+            &apos;95014-4611&apos;,
+            &apos;95014-4612&apos;,
+            &apos;95014-4613&apos;,
+            &apos;95014-4614&apos;,
+            &apos;95014-4615&apos;,
+            &apos;95014-4616&apos;,
+            &apos;95014-4617&apos;,
+            &apos;95014-4618&apos;,
+            &apos;95014-4619&apos;,
+            &apos;95014-4620&apos;,
+            &apos;95014-4621&apos;,
+            &apos;95014-4622&apos;,
+            &apos;95014-4623&apos;,
+            &apos;95014-4624&apos;,
+            &apos;95014-4625&apos;,
+            &apos;95014-4626&apos;,
+            &apos;95014-4627&apos;,
+            &apos;95014-4628&apos;,
+            &apos;95014-4629&apos;,
+            &apos;95014-4630&apos;,
+            &apos;95014-4631&apos;,
+            &apos;95014-4632&apos;,
+            &apos;95014-4633&apos;,
+            &apos;95014-4634&apos;,
+            &apos;95014-4635&apos;,
+            &apos;95014-4636&apos;,
+            &apos;95014-4637&apos;,
+            &apos;95014-4638&apos;,
+            &apos;95014-4639&apos;,
+            &apos;95014-4640&apos;,
+            &apos;95014-4641&apos;,
+            &apos;95014-4642&apos;,
+            &apos;95014-4643&apos;,
+            &apos;95014-4644&apos;,
+            &apos;95014-4645&apos;,
+            &apos;95014-4646&apos;,
+            &apos;95014-4647&apos;,
+            &apos;95014-4648&apos;,
+            &apos;95014-4649&apos;,
+            &apos;95014-4651&apos;,
+            &apos;95014-4652&apos;,
+            &apos;95014-4653&apos;,
+            &apos;95014-4654&apos;,
+            &apos;95014-4655&apos;,
+            &apos;95014-4656&apos;,
+            &apos;95014-4658&apos;,
+            &apos;95014-4659&apos;,
+            &apos;95014-4660&apos;,
+            &apos;95014-4661&apos;,
+            &apos;95014-4662&apos;,
+            &apos;95014-4663&apos;,
+            &apos;95014-4664&apos;,
+            &apos;95014-4665&apos;,
+            &apos;95014-4666&apos;,
+            &apos;95014-4667&apos;,
+            &apos;95014-4668&apos;,
+            &apos;95014-4669&apos;,
+            &apos;95014-4670&apos;,
+            &apos;95014-4671&apos;,
+            &apos;95014-4672&apos;,
+            &apos;95014-4847&apos;,
+            &apos;95014-4900&apos;,
+            &apos;95014-4901&apos;,
+            &apos;95014-4905&apos;,
+            &apos;95014-4906&apos;,
+            &apos;95014-4907&apos;,
+            &apos;95014-4909&apos;,
+            &apos;95014-4947&apos;,
+            &apos;95014-4949&apos;,
+            &apos;95014-4950&apos;,
+            &apos;95014-4958&apos;,
+            &apos;95014-4960&apos;,
+            &apos;95014-4973&apos;,
+            &apos;95014-4974&apos;,
+            &apos;95014-4981&apos;,
+            &apos;95014-4982&apos;,
+            &apos;95014-4984&apos;,
+            &apos;95014-4985&apos;,
+            &apos;95014-5000&apos;,
+            &apos;95014-5001&apos;,
+            &apos;95014-5002&apos;,
+            &apos;95014-5003&apos;,
+            &apos;95014-5004&apos;,
+            &apos;95014-5005&apos;,
+            &apos;95014-5006&apos;,
+            &apos;95014-5007&apos;,
+            &apos;95014-5008&apos;,
+            &apos;95014-5009&apos;,
+            &apos;95014-5010&apos;,
+            &apos;95014-5011&apos;,
+            &apos;95014-5012&apos;,
+            &apos;95014-5013&apos;,
+            &apos;95014-5014&apos;,
+            &apos;95014-5015&apos;,
+            &apos;95014-5016&apos;,
+            &apos;95014-5017&apos;,
+            &apos;95014-5018&apos;,
+            &apos;95014-5019&apos;,
+            &apos;95014-5020&apos;,
+            &apos;95014-5021&apos;,
+            &apos;95014-5022&apos;,
+            &apos;95014-5023&apos;,
+            &apos;95014-5024&apos;,
+            &apos;95014-5025&apos;,
+            &apos;95014-5026&apos;,
+            &apos;95014-5027&apos;,
+            &apos;95014-5028&apos;,
+            &apos;95014-5029&apos;,
+            &apos;95014-5030&apos;,
+            &apos;95014-5031&apos;,
+            &apos;95014-5032&apos;,
+            &apos;95014-5033&apos;,
+            &apos;95014-5034&apos;,
+            &apos;95014-5035&apos;,
+            &apos;95014-5036&apos;,
+            &apos;95014-5037&apos;,
+            &apos;95014-5038&apos;,
+            &apos;95014-5039&apos;,
+            &apos;95014-5040&apos;,
+            &apos;95014-5041&apos;,
+            &apos;95014-5042&apos;,
+            &apos;95014-5043&apos;,
+            &apos;95014-5044&apos;,
+            &apos;95014-5045&apos;,
+            &apos;95014-5046&apos;,
+            &apos;95014-5047&apos;,
+            &apos;95014-5048&apos;,
+            &apos;95014-5049&apos;,
+            &apos;95014-5050&apos;,
+            &apos;95014-5051&apos;,
+            &apos;95014-5052&apos;,
+            &apos;95014-5053&apos;,
+            &apos;95014-5054&apos;,
+            &apos;95014-5055&apos;,
+            &apos;95014-5056&apos;,
+            &apos;95014-5057&apos;,
+            &apos;95014-5058&apos;,
+            &apos;95014-5059&apos;,
+            &apos;95014-5060&apos;,
+            &apos;95014-5061&apos;,
+            &apos;95014-5062&apos;,
+            &apos;95014-5063&apos;,
+            &apos;95014-5064&apos;,
+            &apos;95014-5065&apos;,
+            &apos;95014-5066&apos;,
+            &apos;95014-5067&apos;,
+            &apos;95014-5068&apos;,
+            &apos;95014-5069&apos;,
+            &apos;95014-5070&apos;,
+            &apos;95014-5071&apos;,
+            &apos;95014-5072&apos;,
+            &apos;95014-5073&apos;,
+            &apos;95014-5074&apos;,
+            &apos;95014-5075&apos;,
+            &apos;95014-5076&apos;,
+            &apos;95014-5077&apos;,
+            &apos;95014-5078&apos;,
+            &apos;95014-5079&apos;,
+            &apos;95014-5080&apos;,
+            &apos;95014-5081&apos;,
+            &apos;95014-5082&apos;,
+            &apos;95014-5083&apos;,
+            &apos;95014-5084&apos;,
+            &apos;95014-5085&apos;,
+            &apos;95014-5086&apos;,
+            &apos;95014-5087&apos;,
+            &apos;95014-5088&apos;,
+            &apos;95014-5089&apos;,
+            &apos;95014-5099&apos;,
+            &apos;95014-5100&apos;,
+            &apos;95014-5102&apos;,
+            &apos;95014-5103&apos;,
+            &apos;95014-5107&apos;,
+            &apos;95014-5108&apos;,
+            &apos;95014-5110&apos;,
+            &apos;95014-5111&apos;,
+            &apos;95014-5113&apos;,
+            &apos;95014-5114&apos;,
+            &apos;95014-5115&apos;,
+            &apos;95014-5117&apos;,
+            &apos;95014-5118&apos;,
+            &apos;95014-5121&apos;,
+            &apos;95014-5126&apos;,
+            &apos;95014-5130&apos;,
+            &apos;95014-5131&apos;,
+            &apos;95014-5133&apos;,
+            &apos;95014-5134&apos;,
+            &apos;95014-5139&apos;,
+            &apos;95014-5140&apos;,
+            &apos;95014-5142&apos;,
+            &apos;95014-5143&apos;,
+            &apos;95014-5144&apos;,
+            &apos;95014-5146&apos;,
+            &apos;95014-5147&apos;,
+            &apos;95014-5148&apos;,
+            &apos;95014-5149&apos;,
+            &apos;95014-515&apos;,
+            &apos;95014-5150&apos;,
+            &apos;95014-5151&apos;,
+            &apos;95014-5154&apos;,
+            &apos;95014-5155&apos;,
+            &apos;95014-5158&apos;,
+            &apos;95014-5200&apos;,
+            &apos;95014-5201&apos;,
+            &apos;95014-5204&apos;,
+            &apos;95014-5206&apos;,
+            &apos;95014-5207&apos;,
+            &apos;95014-5208&apos;,
+            &apos;95014-5209&apos;,
+            &apos;95014-5210&apos;,
+            &apos;95014-5211&apos;,
+            &apos;95014-5213&apos;,
+            &apos;95014-5214&apos;,
+            &apos;95014-5215&apos;,
+            &apos;95014-5216&apos;,
+            &apos;95014-5217&apos;,
+            &apos;95014-5218&apos;,
+            &apos;95014-5219&apos;,
+            &apos;95014-5220&apos;,
+            &apos;95014-5221&apos;,
+            &apos;95014-5222&apos;,
+            &apos;95014-5223&apos;,
+            &apos;95014-5224&apos;,
+            &apos;95014-5225&apos;,
+            &apos;95014-5226&apos;,
+            &apos;95014-5227&apos;,
+            &apos;95014-5228&apos;,
+            &apos;95014-5229&apos;,
+            &apos;95014-5230&apos;,
+            &apos;95014-5231&apos;,
+            &apos;95014-5232&apos;,
+            &apos;95014-5233&apos;,
+            &apos;95014-5234&apos;,
+            &apos;95014-5235&apos;,
+            &apos;95014-5236&apos;,
+            &apos;95014-5237&apos;,
+            &apos;95014-5238&apos;,
+            &apos;95014-5239&apos;,
+            &apos;95014-5240&apos;,
+            &apos;95014-5241&apos;,
+            &apos;95014-5242&apos;,
+            &apos;95014-5243&apos;,
+            &apos;95014-5244&apos;,
+            &apos;95014-5245&apos;,
+            &apos;95014-5246&apos;,
+            &apos;95014-5247&apos;,
+            &apos;95014-5248&apos;,
+            &apos;95014-5249&apos;,
+            &apos;95014-5250&apos;,
+            &apos;95014-5251&apos;,
+            &apos;95014-5252&apos;,
+            &apos;95014-5253&apos;,
+            &apos;95014-5254&apos;,
+            &apos;95014-5255&apos;,
+            &apos;95014-5256&apos;,
+            &apos;95014-5257&apos;,
+            &apos;95014-5259&apos;,
+            &apos;95014-5260&apos;,
+            &apos;95014-5261&apos;,
+            &apos;95014-5262&apos;,
+            &apos;95014-5263&apos;,
+            &apos;95014-5264&apos;,
+            &apos;95014-5265&apos;,
+            &apos;95014-5266&apos;,
+            &apos;95014-5267&apos;,
+            &apos;95014-5268&apos;,
+            &apos;95014-5269&apos;,
+            &apos;95014-5301&apos;,
+            &apos;95014-5302&apos;,
+            &apos;95014-5303&apos;,
+            &apos;95014-5304&apos;,
+            &apos;95014-5305&apos;,
+            &apos;95014-5306&apos;,
+            &apos;95014-5307&apos;,
+            &apos;95014-5308&apos;,
+            &apos;95014-5309&apos;,
+            &apos;95014-5310&apos;,
+            &apos;95014-5312&apos;,
+            &apos;95014-5313&apos;,
+            &apos;95014-5314&apos;,
+            &apos;95014-5315&apos;,
+            &apos;95014-5316&apos;,
+            &apos;95014-5321&apos;,
+            &apos;95014-5322&apos;,
+            &apos;95014-5329&apos;,
+            &apos;95014-5330&apos;,
+            &apos;95014-5331&apos;,
+            &apos;95014-5332&apos;,
+            &apos;95014-5333&apos;,
+            &apos;95014-5336&apos;,
+            &apos;95014-5337&apos;,
+            &apos;95014-5338&apos;,
+            &apos;95014-5342&apos;,
+            &apos;95014-5343&apos;,
+            &apos;95014-5345&apos;,
+            &apos;95014-5346&apos;,
+            &apos;95014-5353&apos;,
+            &apos;95014-5354&apos;,
+            &apos;95014-5355&apos;,
+            &apos;95014-5359&apos;,
+            &apos;95014-5363&apos;,
+            &apos;95014-5398&apos;,
+            &apos;95014-570&apos;,
+            &apos;95014-5701&apos;,
+            &apos;95014-5702&apos;,
+            &apos;95014-5703&apos;,
+            &apos;95014-5704&apos;,
+            &apos;95014-5705&apos;,
+            &apos;95014-5707&apos;,
+            &apos;95014-5708&apos;,
+            &apos;95014-5709&apos;,
+            &apos;95014-5710&apos;,
+            &apos;95014-5712&apos;,
+            &apos;95014-5714&apos;,
+            &apos;95014-5721&apos;,
+            &apos;95014-5722&apos;,
+            &apos;95014-5723&apos;,
+            &apos;95014-5799&apos;,
+            &apos;95014-5801&apos;,
+            &apos;95014-5802&apos;,
+            &apos;95014-5803&apos;,
+            &apos;95014-5804&apos;,
+            &apos;95014-5805&apos;,
+            &apos;95014-5806&apos;,
+            &apos;95014-5807&apos;,
+            &apos;95014-5808&apos;,
+            &apos;95014-5809&apos;,
+            &apos;95014-5811&apos;,
+            &apos;95014-5812&apos;,
+            &apos;95014-5813&apos;,
+            &apos;95014-5814&apos;,
+            &apos;95014-5815&apos;,
+            &apos;95014-5816&apos;,
+            &apos;95014-5817&apos;,
+            &apos;95014-5818&apos;,
+            &apos;95014-5819&apos;,
+            &apos;95014-5821&apos;,
+            &apos;95014-5822&apos;,
+            &apos;95014-5823&apos;,
+            &apos;95014-5824&apos;,
+            &apos;95014-5825&apos;,
+            &apos;95014-5826&apos;,
+            &apos;95014-5835&apos;,
+            &apos;95014-5836&apos;,
+            &apos;95014-5837&apos;,
+            &apos;95014-5838&apos;,
+            &apos;95014-5839&apos;,
+            &apos;95014-5840&apos;,
+            &apos;95014-5841&apos;,
+            &apos;95014-5842&apos;,
+            &apos;95014-5843&apos;,
+            &apos;95014-5854&apos;,
+            &apos;95014-5855&apos;,
+            &apos;95014-5856&apos;,
+            &apos;95014-5857&apos;,
+            &apos;95014-5858&apos;,
+            &apos;95014-5859&apos;,
+            &apos;95014-5860&apos;,
+            &apos;95014-5861&apos;,
+            &apos;95014-5863&apos;,
+            &apos;95014-5864&apos;,
+            &apos;95014-5865&apos;,
+            &apos;95014-600&apos;,
+            &apos;95014-6006&apos;,
+            &apos;95014-6007&apos;,
+            &apos;95014-6008&apos;,
+            &apos;95014-6009&apos;,
+            &apos;95014-6010&apos;,
+            &apos;95014-6011&apos;,
+            &apos;95014-6013&apos;,
+            &apos;95014-6014&apos;,
+            &apos;95014-6016&apos;,
+            &apos;95014-6017&apos;,
+            &apos;95014-6019&apos;,
+            &apos;95014-6020&apos;,
+            &apos;95014-6021&apos;,
+            &apos;95014-6022&apos;,
+            &apos;95014-6023&apos;,
+            &apos;95014-6024&apos;,
+            &apos;95014-6025&apos;,
+            &apos;95014-6026&apos;,
+            &apos;95014-6027&apos;,
+            &apos;95014-6028&apos;,
+            &apos;95014-6029&apos;,
+            &apos;95014-6030&apos;,
+            &apos;95014-6031&apos;,
+            &apos;95014-6032&apos;,
+            &apos;95014-6033&apos;,
+            &apos;95014-6034&apos;,
+            &apos;95014-6035&apos;,
+            &apos;95014-6036&apos;,
+            &apos;95014-6037&apos;,
+            &apos;95014-6038&apos;,
+            &apos;95014-6039&apos;,
+            &apos;95014-6201&apos;,
+            &apos;95014-6302&apos;,
+            &apos;95014-6304&apos;,
+            &apos;95014-6305&apos;,
+            &apos;95014-6306&apos;,
+            &apos;95014-6307&apos;,
+            &apos;95014-6309&apos;,
+            &apos;95014-6310&apos;,
+            &apos;95014-6311&apos;,
+            &apos;95014-6312&apos;,
+            &apos;95014-6313&apos;,
+            &apos;95014-6314&apos;,
+            &apos;95014-6315&apos;,
+            &apos;95014-6316&apos;,
+            &apos;95014-6317&apos;,
+            &apos;95014-6318&apos;,
+            &apos;95014-6319&apos;,
+            &apos;95014-6322&apos;,
+            &apos;95014-6330&apos;,
+            &apos;95014-6331&apos;,
+            &apos;95014-6332&apos;,
+            &apos;95014-6333&apos;,
+            &apos;95014-6334&apos;,
+            &apos;95014-6340&apos;,
+            &apos;95014-6342&apos;,
+            &apos;95014-6344&apos;,
+            &apos;95014-6346&apos;,
+            &apos;95014-6348&apos;,
+            &apos;95014-6357&apos;,
+            &apos;95014-6363&apos;,
+            &apos;95014-6367&apos;,
+            &apos;95014-6371&apos;,
+            &apos;95014-6381&apos;,
+            &apos;95014-6385&apos;,
+            &apos;95014-6400&apos;,
+            &apos;95014-6401&apos;,
+            &apos;95014-6402&apos;,
+            &apos;95014-6403&apos;,
+            &apos;95014-6404&apos;,
+            &apos;95014-6405&apos;,
+            &apos;95014-6406&apos;,
+            &apos;95014-6407&apos;,
+            &apos;95014-6408&apos;,
+            &apos;95014-6409&apos;,
+            &apos;95014-641&apos;,
+            &apos;95014-6410&apos;,
+            &apos;95014-6411&apos;,
+            &apos;95014-6413&apos;,
+            &apos;95014-6600&apos;,
+            &apos;95014-6601&apos;,
+            &apos;95014-6602&apos;,
+            &apos;95014-6603&apos;,
+            &apos;95014-7400&apos;,
+            &apos;95014-7401&apos;,
+            &apos;95014-7402&apos;,
+            &apos;95014-7403&apos;,
+            &apos;95014-7404&apos;,
+            &apos;95014-7405&apos;,
+            &apos;95014-7406&apos;,
+            &apos;95014-7407&apos;,
+            &apos;95014-7408&apos;,
+            &apos;95014-7410&apos;,
+            &apos;95014-7412&apos;,
+            &apos;95014-7413&apos;,
+            &apos;95014-7414&apos;,
+            &apos;95014-7415&apos;,
+            &apos;95014-7601&apos;,
+            &apos;95014-7604&apos;,
+            &apos;95014-7607&apos;,
+            &apos;95014-7610&apos;,
+            &apos;95014-7616&apos;,
+            &apos;95014-7624&apos;,
+            &apos;95014-7627&apos;,
+            &apos;95014-763&apos;,
+            &apos;95030&apos;,
+            &apos;95032&apos;,
+            &apos;95033&apos;,
+            &apos;95035&apos;,
+            &apos;95037&apos;,
+            &apos;95037-3614&apos;,
+            &apos;95037-3635&apos;,
+            &apos;95037-3651&apos;,
+            &apos;95037-4000&apos;,
+            &apos;95037-4008&apos;,
+            &apos;95037-4032&apos;,
+            &apos;95037-4112&apos;,
+            &apos;95037-4118&apos;,
+            &apos;95037-4119&apos;,
+            &apos;95037-4120&apos;,
+            &apos;95037-4121&apos;,
+            &apos;95037-4122&apos;,
+            &apos;95037-4123&apos;,
+            &apos;95037-4126&apos;,
+            &apos;95037-4127&apos;,
+            &apos;95037-4128&apos;,
+            &apos;95037-4132&apos;,
+            &apos;95037-4138&apos;,
+            &apos;95037-4139&apos;,
+            &apos;95037-4142&apos;,
+            &apos;95037-4209&apos;,
+            &apos;95037-4210&apos;,
+            &apos;95037-4214&apos;,
+            &apos;95037-4217&apos;,
+            &apos;95037-4530&apos;,
+            &apos;95037-4531&apos;,
+            &apos;95037-9221&apos;,
+            &apos;95037-9241&apos;,
+            &apos;95050&apos;,
+            &apos;95051&apos;,
+            &apos;95052&apos;,
+            &apos;95054&apos;,
+            &apos;95070&apos;,
+            &apos;95110&apos;,
+            &apos;95111&apos;,
+            &apos;95112&apos;,
+            &apos;95113&apos;,
+            &apos;95116&apos;,
+            &apos;95117&apos;,
+            &apos;95118&apos;,
+            &apos;95119&apos;,
+            &apos;95120&apos;,
+            &apos;95121&apos;,
+            &apos;95122&apos;,
+            &apos;95123&apos;,
+            &apos;95124&apos;,
+            &apos;95125&apos;,
+            &apos;95126&apos;,
+            &apos;95127&apos;,
+            &apos;95128&apos;,
+            &apos;95129&apos;,
+            &apos;95131&apos;,
+            &apos;95132&apos;,
+            &apos;95133&apos;,
+            &apos;95134&apos;,
+            &apos;95134-1358&apos;,
+            &apos;95135&apos;,
+            &apos;95136&apos;,
+            &apos;95138&apos;,
+            &apos;95148&apos;,
+            &apos;95914&apos;]),
+ &apos;CA&apos;: set([&apos;CA 94085&apos;,
+            &apos;CA 94088-3453&apos;,
+            &apos;CA 95054&apos;,
+            &apos;CA 95110&apos;,
+            &apos;CA 95113&apos;,
+            &apos;CA 95116&apos;]),
+ &apos;CU&apos;: set([&apos;CUPERTINO&apos;])}
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<blockquote><p>The output of the clean zip code is summarised below. There are the format of 5 digits, 4 digits and 5 digits - 5 digits which are valid and need no formatting.</p>
+</blockquote>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[68]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython2"><pre><span class="k">def</span> <span class="nf">update_name</span><span class="p">(</span><span class="n">zipcode</span><span class="p">):</span>
+    <span class="n">testNum</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">&#39;[a-zA-Z]*&#39;</span><span class="p">,</span> <span class="n">zipcode</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">testNum</span><span class="p">:</span>
+        <span class="n">testNum</span> <span class="o">=</span> <span class="n">testNum</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">testNum</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">testNum</span> <span class="o">==</span> <span class="s">&quot;CA&quot;</span><span class="p">:</span>
+        <span class="n">convertedZipcode</span> <span class="o">=</span> <span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">r&#39;\d+&#39;</span><span class="p">,</span> <span class="n">zipcode</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">convertedZipcode</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">convertedZipcode</span><span class="o">.</span><span class="n">__len__</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">r&#39;\d+&#39;</span><span class="p">,</span> <span class="n">zipcode</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s">&quot;-&quot;</span> <span class="o">+</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">r&#39;\d+&#39;</span><span class="p">,</span> <span class="n">zipcode</span><span class="p">))[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s">r&#39;\d+&#39;</span><span class="p">,</span> <span class="n">zipcode</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">street_type</span><span class="p">,</span> <span class="n">ways</span> <span class="ow">in</span> <span class="n">cal_zipcode</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">ways</span><span class="p">:</span>
+        <span class="n">better_name</span> <span class="o">=</span> <span class="n">update_name</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">print</span> <span class="n">name</span><span class="p">,</span> <span class="s">&quot;=&gt;&quot;</span><span class="p">,</span> <span class="n">better_name</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>CA 95054 =&gt; 95054
+CA 94088-3453 =&gt; 94088-3453
+CA 95110 =&gt; 95110
+CA 95113 =&gt; 95113
+CA 95116 =&gt; 95116
+CA 94085 =&gt; 94085
+95014-1899 =&gt; None
+95014-5398 =&gt; None
+95014-3456 =&gt; None
+95014-3457 =&gt; None
+95014-1968 =&gt; None
+95014-1960 =&gt; None
+95014-1961 =&gt; None
+95014-1962 =&gt; None
+95014-1963 =&gt; None
+95014-1964 =&gt; None
+95014-1965 =&gt; None
+95014-1966 =&gt; None
+95037-4530 =&gt; None
+95014-4664 =&gt; None
+95014-4665 =&gt; None
+95014-4666 =&gt; None
+95014-4667 =&gt; None
+95014-0549 =&gt; None
+95014-0548 =&gt; None
+95014-4662 =&gt; None
+95014-4663 =&gt; None
+95014-0545 =&gt; None
+95014-0544 =&gt; None
+95014-0547 =&gt; None
+95014-0546 =&gt; None
+95014-0541 =&gt; None
+95014-0540 =&gt; None
+95014-0543 =&gt; None
+95014-0542 =&gt; None
+95014-3012 =&gt; None
+95014-3010 =&gt; None
+95014-3011 =&gt; None
+95014-3014 =&gt; None
+95014-3015 =&gt; None
+95014-3018 =&gt; None
+95014-2947 =&gt; None
+95014-4449 =&gt; None
+95014-2945 =&gt; None
+95014-2944 =&gt; None
+95014-2943 =&gt; None
+95014-2942 =&gt; None
+95014-2941 =&gt; None
+95014-2940 =&gt; None
+95014-4440 =&gt; None
+95014-4441 =&gt; None
+95014-4442 =&gt; None
+95014-4443 =&gt; None
+95014-4444 =&gt; None
+95014-3493 =&gt; None
+95014-3490 =&gt; None
+95014-4447 =&gt; None
+95014-3702 =&gt; None
+95014-2911 =&gt; None
+95014-3429 =&gt; None
+95014-3428 =&gt; None
+95014-3029 =&gt; None
+95014-0619 =&gt; None
+95014-4431 =&gt; None
+95014-3124 =&gt; None
+95014-3125 =&gt; None
+95014-3122 =&gt; None
+95014-3123 =&gt; None
+95014-3120 =&gt; None
+95014-4346 =&gt; None
+95014-0615 =&gt; None
+95014-0614 =&gt; None
+95014-0617 =&gt; None
+95014-0616 =&gt; None
+95014-4344 =&gt; None
+95014-3423 =&gt; None
+95014-4434 =&gt; None
+95014-3838 =&gt; None
+95014-3421 =&gt; None
+95014-3834 =&gt; None
+95014-3835 =&gt; None
+95014-2541 =&gt; None
+95014-2540 =&gt; None
+95014-3830 =&gt; None
+95014-3831 =&gt; None
+95014-3832 =&gt; None
+95014-3833 =&gt; None
+95014-2722 =&gt; None
+95014-2055 =&gt; None
+95014-2054 =&gt; None
+95014-2057 =&gt; None
+95014-2056 =&gt; None
+95014-2058 =&gt; None
+95014-366 =&gt; None
+95014-1627 =&gt; None
+95014-1626 =&gt; None
+95014-1625 =&gt; None
+95014-1624 =&gt; None
+95014-1623 =&gt; None
+95014-1622 =&gt; None
+95014-1621 =&gt; None
+95014-1620 =&gt; None
+95013 =&gt; None
+95014 =&gt; None
+95014-1629 =&gt; None
+95014-1628 =&gt; None
+95014-218 =&gt; None
+95014-5712 =&gt; None
+95037-4531 =&gt; None
+95014-1967 =&gt; None
+95014-1801 =&gt; None
+95014-1800 =&gt; None
+95014-1807 =&gt; None
+95037-4121 =&gt; None
+95014-1805 =&gt; None
+95037-4123 =&gt; None
+95014-3547 =&gt; None
+95014-5099 =&gt; None
+95014-4273 =&gt; None
+95014-3192 =&gt; None
+95014-1972 =&gt; None
+95037-4032 =&gt; None
+95014-5249 =&gt; None
+95014-5248 =&gt; None
+95014-4672 =&gt; None
+95014-4671 =&gt; None
+95014-4670 =&gt; None
+95014-4660 =&gt; None
+95014-4661 =&gt; None
+95014-3001 =&gt; None
+95014-3000 =&gt; None
+95014-3003 =&gt; None
+95014-3002 =&gt; None
+95014-3005 =&gt; None
+95014-3004 =&gt; None
+95014-3007 =&gt; None
+95014-3009 =&gt; None
+95014-3008 =&gt; None
+95014-5241 =&gt; None
+95014-0599 =&gt; None
+95014-5240 =&gt; None
+95014-5243 =&gt; None
+95014-5242 =&gt; None
+95014-3489 =&gt; None
+95014-3488 =&gt; None
+95014-4459 =&gt; None
+95014-4457 =&gt; None
+95014-5245 =&gt; None
+95014-3487 =&gt; None
+95014-4453 =&gt; None
+95014-4452 =&gt; None
+95014-4451 =&gt; None
+95014-4450 =&gt; None
+95014-5247 =&gt; None
+95014-5709 =&gt; None
+95014-5246 =&gt; None
+95014-2442 =&gt; None
+95014-2443 =&gt; None
+95014-2440 =&gt; None
+95014-2441 =&gt; None
+95014-2446 =&gt; None
+95014-2447 =&gt; None
+95014-2444 =&gt; None
+95014-2445 =&gt; None
+95014-2448 =&gt; None
+95014-2449 =&gt; None
+95014-3134 =&gt; None
+95014-3136 =&gt; None
+95014-3131 =&gt; None
+95014-3130 =&gt; None
+95014-3133 =&gt; None
+95014-3132 =&gt; None
+95014-3139 =&gt; None
+95014-0621 =&gt; None
+95014-4360 =&gt; None
+95014-3823 =&gt; None
+95014-3822 =&gt; None
+95014-3821 =&gt; None
+95014-3820 =&gt; None
+95014-3827 =&gt; None
+95014-3826 =&gt; None
+95014-3825 =&gt; None
+95014-3824 =&gt; None
+95014-3829 =&gt; None
+95014-3828 =&gt; None
+95014-2193 =&gt; None
+95014-515 =&gt; None
+95014-2280 =&gt; None
+95014-2262 =&gt; None
+95014-2263 =&gt; None
+95014-2260 =&gt; None
+95014-2261 =&gt; None
+95014-2265 =&gt; None
+95014-3799 =&gt; None
+95014-225 =&gt; None
+95014-3499 =&gt; None
+95014-3496 =&gt; None
+95014-3497 =&gt; None
+95014-4445 =&gt; None
+95014-2949 =&gt; None
+95014-3491 =&gt; None
+95014-1763 =&gt; None
+95014-4909 =&gt; None
+95014-4901 =&gt; None
+95014-4900 =&gt; None
+95014-4641 =&gt; None
+95014-4905 =&gt; None
+95014-4907 =&gt; None
+95014-4906 =&gt; None
+95014-2334 =&gt; None
+95014-2335 =&gt; None
+95014-4847 =&gt; None
+95014-4211 =&gt; None
+95014-5089 =&gt; None
+95014-3530 =&gt; None
+95014-5087 =&gt; None
+95014-5086 =&gt; None
+95014-5085 =&gt; None
+95014-5084 =&gt; None
+95014-5083 =&gt; None
+95014-3533 =&gt; None
+95014-5081 =&gt; None
+95014-5080 =&gt; None
+95014-3532 =&gt; None
+95014-4215 =&gt; None
+95014-232 =&gt; None
+95014-4214 =&gt; None
+95014-3537 =&gt; None
+95014-4216 =&gt; None
+95014-3126 =&gt; None
+95014-4608 =&gt; None
+95014-3127 =&gt; None
+95014-4606 =&gt; None
+95014-4607 =&gt; None
+95014-4604 =&gt; None
+95014-4605 =&gt; None
+95014-4602 =&gt; None
+95014-4603 =&gt; None
+95014-4600 =&gt; None
+95014-4601 =&gt; None
+95014-5263 =&gt; None
+95014-5262 =&gt; None
+95014-5261 =&gt; None
+95014-0564 =&gt; None
+95014-0563 =&gt; None
+95014-5266 =&gt; None
+95014-5265 =&gt; None
+95014-5264 =&gt; None
+95014-5269 =&gt; None
+95014-5268 =&gt; None
+95014-0568 =&gt; None
+95014-3121 =&gt; None
+95014-4112 =&gt; None
+95014-4111 =&gt; None
+95014-4116 =&gt; None
+95014-4117 =&gt; None
+95014-4119 =&gt; None
+95014-2451 =&gt; None
+95014-2450 =&gt; None
+95014-2453 =&gt; None
+95014-2452 =&gt; None
+95014-2455 =&gt; None
+95014-2454 =&gt; None
+95014-2457 =&gt; None
+95014-2456 =&gt; None
+95014-3100 =&gt; None
+95014-3101 =&gt; None
+95014-3102 =&gt; None
+95014-3103 =&gt; None
+95014-3104 =&gt; None
+95014-3105 =&gt; None
+95014-3106 =&gt; None
+95014-4335 =&gt; None
+95014-763 =&gt; None
+95014-3856 =&gt; None
+95014-3857 =&gt; None
+95014-3854 =&gt; None
+95014-3855 =&gt; None
+95014-3852 =&gt; None
+95014-3853 =&gt; None
+95014-3850 =&gt; None
+95014-3851 =&gt; None
+95014-2525 =&gt; None
+95014-2526 =&gt; None
+95014-3858 =&gt; None
+95014-3859 =&gt; None
+95014-3217 =&gt; None
+95014-2932 =&gt; None
+95014-2933 =&gt; None
+95014-2422 =&gt; None
+95014-2423 =&gt; None
+95014-2936 =&gt; None
+95014-2425 =&gt; None
+95014-5238 =&gt; None
+95014-2934 =&gt; None
+95014-2078 =&gt; None
+95014-2074 =&gt; None
+95014-2073 =&gt; None
+95014-2072 =&gt; None
+95014-2279 =&gt; None
+95014-346 =&gt; None
+95014-3836 =&gt; None
+95014-3837 =&gt; None
+95014-3604 =&gt; None
+95014-3603 =&gt; None
+95014-4639 =&gt; None
+95014-4638 =&gt; None
+95014-6600 =&gt; None
+95014-6601 =&gt; None
+95014-6602 =&gt; None
+95014-6603 =&gt; None
+95014-6357 =&gt; None
+95014-2366 =&gt; None
+95014-5861 =&gt; None
+95014-5860 =&gt; None
+95014-5863 =&gt; None
+95014-5865 =&gt; None
+95014-5864 =&gt; None
+95014-2206 =&gt; None
+95014-2338 =&gt; None
+95014-0355 =&gt; None
+95014-0353 =&gt; None
+95014-0358 =&gt; None
+95014-5072 =&gt; None
+95014-5073 =&gt; None
+95014-5070 =&gt; None
+95014-5071 =&gt; None
+95014-5076 =&gt; None
+95014-5077 =&gt; None
+95014-5074 =&gt; None
+95014-5075 =&gt; None
+95014-6334 =&gt; None
+95014-5079 =&gt; None
+95014-4619 =&gt; None
+95014-4618 =&gt; None
+95014-4615 =&gt; None
+95014-4614 =&gt; None
+95014-4617 =&gt; None
+95014-4616 =&gt; None
+95014-4611 =&gt; None
+95014-4610 =&gt; None
+95014-4613 =&gt; None
+95014-4612 =&gt; None
+95014-5216 =&gt; None
+95014-5217 =&gt; None
+95014-5214 =&gt; None
+95014-5215 =&gt; None
+95014-5213 =&gt; None
+95014-5210 =&gt; None
+95014-5211 =&gt; None
+95014-5218 =&gt; None
+95014-5219 =&gt; None
+95014-3608 =&gt; None
+95014-4100 =&gt; None
+95014-5329 =&gt; None
+95014-5322 =&gt; None
+95014-5321 =&gt; None
+95014-4329 =&gt; None
+95014-2465 =&gt; None
+95014-2460 =&gt; None
+95014-2461 =&gt; None
+95014-3119 =&gt; None
+95014-4321 =&gt; None
+95014-3116 =&gt; None
+95014-3115 =&gt; None
+95014-4322 =&gt; None
+95014-4325 =&gt; None
+95014-4324 =&gt; None
+95014-4327 =&gt; None
+95014-4326 =&gt; None
+95014-2434 =&gt; None
+95014-3610 =&gt; None
+95014-3611 =&gt; None
+95014-0529 =&gt; None
+95014-3845 =&gt; None
+95014-3844 =&gt; None
+95014-3847 =&gt; None
+95014-0528 =&gt; None
+95014-3841 =&gt; None
+95014-3840 =&gt; None
+95014-3843 =&gt; None
+95014-3842 =&gt; None
+95014-3023 =&gt; None
+95014-4646 =&gt; None
+95014-3849 =&gt; None
+95014-3848 =&gt; None
+95014-4647 =&gt; None
+95014-4644 =&gt; None
+95014-2469 =&gt; None
+95014-3617 =&gt; None
+95014-3203 =&gt; None
+95014-3202 =&gt; None
+95014-3619 =&gt; None
+95014-4648 =&gt; None
+95014-4649 =&gt; None
+95014-3463 =&gt; None
+95014-2080 =&gt; None
+95014-2081 =&gt; None
+95014-3462 =&gt; None
+95014-5811 =&gt; None
+95014-6307 =&gt; None
+95014-5813 =&gt; None
+95014-4305 =&gt; None
+95014-5817 =&gt; None
+95014-3612 =&gt; None
+95014-3468 =&gt; None
+95014-6340 =&gt; None
+95014-246 =&gt; None
+95014-5858 =&gt; None
+95014-6344 =&gt; None
+95014-6346 =&gt; None
+95014-5854 =&gt; None
+95014-6348 =&gt; None
+95014-5856 =&gt; None
+95014-5857 =&gt; None
+95014-0557 =&gt; None
+95014-0554 =&gt; None
+95014-2439 =&gt; None
+95014-1697 =&gt; None
+95014-3618 =&gt; None
+95014-0552 =&gt; None
+95014-2438 =&gt; None
+95014-0553 =&gt; None
+95014-3452 =&gt; None
+95014-5061 =&gt; None
+95014-5060 =&gt; None
+95014-5063 =&gt; None
+95014-5062 =&gt; None
+95014-5065 =&gt; None
+95014-5064 =&gt; None
+95014-5067 =&gt; None
+95014-5066 =&gt; None
+95014-5069 =&gt; None
+95014-5068 =&gt; None
+95014-0550 =&gt; None
+95037-4008 =&gt; None
+95037-4000 =&gt; None
+95014-4540 =&gt; None
+95014-0551 =&gt; None
+95014-4620 =&gt; None
+95014-4621 =&gt; None
+95014-4622 =&gt; None
+95014-4623 =&gt; None
+95014-4624 =&gt; None
+95014-4625 =&gt; None
+95014-4626 =&gt; None
+95014-4627 =&gt; None
+95014-4628 =&gt; None
+95014-4629 =&gt; None
+95014-5204 =&gt; None
+95014-5207 =&gt; None
+95014-5206 =&gt; None
+95014-5201 =&gt; None
+95014-5200 =&gt; None
+95014-5209 =&gt; None
+95014-5208 =&gt; None
+95014-3690 =&gt; None
+95014-3691 =&gt; None
+95014-2459 =&gt; None
+95014-5338 =&gt; None
+95014-4130 =&gt; None
+95014-4131 =&gt; None
+95014-5331 =&gt; None
+95014-5330 =&gt; None
+95014-5333 =&gt; None
+95014-5332 =&gt; None
+95014-5337 =&gt; None
+95014-5336 =&gt; None
+95014-4318 =&gt; None
+95014-3479 =&gt; None
+95014-4314 =&gt; None
+95014-4315 =&gt; None
+95014-4316 =&gt; None
+95014-4317 =&gt; None
+95014-4310 =&gt; None
+95014-4311 =&gt; None
+95014-4312 =&gt; None
+95014-4313 =&gt; None
+95014-5078 =&gt; None
+95014-3878 =&gt; None
+95014-3879 =&gt; None
+95014-3870 =&gt; None
+95014-3871 =&gt; None
+95014-3872 =&gt; None
+95014-3873 =&gt; None
+95014-3874 =&gt; None
+95014-3875 =&gt; None
+95014-3876 =&gt; None
+95014-3877 =&gt; None
+95014-2505 =&gt; None
+95014-2504 =&gt; None
+95014-2502 =&gt; None
+95014-4552 =&gt; None
+95014-4553 =&gt; None
+95014-4550 =&gt; None
+95014-4551 =&gt; None
+95014-4556 =&gt; None
+95014-4557 =&gt; None
+95014-4554 =&gt; None
+95014-2508 =&gt; None
+95014-2458 =&gt; None
+95014-2098 =&gt; None
+95014-5251 =&gt; None
+95014-3308 =&gt; None
+95014-3309 =&gt; None
+95014-2257 =&gt; None
+95014-3303 =&gt; None
+95014-2259 =&gt; None
+95014-2258 =&gt; None
+95014-3306 =&gt; None
+95014-3307 =&gt; None
+95014-3304 =&gt; None
+95014-3305 =&gt; None
+95014-5843 =&gt; None
+95014-5842 =&gt; None
+95014-5841 =&gt; None
+95014-5840 =&gt; None
+95014-6371 =&gt; None
+95014-3549 =&gt; None
+95014-5244 =&gt; None
+95014-1756 =&gt; None
+95014-1755 =&gt; None
+95014-1754 =&gt; None
+95014-3541 =&gt; None
+95014-3542 =&gt; None
+95014-3543 =&gt; None
+95014-3544 =&gt; None
+95014-4265 =&gt; None
+95014-3814 =&gt; None
+95014-4267 =&gt; None
+95014-4950 =&gt; None
+95014-4958 =&gt; None
+95014-6402 =&gt; None
+95014-6403 =&gt; None
+95014-6400 =&gt; None
+95014-6401 =&gt; None
+95014-6406 =&gt; None
+95014-6407 =&gt; None
+95014-6404 =&gt; None
+95014-6405 =&gt; None
+95014-6408 =&gt; None
+95014-6409 =&gt; None
+95014-3318 =&gt; None
+95014-5054 =&gt; None
+95014-5055 =&gt; None
+95014-5056 =&gt; None
+95014-5057 =&gt; None
+95014-5050 =&gt; None
+95014-5051 =&gt; None
+95014-5052 =&gt; None
+95014-5053 =&gt; None
+95014-5058 =&gt; None
+95014-5059 =&gt; None
+95014-0240 =&gt; None
+95014-3311 =&gt; None
+95014-4637 =&gt; None
+95014-4636 =&gt; None
+95014-4635 =&gt; None
+95014-4634 =&gt; None
+95014-4633 =&gt; None
+95014-4632 =&gt; None
+95014-4631 =&gt; None
+95014-4630 =&gt; None
+95014-5230 =&gt; None
+95014-5231 =&gt; None
+95014-5232 =&gt; None
+95014-5233 =&gt; None
+95014-5234 =&gt; None
+95014-5235 =&gt; None
+95014-5236 =&gt; None
+95014-5237 =&gt; None
+95014-3317 =&gt; None
+95014-0337 =&gt; None
+95014-3839 =&gt; None
+95014-3689 =&gt; None
+95014-3688 =&gt; None
+95014-3687 =&gt; None
+95014-3686 =&gt; None
+95014-3685 =&gt; None
+95014-3684 =&gt; None
+95014-3683 =&gt; None
+95014-3682 =&gt; None
+95014-3681 =&gt; None
+95014-3680 =&gt; None
+95014-1829 =&gt; None
+95014-1820 =&gt; None
+95014-1823 =&gt; None
+95014-1822 =&gt; None
+95014-1825 =&gt; None
+95014-1824 =&gt; None
+95014-1826 =&gt; None
+95014-4129 =&gt; None
+95014-4128 =&gt; None
+95014-4123 =&gt; None
+95014-5308 =&gt; None
+95014-5309 =&gt; None
+95014-5304 =&gt; None
+95014-5305 =&gt; None
+95014-5306 =&gt; None
+95014-5307 =&gt; None
+95014-5301 =&gt; None
+95014-5302 =&gt; None
+95014-5303 =&gt; None
+95014-4303 =&gt; None
+95014-4302 =&gt; None
+95014-4301 =&gt; None
+95014-3460 =&gt; None
+95014-4307 =&gt; None
+95014-4306 =&gt; None
+95014-3465 =&gt; None
+95014-4304 =&gt; None
+95014-4309 =&gt; None
+95014-4308 =&gt; None
+95014-3869 =&gt; None
+95014-3868 =&gt; None
+95014-3867 =&gt; None
+95014-3866 =&gt; None
+95014-3865 =&gt; None
+95014-3864 =&gt; None
+95014-3863 =&gt; None
+95014-3862 =&gt; None
+95014-3861 =&gt; None
+95014-3860 =&gt; None
+95014-4549 =&gt; None
+95014-4548 =&gt; None
+95014-4541 =&gt; None
+95014-4435 =&gt; None
+95014-4543 =&gt; None
+95014-4542 =&gt; None
+95014-4545 =&gt; None
+95014-4544 =&gt; None
+95014-4547 =&gt; None
+95014-4546 =&gt; None
+95014-2312 =&gt; None
+95014-2313 =&gt; None
+95014-2310 =&gt; None
+95014-2311 =&gt; None
+95014-2316 =&gt; None
+95014-2317 =&gt; None
+95014-2314 =&gt; None
+95014-2318 =&gt; None
+95014-2319 =&gt; None
+95014-641 =&gt; None
+95014-4437 =&gt; None
+95014-2408 =&gt; None
+95014-2409 =&gt; None
+95014-2406 =&gt; None
+95014-2407 =&gt; None
+95014-2404 =&gt; None
+95014-2405 =&gt; None
+95014-2402 =&gt; None
+95014-2403 =&gt; None
+95014-2401 =&gt; None
+95014-5252 =&gt; None
+95014-6314 =&gt; None
+95014-2948 =&gt; None
+95014-3319 =&gt; None
+95014-2227 =&gt; None
+95014-2224 =&gt; None
+95014-2225 =&gt; None
+95014-2222 =&gt; None
+95014-2223 =&gt; None
+95014-2220 =&gt; None
+95014-2221 =&gt; None
+95014-0431 =&gt; None
+95014-3310 =&gt; None
+95014-3313 =&gt; None
+95014-3312 =&gt; None
+95014-3315 =&gt; None
+95014-3314 =&gt; None
+95014-2228 =&gt; None
+95014-3316 =&gt; None
+95014-2138 =&gt; None
+95014-2139 =&gt; None
+95014-6363 =&gt; None
+95014-2133 =&gt; None
+95014-2130 =&gt; None
+95014-2131 =&gt; None
+95014-2136 =&gt; None
+95014-2137 =&gt; None
+95014-2134 =&gt; None
+95014-2135 =&gt; None
+95014-5836 =&gt; None
+95014-5837 =&gt; None
+95014-5835 =&gt; None
+95014-061 =&gt; None
+95014-5838 =&gt; None
+95014-5839 =&gt; None
+95014-3449 =&gt; None
+95014-3564 =&gt; None
+95014-3565 =&gt; None
+95014-4242 =&gt; None
+95014-4243 =&gt; None
+95014-4240 =&gt; None
+95014-6367 =&gt; None
+95014-4241 =&gt; None
+95014-3117 =&gt; None
+95014-4320 =&gt; None
+95014-3028 =&gt; None
+95014-4609 =&gt; None
+95014-3114 =&gt; None
+95014-3113 =&gt; None
+95014-3112 =&gt; None
+95014-3111 =&gt; None
+95014-5255 =&gt; None
+95014-3110 =&gt; None
+95014-3801 =&gt; None
+95014-4947 =&gt; None
+95014-4949 =&gt; None
+95014-6411 =&gt; None
+95014-6410 =&gt; None
+95014-6413 =&gt; None
+95014-7412 =&gt; None
+95014-7413 =&gt; None
+95014-7410 =&gt; None
+95014-7414 =&gt; None
+95014-7415 =&gt; None
+95014-5049 =&gt; None
+95014-5048 =&gt; None
+95014-5043 =&gt; None
+95014-5042 =&gt; None
+95014-5041 =&gt; None
+95014-5040 =&gt; None
+95014-5047 =&gt; None
+95014-5046 =&gt; None
+95014-5045 =&gt; None
+95014-5044 =&gt; None
+95014-1786 =&gt; None
+95014-5229 =&gt; None
+95014-5228 =&gt; None
+95014-5227 =&gt; None
+95014-5226 =&gt; None
+95014-5225 =&gt; None
+95014-5224 =&gt; None
+95014-5223 =&gt; None
+95014-5222 =&gt; None
+95014-5221 =&gt; None
+95014-5220 =&gt; None
+95014-3672 =&gt; None
+95014-3673 =&gt; None
+95014-3670 =&gt; None
+95014-2900 =&gt; None
+95014-3676 =&gt; None
+95014-3677 =&gt; None
+95014-3674 =&gt; None
+95014-3678 =&gt; None
+95014-3679 =&gt; None
+95014-3634 =&gt; None
+95037-4112 =&gt; None
+95014-1818 =&gt; None
+95014-1819 =&gt; None
+95014-1814 =&gt; None
+95014-1815 =&gt; None
+95014-1816 =&gt; None
+95014-1817 =&gt; None
+95014-1810 =&gt; None
+95014-1811 =&gt; None
+95014-1812 =&gt; None
+95014-1813 =&gt; None
+95014-4158 =&gt; None
+95014-4156 =&gt; None
+95014-4157 =&gt; None
+95014-4154 =&gt; None
+95014-4155 =&gt; None
+95014-4153 =&gt; None
+95014-4151 =&gt; None
+95014-5313 =&gt; None
+95014-0496 =&gt; None
+95014-0495 =&gt; None
+95014-3846 =&gt; None
+95014-0493 =&gt; None
+95014-5316 =&gt; None
+95014-5315 =&gt; None
+95014-5314 =&gt; None
+95014-4408 =&gt; None
+95014-0499 =&gt; None
+95014-4409 =&gt; None
+95014-3414 =&gt; None
+95014-3415 =&gt; None
+95014-3412 =&gt; None
+95014-3413 =&gt; None
+95014-3410 =&gt; None
+95014-4423 =&gt; None
+95014-4404 =&gt; None
+95014-4405 =&gt; None
+95014-3027 =&gt; None
+95014-3026 =&gt; None
+95014-4574 =&gt; None
+95014-4575 =&gt; None
+95014-4576 =&gt; None
+95014-4577 =&gt; None
+95014-4570 =&gt; None
+95014-4571 =&gt; None
+95014-4572 =&gt; None
+95014-1608 =&gt; None
+95014-2301 =&gt; None
+95014-2303 =&gt; None
+95014-4209 =&gt; None
+95014-2305 =&gt; None
+95014-2304 =&gt; None
+95014-2307 =&gt; None
+95014-2306 =&gt; None
+95014-4202 =&gt; None
+95014-4203 =&gt; None
+95014-3520 =&gt; None
+95014-4201 =&gt; None
+95014-4206 =&gt; None
+95014-4207 =&gt; None
+95014-3524 =&gt; None
+95014-4205 =&gt; None
+95014-4558 =&gt; None
+95014-2419 =&gt; None
+95014-2418 =&gt; None
+95014-2415 =&gt; None
+95014-2414 =&gt; None
+95014-2417 =&gt; None
+95014-2416 =&gt; None
+95014-2411 =&gt; None
+95014-2410 =&gt; None
+95014-2413 =&gt; None
+95014-2412 =&gt; None
+95014-3803 =&gt; None
+95014-4559 =&gt; None
+95014-2235 =&gt; None
+95014-2236 =&gt; None
+95014-2231 =&gt; None
+95014-3329 =&gt; None
+95014-2233 =&gt; None
+95014-2232 =&gt; None
+95014-3324 =&gt; None
+95014-3325 =&gt; None
+95014-3326 =&gt; None
+95014-3327 =&gt; None
+95014-3320 =&gt; None
+95014-2238 =&gt; None
+95014-3322 =&gt; None
+95014-3323 =&gt; None
+95014-3656 =&gt; None
+95014-2128 =&gt; None
+95014-2522 =&gt; None
+95014-6318 =&gt; None
+95014-6319 =&gt; None
+95014-2121 =&gt; None
+95014-2120 =&gt; None
+95014-2123 =&gt; None
+95014-2122 =&gt; None
+95014-6312 =&gt; None
+95014-6313 =&gt; None
+95014-6310 =&gt; None
+95014-6311 =&gt; None
+95014-5825 =&gt; None
+95014-5824 =&gt; None
+95014-5826 =&gt; None
+95014-5821 =&gt; None
+95014-5823 =&gt; None
+95014-5822 =&gt; None
+95014-3807 =&gt; None
+95014-3806 =&gt; None
+95014-1920 =&gt; None
+95014-4973 =&gt; None
+95014-4974 =&gt; None
+95014-3648 =&gt; None
+95014-7408 =&gt; None
+95014-7401 =&gt; None
+95014-7400 =&gt; None
+95014-7403 =&gt; None
+95014-7402 =&gt; None
+95014-7405 =&gt; None
+95014-7404 =&gt; None
+95014-7407 =&gt; None
+95014-7406 =&gt; None
+95014-5038 =&gt; None
+95014-5039 =&gt; None
+95014-5036 =&gt; None
+95014-5037 =&gt; None
+95014-5034 =&gt; None
+95014-5035 =&gt; None
+95014-5032 =&gt; None
+95014-5033 =&gt; None
+95014-5030 =&gt; None
+95014-5031 =&gt; None
+95014-1799 =&gt; None
+95014-5142 =&gt; None
+95014-5143 =&gt; None
+95014-5140 =&gt; None
+95014-5146 =&gt; None
+95014-5147 =&gt; None
+95014-5144 =&gt; None
+95014-4555 =&gt; None
+95014-5148 =&gt; None
+95014-5149 =&gt; None
+95014-3661 =&gt; None
+95014-3660 =&gt; None
+95014-3663 =&gt; None
+95014-3662 =&gt; None
+95014-3665 =&gt; None
+95014-3664 =&gt; None
+95014-3667 =&gt; None
+95014-3666 =&gt; None
+95014-3669 =&gt; None
+95014-3668 =&gt; None
+95014-1803 =&gt; None
+95014-1802 =&gt; None
+95037-4126 =&gt; None
+95037-4127 =&gt; None
+95037-4120 =&gt; None
+95014-1806 =&gt; None
+95037-4122 =&gt; None
+95014-1804 =&gt; None
+95014-1809 =&gt; None
+95014-1808 =&gt; None
+95037-4128 =&gt; None
+95014-4144 =&gt; None
+95014-4141 =&gt; None
+95014-4143 =&gt; None
+95014-5363 =&gt; None
+95014-3405 =&gt; None
+95014-3404 =&gt; None
+95014-3407 =&gt; None
+95014-3406 =&gt; None
+95014-4361 =&gt; None
+95014-3400 =&gt; None
+95014-3403 =&gt; None
+95014-0448 =&gt; None
+95014-0449 =&gt; None
+95014-0444 =&gt; None
+95014-0445 =&gt; None
+95014-0446 =&gt; None
+95014-0447 =&gt; None
+95014-0440 =&gt; None
+95014-3881 =&gt; None
+95014-3880 =&gt; None
+95014-3883 =&gt; None
+95014-3882 =&gt; None
+95014-3885 =&gt; None
+95014-3884 =&gt; None
+95014-4563 =&gt; None
+95014-4562 =&gt; None
+95014-4561 =&gt; None
+95014-4560 =&gt; None
+95014-4567 =&gt; None
+95014-4566 =&gt; None
+95014-4565 =&gt; None
+95014-4564 =&gt; None
+95014-4569 =&gt; None
+95014-4568 =&gt; None
+95014-4219 =&gt; None
+95014-4218 =&gt; None
+95014-2336 =&gt; None
+95014-2337 =&gt; None
+95014-2330 =&gt; None
+95014-2331 =&gt; None
+95014-2332 =&gt; None
+95014-2333 =&gt; None
+95014-3531 =&gt; None
+95014-4210 =&gt; None
+95014-4213 =&gt; None
+95014-4212 =&gt; None
+95014-3535 =&gt; None
+95014-2339 =&gt; None
+95014-4217 =&gt; None
+95014-3536 =&gt; None
+95014-1908 =&gt; None
+95014-2420 =&gt; None
+95014-2421 =&gt; None
+95014-2930 =&gt; None
+95014-1909 =&gt; None
+95014-2424 =&gt; None
+95014-2937 =&gt; None
+95014-2426 =&gt; None
+95014-2427 =&gt; None
+95014-2428 =&gt; None
+95014-2429 =&gt; None
+95014-2938 =&gt; None
+95014-2939 =&gt; None
+95014-2208 =&gt; None
+95014-2201 =&gt; None
+95014-2202 =&gt; None
+95014-2203 =&gt; None
+95014-2204 =&gt; None
+95014-2205 =&gt; None
+95014-445 =&gt; None
+95014-2207 =&gt; None
+95014-3331 =&gt; None
+95014-3330 =&gt; None
+95014-3337 =&gt; None
+95014-3336 =&gt; None
+95014-3335 =&gt; None
+95014-3813 =&gt; None
+95014-3426 =&gt; None
+95014-3339 =&gt; None
+95014-3338 =&gt; None
+95014-5818 =&gt; None
+95014-5819 =&gt; None
+95014-3811 =&gt; None
+95014-6309 =&gt; None
+95014-6305 =&gt; None
+95014-6304 =&gt; None
+95014-5812 =&gt; None
+95014-6306 =&gt; None
+95014-5814 =&gt; None
+95014-5815 =&gt; None
+95014-5816 =&gt; None
+95014-6302 =&gt; None
+95014-3484 =&gt; None
+95014-3481 =&gt; None
+95014-3480 =&gt; None
+95014-3483 =&gt; None
+95014-5121 =&gt; None
+95014-4960 =&gt; None
+95014-1652 =&gt; None
+95014-1653 =&gt; None
+95014-1650 =&gt; None
+95014-1651 =&gt; None
+95014-1656 =&gt; None
+95014-1657 =&gt; None
+95014-1654 =&gt; None
+95014-1655 =&gt; None
+95014-1658 =&gt; None
+95014-1659 =&gt; None
+95037-9221 =&gt; None
+95014-4228 =&gt; None
+95014-4229 =&gt; None
+95014-5029 =&gt; None
+95014-5028 =&gt; None
+95014-5025 =&gt; None
+95014-5024 =&gt; None
+95014-5027 =&gt; None
+95014-5026 =&gt; None
+95014-5021 =&gt; None
+95014-5020 =&gt; None
+95014-5023 =&gt; None
+95014-5022 =&gt; None
+95014-4233 =&gt; None
+95014-4224 =&gt; None
+95014-4225 =&gt; None
+95014-4226 =&gt; None
+95014-4227 =&gt; None
+95014-4221 =&gt; None
+95014-6342 =&gt; None
+95014-4222 =&gt; None
+95014-4223 =&gt; None
+95014-5859 =&gt; None
+95014-5799 =&gt; None
+95014-5151 =&gt; None
+95014-5150 =&gt; None
+95014-5155 =&gt; None
+95014-5154 =&gt; None
+95014-5855 =&gt; None
+95014-5158 =&gt; None
+95014-3654 =&gt; None
+95014-3655 =&gt; None
+95037-4139 =&gt; None
+95014-321 =&gt; None
+95014-3650 =&gt; None
+95014-3652 =&gt; None
+95014-3653 =&gt; None
+95037-4132 =&gt; None
+95014-3658 =&gt; None
+95014-3659 =&gt; None
+95014-1877 =&gt; None
+95014-1875 =&gt; None
+95014-1878 =&gt; None
+95014-0453 =&gt; None
+95014-0451 =&gt; None
+95014-0450 =&gt; None
+95014-0457 =&gt; None
+95014-0456 =&gt; None
+95014-0455 =&gt; None
+95014-0454 =&gt; None
+95014-1902 =&gt; None
+95014-1903 =&gt; None
+95014-0459 =&gt; None
+95014-1901 =&gt; None
+95014-1906 =&gt; None
+95014-1907 =&gt; None
+95014-1904 =&gt; None
+95014-1905 =&gt; None
+95014-4516 =&gt; None
+95014-4517 =&gt; None
+95014-4514 =&gt; None
+95014-4515 =&gt; None
+95014-4512 =&gt; None
+95014-4513 =&gt; None
+95014-4510 =&gt; None
+95014-4511 =&gt; None
+95014-4518 =&gt; None
+95014-4519 =&gt; None
+95014-3508 =&gt; None
+95014-3509 =&gt; None
+95014-3504 =&gt; None
+95014-3505 =&gt; None
+95014-3506 =&gt; None
+95014-3507 =&gt; None
+95014-3500 =&gt; None
+95014-3501 =&gt; None
+95014-3502 =&gt; None
+95014-3503 =&gt; None
+95014-3128 =&gt; None
+95014-2437 =&gt; None
+95014-2435 =&gt; None
+95014-3129 =&gt; None
+95014-2921 =&gt; None
+95014-2920 =&gt; None
+95014-4428 =&gt; None
+95014-2922 =&gt; None
+95014-2925 =&gt; None
+95014-2432 =&gt; None
+95014-2431 =&gt; None
+95014-2430 =&gt; None
+95014-4350 =&gt; None
+95014-4351 =&gt; None
+95014-4352 =&gt; None
+95014-4353 =&gt; None
+95014-4426 =&gt; None
+95014-4427 =&gt; None
+95014-4356 =&gt; None
+95014-4357 =&gt; None
+95014-2927 =&gt; None
+95014-2219 =&gt; None
+95014-2218 =&gt; None
+95014-2216 =&gt; None
+95014-2215 =&gt; None
+95014-2214 =&gt; None
+95014-2212 =&gt; None
+95014-2211 =&gt; None
+95014-2210 =&gt; None
+95014-3346 =&gt; None
+95014-4422 =&gt; None
+95014-3344 =&gt; None
+95014-3342 =&gt; None
+95014-3343 =&gt; None
+95014-3340 =&gt; None
+95014-2928 =&gt; None
+95014-4420 =&gt; None
+95014-3348 =&gt; None
+95014-3349 =&gt; None
+95014-4421 =&gt; None
+95014-3435 =&gt; None
+95014-2329 =&gt; None
+95014-4424 =&gt; None
+95014-2323 =&gt; None
+95014-2322 =&gt; None
+95014-2321 =&gt; None
+95014-4425 =&gt; None
+95014-2327 =&gt; None
+95014-2326 =&gt; None
+95014-2325 =&gt; None
+95014-2324 =&gt; None
+95014-6330 =&gt; None
+95014-2102 =&gt; None
+95014-2101 =&gt; None
+95014-6333 =&gt; None
+95014-2107 =&gt; None
+95014-2106 =&gt; None
+95014-2105 =&gt; None
+95014-5808 =&gt; None
+95014-5807 =&gt; None
+95014-5806 =&gt; None
+95014-5805 =&gt; None
+95014-5804 =&gt; None
+95014-5803 =&gt; None
+95014-5802 =&gt; None
+95014-5801 =&gt; None
+95117 =&gt; None
+95116 =&gt; None
+95111 =&gt; None
+95014-6201 =&gt; None
+95113 =&gt; None
+95112 =&gt; None
+95119 =&gt; None
+95118 =&gt; None
+95014-3341 =&gt; None
+95014-1643 =&gt; None
+95014-1645 =&gt; None
+95014-1644 =&gt; None
+95014-1647 =&gt; None
+95014-1646 =&gt; None
+95014-1649 =&gt; None
+95070 =&gt; None
+95037-3651 =&gt; None
+95014-5010 =&gt; None
+95014-5011 =&gt; None
+95014-5012 =&gt; None
+95014-5013 =&gt; None
+95014-5014 =&gt; None
+95014-5015 =&gt; None
+95014-5016 =&gt; None
+95014-5017 =&gt; None
+95014-5018 =&gt; None
+95014-5019 =&gt; None
+95014-4668 =&gt; None
+95037-4118 =&gt; None
+95014-4669 =&gt; None
+95014-0512 =&gt; None
+95014-0513 =&gt; None
+95014-0510 =&gt; None
+95014-0511 =&gt; None
+95014-0516 =&gt; None
+95014-0517 =&gt; None
+95014-0514 =&gt; None
+95014-0515 =&gt; None
+95014-0518 =&gt; None
+95014-0519 =&gt; None
+95037-4142 =&gt; None
+95014-2320 =&gt; None
+95014-4161 =&gt; None
+95014-5342 =&gt; None
+95014-5343 =&gt; None
+95014-5345 =&gt; None
+95014-5346 =&gt; None
+95014-4168 =&gt; None
+95014-0202 =&gt; None
+95014-0200 =&gt; None
+95014-1919 =&gt; None
+95014-1918 =&gt; None
+95014-1911 =&gt; None
+95014-1910 =&gt; None
+95014-1913 =&gt; None
+95014-1912 =&gt; None
+95014-1915 =&gt; None
+95014-1914 =&gt; None
+95014-1917 =&gt; None
+95014-1916 =&gt; None
+95014-0497 =&gt; None
+95014-5312 =&gt; None
+95014-4653 =&gt; None
+95014-4505 =&gt; None
+95014-4504 =&gt; None
+95014-3649 =&gt; None
+95014-5310 =&gt; None
+95014-4501 =&gt; None
+95014-4500 =&gt; None
+95014-4503 =&gt; None
+95014-4502 =&gt; None
+95014-3643 =&gt; None
+95014-3642 =&gt; None
+95014-3641 =&gt; None
+95014-3640 =&gt; None
+95014-4509 =&gt; None
+95014-4508 =&gt; None
+95014-3645 =&gt; None
+95014-3602 =&gt; None
+95014-3513 =&gt; None
+95014-4232 =&gt; None
+95014-4231 =&gt; None
+95014-4230 =&gt; None
+95014-4237 =&gt; None
+95014-4236 =&gt; None
+95014-4235 =&gt; None
+95014-3514 =&gt; None
+95014-4239 =&gt; None
+95014-4238 =&gt; None
+95014-600 =&gt; None
+95014-0556 =&gt; None
+95014-0739 =&gt; None
+95014-5701 =&gt; None
+95014-5702 =&gt; None
+95014-0555 =&gt; None
+95014-6331 =&gt; None
+95014-5256 =&gt; None
+95014-6332 =&gt; None
+95014-5705 =&gt; None
+95014-4439 =&gt; None
+95014-4438 =&gt; None
+95014-2916 =&gt; None
+95014-2917 =&gt; None
+95014-2910 =&gt; None
+95014-5254 =&gt; None
+95014-4349 =&gt; None
+95014-4348 =&gt; None
+95014-4347 =&gt; None
+95014-4430 =&gt; None
+95014-4345 =&gt; None
+95014-3424 =&gt; None
+95014-4343 =&gt; None
+95014-4342 =&gt; None
+95014-4341 =&gt; None
+95014-4436 =&gt; None
+95014-5809 =&gt; None
+95014-3355 =&gt; None
+95014-3354 =&gt; None
+95014-3357 =&gt; None
+95014-3351 =&gt; None
+95014-3350 =&gt; None
+95014-3353 =&gt; None
+95014-3352 =&gt; None
+95014-3359 =&gt; None
+95014-3358 =&gt; None
+95014-3812 =&gt; None
+95014-2356 =&gt; None
+95014-2354 =&gt; None
+95014-2350 =&gt; None
+95014-2351 =&gt; None
+95014-2176 =&gt; None
+95014-2175 =&gt; None
+95014-6322 =&gt; None
+95014-2170 =&gt; None
+95014-2171 =&gt; None
+95014-4652 =&gt; None
+95037-4138 =&gt; None
+95014-2008 =&gt; None
+95014-2009 =&gt; None
+95014-0608 =&gt; None
+95014-2002 =&gt; None
+95014-2003 =&gt; None
+95014-2001 =&gt; None
+95014-2006 =&gt; None
+95014-2007 =&gt; None
+95014-2004 =&gt; None
+95014-2005 =&gt; None
+95014-3512 =&gt; None
+95014-4981 =&gt; None
+95014-4982 =&gt; None
+95014-4985 =&gt; None
+95014-4984 =&gt; None
+95014-3511 =&gt; None
+95037-9241 =&gt; None
+95014-5714 =&gt; None
+95014-3510 =&gt; None
+95014-3519 =&gt; None
+95014-5007 =&gt; None
+95014-5006 =&gt; None
+95014-5005 =&gt; None
+95014-5004 =&gt; None
+95014-5003 =&gt; None
+95014-5002 =&gt; None
+95014-5001 =&gt; None
+95014-5000 =&gt; None
+95014-3517 =&gt; None
+95014-5009 =&gt; None
+95014-5008 =&gt; None
+95014-4275 =&gt; None
+95014-2433 =&gt; None
+95014-5710 =&gt; None
+95014-1100 =&gt; None
+95914 =&gt; None
+95014-4573 =&gt; None
+95014-0501 =&gt; None
+95014-0500 =&gt; None
+95014-0503 =&gt; None
+95014-0502 =&gt; None
+95014-0505 =&gt; None
+95014-0504 =&gt; None
+95014-0507 =&gt; None
+95014-0506 =&gt; None
+95014-0509 =&gt; None
+95014-0508 =&gt; None
+95014-4208 =&gt; None
+95014-2302 =&gt; None
+95014-5359 =&gt; None
+95014-5355 =&gt; None
+95014-5354 =&gt; None
+95014-5353 =&gt; None
+95014-2309 =&gt; None
+95014-2308 =&gt; None
+95014-4200 =&gt; None
+95014-3521 =&gt; None
+95014-3526 =&gt; None
+95014-3527 =&gt; None
+95014-0434 =&gt; None
+95014-0437 =&gt; None
+95014-0436 =&gt; None
+95014-1928 =&gt; None
+95014-1929 =&gt; None
+95014-0433 =&gt; None
+95014-1927 =&gt; None
+95014-0439 =&gt; None
+95014-0438 =&gt; None
+95014-1922 =&gt; None
+95014-1923 =&gt; None
+95014-4538 =&gt; None
+95014-4539 =&gt; None
+95014-4530 =&gt; None
+95014-4531 =&gt; None
+95014-4532 =&gt; None
+95014-4533 =&gt; None
+95014-4534 =&gt; None
+95014-4535 =&gt; None
+95014-4536 =&gt; None
+95014-4537 =&gt; None
+95014-3638 =&gt; None
+95014-3639 =&gt; None
+95014-3636 =&gt; None
+95014-3637 =&gt; None
+95014-3518 =&gt; None
+95014-3635 =&gt; None
+95014-3632 =&gt; None
+95014-3633 =&gt; None
+95014-3630 =&gt; None
+95014-3631 =&gt; None
+95014-4246 =&gt; None
+95014-4247 =&gt; None
+95014-4244 =&gt; None
+95014-4245 =&gt; None
+95014-3562 =&gt; None
+95014-3563 =&gt; None
+95014-3560 =&gt; None
+95014-3561 =&gt; None
+95014-2582 =&gt; None
+95014-4248 =&gt; None
+95014-4249 =&gt; None
+95014-5708 =&gt; None
+95014-0721 =&gt; None
+95014-5722 =&gt; None
+95014-5723 =&gt; None
+95014-2909 =&gt; None
+95014-2908 =&gt; None
+95014-1849 =&gt; None
+95014-2903 =&gt; None
+95014-2902 =&gt; None
+95014-0533 =&gt; None
+95014-2907 =&gt; None
+95014-2906 =&gt; None
+95014-2905 =&gt; None
+95014-2904 =&gt; None
+95014-3182 =&gt; None
+95014-3184 =&gt; None
+95014-3185 =&gt; None
+95014-3188 =&gt; None
+95014-3189 =&gt; None
+95014-4406 =&gt; None
+95014-4407 =&gt; None
+95014-4400 =&gt; None
+95014-4401 =&gt; None
+95014-4402 =&gt; None
+95014-4403 =&gt; None
+95014-3369 =&gt; None
+95014-3360 =&gt; None
+95014-3361 =&gt; None
+95014-3362 =&gt; None
+95014-3363 =&gt; None
+95014-3364 =&gt; None
+95014-3365 =&gt; None
+95014-3366 =&gt; None
+95014-3367 =&gt; None
+95014-3169 =&gt; None
+95014-3160 =&gt; None
+95014-3161 =&gt; None
+95014-3167 =&gt; None
+95014-3164 =&gt; None
+95014-2348 =&gt; None
+95014-2344 =&gt; None
+95014-2347 =&gt; None
+95014-2346 =&gt; None
+95014-2341 =&gt; None
+95014-2340 =&gt; None
+95014-2343 =&gt; None
+95014-2342 =&gt; None
+95014-030 =&gt; None
+95014-2019 =&gt; None
+95014-2018 =&gt; None
+95014-3800 =&gt; None
+95014-2011 =&gt; None
+95014-2010 =&gt; None
+95014-2013 =&gt; None
+95014-2012 =&gt; None
+95014-2015 =&gt; None
+95014-2014 =&gt; None
+95014-2017 =&gt; None
+95014-2016 =&gt; None
+95133 =&gt; None
+95132 =&gt; None
+95131 =&gt; None
+95014-3802 =&gt; None
+95136 =&gt; None
+95135 =&gt; None
+95134 =&gt; None
+95014-3805 =&gt; None
+95138 =&gt; None
+95014-3552 =&gt; None
+95014-7624 =&gt; None
+95014-7627 =&gt; None
+95014-3550 =&gt; None
+95054 =&gt; None
+95050 =&gt; None
+95051 =&gt; None
+95052 =&gt; None
+95014-1663 =&gt; None
+95014-1662 =&gt; None
+95014-1660 =&gt; None
+95014-1666 =&gt; None
+95014-1665 =&gt; None
+95014-1664 =&gt; None
+95037-3635 =&gt; None
+95014-2914 =&gt; None
+95014-2915 =&gt; None
+95014-6006 =&gt; None
+95014-6007 =&gt; None
+95014-3328 =&gt; None
+95014-6008 =&gt; None
+95014-6009 =&gt; None
+95014-5108 =&gt; None
+95014-5107 =&gt; None
+95014-5102 =&gt; None
+95014-5103 =&gt; None
+95014-5100 =&gt; None
+95014-3321 =&gt; None
+95014-4262 =&gt; None
+95014-0534 =&gt; None
+95014-0535 =&gt; None
+95014-0536 =&gt; None
+95014-0537 =&gt; None
+95014-0530 =&gt; None
+95014-0531 =&gt; None
+95014-0532 =&gt; None
+95014-5721 =&gt; None
+95014-0538 =&gt; None
+95014-0539 =&gt; None
+95014-4323 =&gt; None
+95014-2912 =&gt; None
+95134-1358 =&gt; None
+95014-0400 =&gt; None
+95014-1933 =&gt; None
+95014-1932 =&gt; None
+95014-1931 =&gt; None
+95014-1930 =&gt; None
+95014-1937 =&gt; None
+95014-1936 =&gt; None
+95014-1935 =&gt; None
+95014-1934 =&gt; None
+95014-1939 =&gt; None
+95014-1938 =&gt; None
+95014-2913 =&gt; None
+95014-4529 =&gt; None
+95014-4528 =&gt; None
+95014-4527 =&gt; None
+95014-4526 =&gt; None
+95014-4525 =&gt; None
+95014-4524 =&gt; None
+95014-4523 =&gt; None
+95014-4522 =&gt; None
+95014-4521 =&gt; None
+95014-4520 =&gt; None
+95014-3629 =&gt; None
+95014-3628 =&gt; None
+95014-3625 =&gt; None
+95014-3624 =&gt; None
+95014-3627 =&gt; None
+95014-3626 =&gt; None
+95014-3621 =&gt; None
+95014-3620 =&gt; None
+95014-3623 =&gt; None
+95014-3622 =&gt; None
+95014-4255 =&gt; None
+95014-4254 =&gt; None
+95014-4257 =&gt; None
+95014-4256 =&gt; None
+95014-4251 =&gt; None
+95014-4250 =&gt; None
+95014-4253 =&gt; None
+95014-4252 =&gt; None
+95014-4259 =&gt; None
+95014-4258 =&gt; None
+95037-4210 =&gt; None
+95014-0717 =&gt; None
+95037-4217 =&gt; None
+95037-4214 =&gt; None
+95014-3300 =&gt; None
+95014-2976 =&gt; None
+95014-2974 =&gt; None
+95014-2975 =&gt; None
+95014-2972 =&gt; None
+95014-2970 =&gt; None
+95014-2971 =&gt; None
+95014-4413 =&gt; None
+95014-3196 =&gt; None
+95014-4411 =&gt; None
+95014-4410 =&gt; None
+95014-4417 =&gt; None
+95014-4416 =&gt; None
+95014-4415 =&gt; None
+95014-3190 =&gt; None
+95014-4419 =&gt; None
+95014-4418 =&gt; None
+95014-3199 =&gt; None
+95014-3198 =&gt; None
+95014-3378 =&gt; None
+95014-3377 =&gt; None
+95014-3376 =&gt; None
+95014-3375 =&gt; None
+95014-3374 =&gt; None
+95014-3373 =&gt; None
+95014-3372 =&gt; None
+95014-3371 =&gt; None
+95014-3370 =&gt; None
+95014-2918 =&gt; None
+95014-3478 =&gt; None
+95014-2398 =&gt; None
+95014-4651 =&gt; None
+95014-2919 =&gt; None
+95110 =&gt; None
+95014-6316 =&gt; None
+95014-2028 =&gt; None
+95014-2029 =&gt; None
+95014-6317 =&gt; None
+95014-2024 =&gt; None
+95014-2025 =&gt; None
+95014-2020 =&gt; None
+95014-2021 =&gt; None
+95014-2022 =&gt; None
+95014-2023 =&gt; None
+95014-6315 =&gt; None
+95128 =&gt; None
+95129 =&gt; None
+95124 =&gt; None
+95125 =&gt; None
+95126 =&gt; None
+95127 =&gt; None
+95120 =&gt; None
+95121 =&gt; None
+95122 =&gt; None
+95123 =&gt; None
+95014-3474 =&gt; None
+95014-7616 =&gt; None
+95014-7610 =&gt; None
+95014-3475 =&gt; None
+95014-2126 =&gt; None
+95014-3476 =&gt; None
+95014-3477 =&gt; None
+95014-3471 =&gt; None
+95014-1618 =&gt; None
+95014-1619 =&gt; None
+95014-1616 =&gt; None
+95014-1617 =&gt; None
+95014-1614 =&gt; None
+95014-1615 =&gt; None
+95014-1612 =&gt; None
+95014-1613 =&gt; None
+95014-1610 =&gt; None
+95014-1611 =&gt; None
+95014-3539 =&gt; None
+95014-4204 =&gt; None
+95014-3538 =&gt; None
+95014-6014 =&gt; None
+95014-6017 =&gt; None
+95014-6016 =&gt; None
+95014-6011 =&gt; None
+95014-6010 =&gt; None
+95014-6013 =&gt; None
+95014-6019 =&gt; None
+95014-3551 =&gt; None
+95014-5239 =&gt; None
+95014-5118 =&gt; None
+95014-5115 =&gt; None
+95014-5114 =&gt; None
+95014-5117 =&gt; None
+95014-5111 =&gt; None
+95014-5110 =&gt; None
+95014-5113 =&gt; None
+95014-1125 =&gt; None
+95014-1126 =&gt; None
+95014-1435 =&gt; None
+95014-2923 =&gt; None
+95014-4334 =&gt; None
+95014-3197 =&gt; None
+95014-4412 =&gt; None
+95014-3195 =&gt; None
+95014-0236 =&gt; None
+95014-3194 =&gt; None
+95014-3193 =&gt; None
+95014-0238 =&gt; None
+95014-3427 =&gt; None
+95014-3191 =&gt; None
+95014-4414 =&gt; None
+95014-1946 =&gt; None
+95014-1947 =&gt; None
+95014-1944 =&gt; None
+95014-1945 =&gt; None
+95014-1942 =&gt; None
+95014-2924 =&gt; None
+95014-1940 =&gt; None
+95014-1941 =&gt; None
+95014-1948 =&gt; None
+95014-1949 =&gt; None
+95014-2124 =&gt; None
+95014-4642 =&gt; None
+95014-4643 =&gt; None
+95014-4640 =&gt; None
+95014-3613 =&gt; None
+95014-3614 =&gt; None
+95014-3615 =&gt; None
+95014-3616 =&gt; None
+95014-4645 =&gt; None
+95014-0523 =&gt; None
+95014-0522 =&gt; None
+95014-0521 =&gt; None
+95014-0520 =&gt; None
+95014-0527 =&gt; None
+95014-0526 =&gt; None
+95014-0525 =&gt; None
+95014-3548 =&gt; None
+95037-4209 =&gt; None
+95014-2926 =&gt; None
+95014-0706 =&gt; None
+95014-0708 =&gt; None
+95014-2969 =&gt; None
+95014-2968 =&gt; None
+95014-2965 =&gt; None
+95014-2964 =&gt; None
+95014-2967 =&gt; None
+95014-2966 =&gt; None
+95014-2961 =&gt; None
+95014-2960 =&gt; None
+95014-2963 =&gt; None
+95014-2962 =&gt; None
+95014-4465 =&gt; None
+95014-4462 =&gt; None
+95014-4460 =&gt; None
+95014-4461 =&gt; None
+95014-5088 =&gt; None
+95014-3148 =&gt; None
+95014-3149 =&gt; None
+95014-3422 =&gt; None
+95014-3144 =&gt; None
+95014-3147 =&gt; None
+95014-3142 =&gt; None
+95014-5082 =&gt; None
+95014-4268 =&gt; None
+95014-4269 =&gt; None
+95014-3818 =&gt; None
+95014-3819 =&gt; None
+95014-2362 =&gt; None
+95014-2361 =&gt; None
+95014-2360 =&gt; None
+95014-4260 =&gt; None
+95014-4261 =&gt; None
+95014-3810 =&gt; None
+95014-4263 =&gt; None
+95014-3816 =&gt; None
+95014-3817 =&gt; None
+95014-3546 =&gt; None
+95014-3815 =&gt; None
+95014-2149 =&gt; None
+95014-2148 =&gt; None
+95014-2147 =&gt; None
+95014-2146 =&gt; None
+95014-2145 =&gt; None
+95014-2144 =&gt; None
+95014-2143 =&gt; None
+95014-2142 =&gt; None
+95014-2141 =&gt; None
+95014-2140 =&gt; None
+95014-2389 =&gt; None
+95014-2380 =&gt; None
+95014-2032 =&gt; None
+95014-2031 =&gt; None
+95014-2030 =&gt; None
+95014-2037 =&gt; None
+95014-2036 =&gt; None
+95014-2035 =&gt; None
+95014-2034 =&gt; None
+95014-2039 =&gt; None
+95014-2038 =&gt; None
+95014-7601 =&gt; None
+95014-7607 =&gt; None
+95014-7604 =&gt; None
+95014-3540 =&gt; None
+95032 =&gt; None
+95033 =&gt; None
+95030 =&gt; None
+95014-1609 =&gt; None
+95037 =&gt; None
+95035 =&gt; None
+95014-1605 =&gt; None
+95014-1604 =&gt; None
+95014-1607 =&gt; None
+95014-1606 =&gt; None
+95014-1601 =&gt; None
+95014-1600 =&gt; None
+95037-3614 =&gt; None
+95037-4119 =&gt; None
+95014-6028 =&gt; None
+95014-6029 =&gt; None
+95014-1735 =&gt; None
+95014-6020 =&gt; None
+95014-6021 =&gt; None
+95014-6022 =&gt; None
+95014-6023 =&gt; None
+95014-6024 =&gt; None
+95014-6025 =&gt; None
+95014-6026 =&gt; None
+95014-6027 =&gt; None
+95014-3545 =&gt; None
+95014-3657 =&gt; None
+95014-0567 =&gt; None
+95014-5126 =&gt; None
+95014-0566 =&gt; None
+95014-0565 =&gt; None
+95014-5260 =&gt; None
+95014-1421 =&gt; None
+95014-3528 =&gt; None
+95014-5267 =&gt; None
+95014-0562 =&gt; None
+95014-0560 =&gt; None
+95014-3529 =&gt; None
+95014-1701 =&gt; None
+95014-1702 =&gt; None
+95014-6038 =&gt; None
+95014-6034 =&gt; None
+95014-3446 =&gt; None
+95014-2931 =&gt; None
+95014-6032 =&gt; None
+95014-1955 =&gt; None
+95014-1954 =&gt; None
+95014-1957 =&gt; None
+95014-1956 =&gt; None
+95014-1951 =&gt; None
+95014-1950 =&gt; None
+95014-1953 =&gt; None
+95014-1952 =&gt; None
+95014-1959 =&gt; None
+95014-1958 =&gt; None
+95014-3301 =&gt; None
+95014-3607 =&gt; None
+95014-3606 =&gt; None
+95014-3605 =&gt; None
+95014-5259 =&gt; None
+95014-4655 =&gt; None
+95014-4654 =&gt; None
+95014-3601 =&gt; None
+95014-4656 =&gt; None
+95014-4659 =&gt; None
+95014-5253 =&gt; None
+95014-5250 =&gt; None
+95014-5703 =&gt; None
+95014-5704 =&gt; None
+95014-5257 =&gt; None
+95014-3609 =&gt; None
+95014-5707 =&gt; None
+95014-2557 =&gt; None
+95014-2558 =&gt; None
+95014-2950 =&gt; None
+95014-2952 =&gt; None
+95014-2953 =&gt; None
+95014-2954 =&gt; None
+95014-2955 =&gt; None
+95014-2956 =&gt; None
+95014-2957 =&gt; None
+95014-2958 =&gt; None
+95014-2959 =&gt; None
+95014-3522 =&gt; None
+95014-3432 =&gt; None
+95014-2935 =&gt; None
+95014-3523 =&gt; None
+95014-3433 =&gt; None
+95014-3153 =&gt; None
+95014-3152 =&gt; None
+95014-3151 =&gt; None
+95014-3156 =&gt; None
+95014-3155 =&gt; None
+95014-3158 =&gt; None
+95014-0607 =&gt; None
+95014-0605 =&gt; None
+95014-3809 =&gt; None
+95014-3808 =&gt; None
+95014-3559 =&gt; None
+95014-3558 =&gt; None
+95014-3557 =&gt; None
+95014-3556 =&gt; None
+95014-3555 =&gt; None
+95014-3554 =&gt; None
+95014-3553 =&gt; None
+95014-3804 =&gt; None
+95014-4271 =&gt; None
+95014-4270 =&gt; None
+95014-570 =&gt; None
+95014-3436 =&gt; None
+95014-3458 =&gt; None
+95014-3437 =&gt; None
+95014-2929 =&gt; None
+95014-3459 =&gt; None
+95014-2040 =&gt; None
+95148 =&gt; None
+95014-4507 =&gt; None
+95014-4506 =&gt; None
+95014-3525 =&gt; None
+95014-1630 =&gt; None
+95014-1631 =&gt; None
+95014-1632 =&gt; None
+95008 =&gt; None
+95014-1638 =&gt; None
+95014-1639 =&gt; None
+95002 =&gt; None
+95014-3647 =&gt; None
+95014-3646 =&gt; None
+95014-6385 =&gt; None
+95014-0494 =&gt; None
+95014-6381 =&gt; None
+95014-3644 =&gt; None
+95014-3108 =&gt; None
+95014-3109 =&gt; None
+95014-4338 =&gt; None
+95014-4339 =&gt; None
+95014-4658 =&gt; None
+95014-3516 =&gt; None
+95014-1704 =&gt; None
+95014-3515 =&gt; None
+95014-6039 =&gt; None
+95014-1703 =&gt; None
+95014-6037 =&gt; None
+95014-6036 =&gt; None
+95014-6035 =&gt; None
+95014-4234 =&gt; None
+95014-6033 =&gt; None
+95014-0492 =&gt; None
+95014-6031 =&gt; None
+95014-6030 =&gt; None
+95014-4332 =&gt; None
+95014-2999 =&gt; None
+95014-4333 =&gt; None
+95014-4330 =&gt; None
+95014-3453 =&gt; None
+95014-4331 =&gt; None
+95014-4336 =&gt; None
+95014-4337 =&gt; None
+95014-3454 =&gt; None
+95014-3107 =&gt; None
+95014-1418 =&gt; None
+95014-5134 =&gt; None
+95014-5133 =&gt; None
+95014-5131 =&gt; None
+95014-5130 =&gt; None
+95014-5139 =&gt; None
+95014-3451 =&gt; None
+94089 =&gt; None
+94088-3707 =&gt; None
+94807 =&gt; None
+94084 =&gt; None
+94085 =&gt; None
+94086 =&gt; None
+94087 =&gt; None
+94087‎ =&gt; None
+94089-2701 =&gt; None
+94086-6406 =&gt; None
+CUPERTINO =&gt; None
 </pre>
 </div>
 </div>
@@ -1861,7 +5915,10 @@ Number of ways: 124414
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<blockquote><p>When we audit the data, it was very clear that although there are a few street names need to be cleaned, the dataset is fairly well-cleaned. It is well-structured enough to be able to generate user-content like Google did with its Google Maps apps (restaurant ranking, neighborhood safety, building review,etc.) Combining these users data, we can come up with a recommendation engine similar with Google Places. There are still extra spaces we can explore, one of which is to clean up multiple phone data and ZIP codes, individual can have different method of extracting and define these data. Also, we can come up with an automation script to pull data from Google Maps API and update it automatically for the OpenStreetMap since each node has a coordinate (lattitude, longtitude).</p>
+<blockquote><p><strong><em>Ideas to improve data quality of OSM:</em></strong></p>
+<p>When we audit the data, it was very clear that although there are minor error caused by human input, the dataset is fairly well-cleaned. Considering there're hundreds of contributors for this map, there is a great numbers of human errors in this project. I'd recommend a srtuctured input form so everyone can input the same data format to reduce this error or we can create a more robust script to clean the data regularly on a bi-weekly basis. Moreover, we can incentivize users by gamify the contribution process (e.g users with the most contribution with least errors), then we can create a recommendation engine to leverage these data (restaurant recommendation, building  Last, since OpenStreetMaps is an open source project, there're still a lot of areas left unexplored as people tend to focus on a certain key areas and left other part outdated. we can resolve this issue by cross-referencing/cross-validating missing data from other database like Google API. Since each node has a coordinate (lattitude &amp; longtitude), this process is definitely do-able.</p>
+<p><strong><em>Potential cost of the implementation:</em></strong></p>
+<p>There're few potential issues could you see that may arise from the implementation of this solution. One of which is the amount of effort to engineer all these processes and the cost of creating, auditing &amp; maintaining these initiatives could be so overwhelm and require a dedicated team responsible for all these projects.</p>
 </blockquote>
 
 </div>
