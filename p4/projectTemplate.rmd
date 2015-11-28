@@ -10,15 +10,221 @@ TITLE by YOUR_NAME_HERE
 # You should set echo=FALSE for all code chunks in your file.
 
 library(ggplot2)
+library(ggthemes)
+library(dplyr)
+library(gridExtra)
+library(tidyr)
+library(MASS)
+library(scales)
+library(GGally)
 ```
+
+#Abstract
+Prosper.com is a P2P lending marketplace, similarly with LendingClub.com, with the notorious IPO in 2014. Prosper Loan data provided by Udacity was last updated 3/11/2014
+
 
 ```{r echo=FALSE, Load_the_Data}
 # Load the Data
+getwd()
+setwd('/Users/tommyly/Documents/Udacity/p4/data')
+# Read the csv file
+prosper = read.csv("prosperLoanData.csv")
+```
 
+Structure of the dataset
+```{r echo=FALSE, data_structure}
+names(prosper)
+str(prosper)
+nrow(prosper)
+ncol(prosper)
 ```
 
 # Univariate Plots Section
+
+##1. Borrower Rating from Prosper
 ```{r echo=FALSE, Univariate_Plots}
+prosper$ProsperRating <-
+  factor(prosper$ProsperRating..Alpha,
+         levels = c('AA', 'A', 'B', 'C', 'D', 'E', 'HR', 'NA'))
+ggplot(data = prosper, aes(ProsperRating)) +
+  geom_histogram(aes(fill = ProsperRating)) +
+  ggtitle('Borrower Rating from Prosper') +
+  xlab('Rating') +
+  ylab('Number of Loans')
+```
+
+##2. Borrower Score from Prosper
+```{r}
+prosper$ProsperScore = factor(prosper$ProsperScore)
+ggplot(data = prosper, aes(x = ProsperScore)) + 
+        geom_bar(color = "black", fill = '#007EE5') +
+        theme(axis.text.x = element_text(angle = 60, vjust = 0.6)) +
+        xlab("Score") + ggtitle("Borrower Score from Prosper")
+```
+
+##3. Income Range
+```{r echo=FALSE, Univariate_Plots}
+prosper$IncomeRange = factor(prosper$IncomeRange, 
+                             levels=c("Not employed", "$0", "$1-24,999", 
+                                    "$25,000-49,999", "$50,000-74,999", 
+                                    "$75,000-99,999", "$100,000+", 
+                                    "Not displayed"))
+ggplot(data = prosper, aes(IncomeRange)) +
+  geom_bar(color="black", fill = '#007EE5') +
+  ggtitle('Borrower Income Range') +
+  xlab('Income') +
+  theme(axis.text.x = element_text(angle = 60, vjust = 0.6)) +
+  ylab('Count')
+```
+
+##4. Debt to Income Ratio
+```{r}
+ggplot(data = prosper, aes(x = DebtToIncomeRatio)) +                
+        geom_histogram(color = "black", fill = '#007EE5', binwidth = 0.05) +
+        xlim(0, quantile(prosper$DebtToIncomeRatio, prob = 0.99, na.rm=TRUE)) +
+        ggtitle("Debt To Income Ratio") +
+        xlab("Debt to Income Ratio") +
+        ylab("Count")
+```
+
+##5. Borrower's Purpose of Loan 
+
+```{r}
+x <- c('Debt Consolidation', 
+                                'Home Improvement','Business', 
+                                 'Personal Loan', 
+                                 'Student Use', 
+                                 'Auto', 
+                                 'Baby & Adoption',
+                                 'Boat', 
+                                 'Cosmetic Procedure', 
+                                 'Engagement Ring', 
+                                 'Green Loans', 
+                                 'Household Expenses', 
+                                 'Large Purchases', 
+                                 'Medical/Dental', 
+                                 'Motorcycle', 'RV',
+                                 'Taxes', 'Vacation',
+                                 'Wedding Loans', 
+                                 'Other', 
+                                 'Not Available')
+prosper$ListingCategory <- factor(prosper$ListingCategory..numeric., 
+                                  levels = c(1:6,8:20,7,0), labels = x)
+
+ggplot(prosper, aes(ListingCategory, ymax = max(..count..))) +
+  geom_bar(color="black", fill = '#007EE5') +
+        theme(axis.text.x = element_text(angle = 90, vjust = 0.6)) + 
+        stat_bin(geom="text", binwidth = 500, size = 3,
+                 aes(label=..count.., vjust=-0.9, hjust=0.5)) +
+        ggtitle("The Purpose of the Loan Listing") +
+        xlab("Listing Category") +
+        ylab("Number of loans")
+```
+
+## 6. Number of Loans split by Year
+```{r}
+# set Loan Orignal Date in Year-Month-Date format
+prosper$LoanOriginationDate <- as.POSIXct(prosper$LoanOriginationDate, format="%Y-%m-%d")
+
+prosper$LoanOriginationDate.year <-prosper$LoanOriginationDate %>%
+                                                  format('%Y') %>%
+                                                          strtoi()
+ggplot(prosper, aes(as.factor(LoanOriginationDate.year))) +
+  geom_histogram(color = 'black', fill = '#007EE5') +
+  ggtitle('Number of Loans by Year') +
+  stat_bin(geom="text", aes(label=..count.., vjust=-0.9, hjust=0.5)) +
+  xlab('Year') +
+  ylab('Number of Loans')
+```
+
+## 7. Number of Loans split by Month
+```{r}
+months <- c('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')
+
+prosper$LoanOriginationDate.month=format(prosper$LoanOriginationDate, "%b")
+ggplot(prosper, aes(LoanOriginationDate.month)) +
+  geom_histogram(color = 'black', fill = '#007EE5') +
+  facet_wrap(~LoanOriginationDate.year) +
+  ggtitle('Number of Loans by Month') +
+  xlab('Month') +
+  ylab('Number of Loans')
+
+```
+
+## 9. Number of Loan Split by Amount
+```{r}
+ggplot(prosper, aes(LoanOriginalAmount)) + 
+  geom_histogram(binwidth = 2000) +
+  scale_x_continuous(
+    limits = c(0,quantile(prosper$LoanOriginalAmount, 0.99, na.rm = TRUE)),
+    breaks = seq(0, quantile(prosper$LoanOriginalAmount, 0.99, na.rm = TRUE), 2000)) +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1))
+```
+
+##10. Employment status
+```{r}
+ggplot(aes(x = EmploymentStatus), data = prosper) +
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+##11. Annual income
+```{r}
+ggplot(aes(x = StatedMonthlyIncome), data = prosper) +
+  geom_histogram(binwidth = 500) +
+    scale_x_continuous(
+      limits = c(0, quantile(prosper$StatedMonthlyIncome, 0.99, na.rm = TRUE)),
+      breaks = seq(0, quantile(prosper$StatedMonthlyIncome, 0.99, na.rm = TRUE), 1000)) +
+  theme(axis.text.x = element_text(angle = 90))
+```
+
+## 12. Employment length
+```{r}
+ggplot(aes(x=EmploymentStatusDuration/12), 
+       data=subset(prosper, 
+                   EmploymentStatus %in% 
+                       c("Employed", "Full-time", 
+                         "Part-time", "Self-employed"))) + 
+    geom_histogram(binwidth = 1, fill='#007EE5', color='black') +
+    labs(title='Length of Employment', x='years of employment') +
+    scale_x_continuous(breaks=seq(0, quantile(prosper$EmploymentStatusDuration, 0.99, na.rm = TRUE), 1))
+```
+
+##13. Borrower's Rate
+```{r}
+ggplot(data = prosper, aes(x = BorrowerRate)) + 
+        geom_histogram(color = "black", fill = '#007EE5', binwidth = 0.01) +
+        xlab("Rate") +
+        ggtitle("Borrower Rate") 
+```
+
+## 14.  Most common term loan
+```{r}
+prosper$Term <- factor(prosper$Term)
+ggplot(data = prosper, aes(x = Term, ymax = max(..count..))) + 
+        geom_bar(fill='#007EE5') +
+        stat_bin(geom="text", size = 4,
+                 aes(label=..count.., vjust=-0.9))+
+        ggtitle("Length of the Loan")
+```
+
+## 15. Investor perspective
+```{r}
+ggplot(aes(x=LenderYield), data=prosper) + 
+    geom_histogram(binwidth=0.005,fill = '#007EE5', color='black') +
+    scale_x_continuous(breaks=seq(0, 0.5, 0.05)) + 
+    ggtitle("The Lender Yield on the Loan")
+```
+
+## 16. Number of investors invest in a loan
+```{r}
+
+ggplot(aes(x=Investors), data= prosper) + 
+    geom_histogram(binwidth=10, 
+                   fill= '#007EE5', color='black') +
+    labs(title="The Number of Investors Funded the Loan\n ")
+table(prosper$Investors==1)
 
 ```
 
@@ -35,11 +241,81 @@ library(ggplot2)
 ### Of the features you investigated, were there any unusual distributions? Did you perform any operations on the data to tidy, adjust, or change the form of the data? If so, why did you do this?
 
 
-
 # Bivariate Plots Section
-```{r echo=FALSE, Bivariate_Plots}
 
+## 1. GGPairs sample
+```{r echo=FALSE, Bivariate_Plots}
+prosper$BorrowerAPR <- factor(prosper$BorrowerAPR)
+prosper$BorrowerState <- factor(prosper$BorrowerState)
+
+prosper.sample <- sample_n(prosper, 500)
+
+#Borrower Profile
+ggpairs(prosper.sample[ ,c("IncomeRange",
+                          "ProsperScore",       
+                          "LoanOriginalAmount", 
+                          "StatedMonthlyIncome", 
+                          "DebtToIncomeRatio",
+                          "EmploymentStatus",
+                          "BorrowerRate",
+                          "BorrowerAPR"
+                          )],
+        diag=list(continuous="density", 
+                  discrete="bar"), 
+        axisLabels="none")
+
+#Investor Profile Profile
+ggpairs(prosper.sample[ ,c("LenderYield",
+                   "ProsperRating..Alpha.",
+                   "BorrowerAPR",
+                   "LoanOriginalAmount", 
+                   "ListingCategory")],
+        diag=list(continuous="density", 
+                  discrete="bar"), 
+        axisLabels="none")
 ```
+
+##2.Prosper Data - BorrowerRate - Prosper Rating Numeric
+```{r}
+prosper$ProsperRating..numeric. <- factor(prosper$ProsperRating..numeric.)
+ggplot(data = prosper, aes(x = ProsperRating..numeric., y = BorrowerRate)) +
+        geom_boxplot(aes(fill = ProsperRating..numeric.)) +
+        xlab("Prosper Rating") +
+        ggtitle("Borrower Rate for Different Prosper Rating")
+```
+
+##3. Loan Status per Rating
+```{r}
+# create a new variable summarizing the result of each loan
+prosper <- prosper %>% mutate(Status = ifelse(LoanStatus %in%
+                     c("Chargedoff", "Defaulted"), 0,
+                     ifelse(LoanStatus %in% 
+                     c("Completed", "Current", "FinalPaymentInProgress"), 2, 
+                     ifelse(LoanStatus %in% 
+                     "Cancelled",3,1))))
+prosper$Status <- factor(prosper$Status, levels = 0:3, 
+                         labels = c("Defaulted", "Past Due", "Current or Paid","Cancelled"))
+
+ggplot(data = arrange(prosper,Status), aes(x = ProsperRating..numeric., 
+                      y = LoanOriginalAmount, fill = Status)) +
+                      geom_bar(stat = "identity") +
+                      xlab("Prosper Rating") +
+                      xlab("Original Loan Amount") +
+        ggtitle("Orignal Loan Amount for Different Prosper Rating")
+```
+
+##4. Borrower Profile - Yearly Income ~ Prosper Rating Categorial
+```{r}
+ggplot(aes(y = StatedMonthlyIncome *12 , x =ProsperRating..numeric. ), 
+       data = subset(prosper,prosper$StatedMonthlyIncome > 0 &
+                       prosper$StatedMonthlyIncome < 9000)) +
+      geom_boxplot(aes(fill = ProsperRating..numeric.)) +
+      xlab("Prosper Rating") +
+      ylab("Yearly Income") +
+      ggtitle("Yearly Income for Different Prosper Rating")
+```
+
+##5. 
 
 # Bivariate Analysis
 
