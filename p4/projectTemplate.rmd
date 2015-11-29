@@ -222,7 +222,6 @@ ggplot(aes(x=LenderYield), data=prosper) +
 
 ## 16. Number of investors invest in a loan
 ```{r}
-
 ggplot(aes(x=Investors), data= prosper) + 
     geom_histogram(binwidth=10, 
                    fill= '#007EE5', color='black') +
@@ -367,7 +366,6 @@ ggplot(aes(x = DebtToIncomeRatio.bucket, y = BorrowerRate), data = prosper) +
   ylab("Borrower Rate") +
   xlab ("Debt To Income Ratio Bucket")
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
 ```
 
 #7 Investor profile - Lender Yield vs Rating 
@@ -410,7 +408,48 @@ ggplot(aes(y = LoanOriginalAmount, x = Term), data = prosper) +
 
 # Multivariate Plots Section
 
+#1. Debt To Income Ratio - Prosper Rating - Lender Yield
 ```{r echo=FALSE, Multivariate_Plots}
+ggplot(aes(x= DebtToIncomeRatio.bucket, y=LenderYield, 
+                 color=ProsperRating.alpha), 
+       data=na.omit(filter(prosper, DebtToIncomeRatio < 1))) +
+    geom_point(alpha = 0.5, position = "jitter") +
+    scale_y_log10() +
+    facet_grid(.~ ProsperRating.alpha ) +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1))+
+    ggtitle("Lender Yield (Log 10) vs Debt to Income Ratio 
+            and Prosper Rate")
+```
+
+#2. Lender Yield vs Prosper Rate vs Term
+```{r}
+plot1 <- ggplot(aes(x= ProsperRating.alpha, y=LenderYield, 
+                 color=ProsperRating.alpha), 
+       data=na.omit(filter(prosper, DebtToIncomeRatio < 1))) +
+    geom_point(alpha = 0.8, position = "jitter") +
+    facet_grid( .~ Term  ) +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+    ggtitle("Lender Yield vs Term
+            and Prosper Rate")
+
+plot2 <- ggplot(aes(x= ProsperRating.alpha, y= LenderYield ), 
+       data=na.omit(filter(prosper, DebtToIncomeRatio < 1))) +
+    geom_boxplot(aes(fill = ProsperRating.alpha)) +
+    facet_grid( .~ Term   ) +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+    ggtitle("Lender Yield vs Term and Prosper Rate")
+
+grid.arrange(plot1, plot2, ncol=1, nrow =2)
+```
+
+#3. Borrower Rate vs Year vs Prosper Rating
+```{r}
+ggplot(aes(x= ProsperRating.alpha, y= BorrowerRate ), 
+       data=na.omit(filter(prosper))) +
+    geom_boxplot(aes(fill = ProsperRating.alpha)) +
+    facet_grid( .~ LoanOriginationDate.year) +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+    ggtitle("Lender Yield vs Term and Prosper Rate")
 
 ```
 
