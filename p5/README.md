@@ -9,9 +9,10 @@ Question 1: *Summarize for us the goal of this project and how machine learning 
 
 > I use `scikit-learn` & various machine learning techniques to predict "Person fo Interest", detecting culpable person using both financial & email-data. Through exploratory data analysis and CSV check, I was able 3 records need to be removed:
 
-> -`TOTAL`: Through visualising using scatter-plot matrix. We found `TOTAL` are the extreme outlier since it comprised every financial data in it.
-> - `THE TRAVEL AGENCY IN THE PARK`: This must be a data-entry error that it didn't represent an individual.
-> -``LOCKHART EUGENE E`: This record contained only NaN data.
+>
+- `TOTAL`: Through visualising using scatter-plot matrix. We found `TOTAL` are the extreme outlier since it comprised every financial data in it.
+- `THE TRAVEL AGENCY IN THE PARK`: This must be a data-entry error that it didn't represent an individual.
+- `LOCKHART EUGENE E`: This record contained only NaN data.
 
 Question 2: *What features did you end up using in your POI identifier, and what selection process did you use to pick them? Did you have to do any scaling? Why or why not? As part of the assignment, you should attempt to engineer your own feature that does not come ready-made in the dataset -- explain what feature you tried to make, and the rationale behind it. (You do not necessarily have to use it in the final analysis, only engineer and test it.) In your feature selection step, if you used an algorithm like a decision tree, please also give the feature importances of the features that you use, and if you used an automated feature selection function like SelectKBest, please report the feature scores.*
 
