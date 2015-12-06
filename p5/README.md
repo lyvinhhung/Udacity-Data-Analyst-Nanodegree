@@ -39,19 +39,4 @@ KMeans(copy_x=True, init='k-means++', max_iter=300, n_clusters=2, n_init=10,
       verbose=0)
 ```
 
-
-I tried several algorithms, with a K-means clustering algorithm performing reasonably sufficient. Unsurprisingly, K-means clustering performed well, as the objective was to segregate the dataset into POI/non-POI groups. I also tested, with marginal success, an AdaBoost classifier, a support vector machine, a random forest classifier, and stochastic gradient descent (using logistic regression).
-
-I tuned the parameters of the logistic regression and K-means clustering classifiers using exhaustive searches with the following parameters:
-
-L
-
-Logistic regression: C (inverse regularization parameter), tol (tolerance), and class_weight (over/undersampling)
-K-means clustering: tol
-K-means clustering was initialized with K (n_clusters) of 2 to represent POI and non-POI clusters. Additionally, K-means performed better by including only the 8 best features and the 2 additional features.
-
-Interestingly, the inclusion of auto-weighting in logistic regression (selection of feature weights inversely proportional to class frequencies) improved recall at the expense of precision. I opted to remove auto-weighting and maintain the evenly weighted feature-scaling discussed in the previous section.
-
-The other algorithms were tuned experimentally, with unremarkable improvement.
-
-
+__Question3:*What is validation, and what’s a classic mistake you can make if you do it wrong? How did you validate your analysis?*__
