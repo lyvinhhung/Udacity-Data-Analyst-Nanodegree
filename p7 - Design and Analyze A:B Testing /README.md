@@ -3,6 +3,7 @@ by Tommy Ly, in fulfillment of Udacity's [Data Analyst Nanodegree](https://www.u
 
 ### Experiment Design
 #### Metric Choice
+> 
 
 ### References:
 - [Introduction to Machine Learning (Udacity)](https://www.udacity.com/course/viewer#!/c-ud120-nd)
