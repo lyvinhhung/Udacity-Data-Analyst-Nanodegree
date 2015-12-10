@@ -5,7 +5,7 @@ by Tommy Ly, in fulfillment of Udacity's [Data Analyst Nanodegree](https://www.u
 #### 1.1 Metric Choice
 > List which metrics you will use as invariant metrics and evaluation metrics here.
 
-+ Invariant metrics: Number of cookies, Number of clicks, Click-through-probability
++ Invariant metrics: Number of cookies, Number of clicks
 + Evaluation metrics: Gross conversion, Retention, Net conversion
  
 
@@ -70,14 +70,51 @@ With daily traffic of 40000, I'd direct 70% of my traffic (28000) to the experim
 The experiment would not affect whole operation of existing paying customers as well as highly motivated students (I'd suspect comprised the majority of the net conversion) and also would not affect Udacity content. Therefore, the whole experiment would not considered as highly risky. However, I'd not direct all traffic to experiment to prevent small bug in the process.
 
 
-### 2. Experiment Analysis
-#### 2.1 Sanity Checks
+### 2. Experiment Analysis ([data](https://docs.google.com/spreadsheets/d/1Mu5u9GrybDdska-ljPXyBjTpdZIUev_6i7t4LRDfXM8/edit#gid=0))
+#### 2.1 Sanity Checks 
 > For each of your invariant metrics, give the 95% confidence interval for the value you expect to observe, the actual observed value, and whether the metric passes your sanity check.
+
+Calculation:
+
+```
+1. Number of cookies:
+Total Control group pageview: 345543
+Total Experiment group pageview: 344660 
+Total pageview: 690203
+Probability of cookie in control or experiment group: 0.5
+SE = sqrt(0.5*(1-0.5)*(1/345543+1/344660) = 0.0012
+Margin of error (m) = SE * 1.96 = 0.00235
+Confidence Interval = [0.5-m,0.5+m] = [0.4977,0.5023]
+Observed value  = 344660/690203 = 0.5006
+
+2. Number of clicks: 
+Total Control group clicks: 28378
+Total Experiment group cliks: 28325
+Total pageview: 56703
+Probability of cookie in control or experiment group: 0.5
+SE = sqrt(0.5*(1-0.5)*(1/28378+1/28325) = 0.0041
+Margin of error (m) = SE * 1.96 = 0.0082
+Confidence Interval = [0.5-m,0.5+m] = [0.4917,0.5082]
+Observed value  = 28378/56703 = 0.50046
+```
+
+Results:
+```
+Number of cookies: [0.4977,0.5023]; observed .5006; PASS Sanity Check
+Number of clicks : [0.4917,0.5082]; observed .50046; PASS Sanity Check
+```
+#### 2.1 Result Analysis
+##### 2.1.1 Effect Size Tests
+> For each of your evaluation metrics, give a 95% confidence interval around the difference between the experiment and control groups. Indicate whether each metric is statistically and practically significant.
+
+
+##### 2.1.2 Effect Size Tests
+> For each of your evaluation metrics, do a sign test using the day-by-day data, and report the p-value of the sign test and whether the result is statistically significant. 
+
 
 ### References:
 - [Introduction to A/B Testing (Udacity)](https://www.udacity.com/course/viewer#!/c-ud120-nd)
 - [Evan Miller](http://www.evanmiller.org/ab-testing/sample-size.html)
-- 
 
 ### Files
 - `readme`: main submission file - Analyze & Design A-B Testing
