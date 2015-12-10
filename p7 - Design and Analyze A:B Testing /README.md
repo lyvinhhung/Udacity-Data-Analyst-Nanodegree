@@ -186,7 +186,23 @@ Net Conversion: unfortunately, net conversion results are both statistically and
 
 Although it didn't affect neversion, I'd highly recommend to launch the experiment since it would cut cost for Udacity team.
 
-### 
+### 3. Follow-up experiment
+> Give a high-level description of the follow up experiment you would run, what your hypothesis would be, what metrics you would want to measure, what your unit of diversion would be, and your reasoning for these choices.
+
+For myself as a Udacity student, I've experienced initial frustration for not meeting the prerequisite 1 year ago, when I was having no knowledge of Python and statistics at all. I ended up paying Udacity for 1 month without understand any course materials and not even able to understand the first project. This would leads me with so much frustration and decided to quit the program half-heartedly, concluded I was not meant to learn data analysis. Luckily, I found other resources and it helped me learned the foundation for the program and now I'm almost completeing the whole nanodegree. As a student, I know the feeling of being inadequate & inferior; thus, I proposed Udacity to launch a new initiative to help those students in need, which is: __A new mini-course required students to complete the project within that 14 days trial__. The course will cover basic knowledge of Python & Data Analysis which would be doable if the students spent minimum 10 hours/week. Through this mini-course, students know the level of fluency the nanodegree required and also act as an encouragement that if they willing to learn, course completion is a possible task. 
+
+__Null hypothesis__ by creating such mini-course, it will not increase Retention by a practically significant amount.
+
+The mini-course will be randomly assigned to a Control & Experiment Group. The whole courses for Control Group would not change and remained the same while courses for Experiment Group will have this one mini-course (which required them to finish within 14 days)
+
+__Unit of diversion__ is  cookie, users once enrolled in this new mini-course will be tracked by user-id and this change only impacts what happens after a free trial account is created.
+
+__Invariant metric__ is number of cookies since unit of diversion is cookie, and because users are not exposed to this new course after hitting "Free Trials" screener button. 
+
+__Evaluation metric__ is Retention, if the CI shows practically and statistically significant, will increase the eventual revenue by having more people signing up for the program. 
+
+If Retention is positive and practically significant at the end of the experiment, we can roll out this new course to whole Nanodegree program and added the mini-course as the official course of Data Analyst nanodegree program.
+
 ### References:
 - [Introduction to A/B Testing (Udacity)](https://www.udacity.com/course/viewer#!/c-ud120-nd)
 - [Evan Miller](http://www.evanmiller.org/ab-testing/sample-size.html)
