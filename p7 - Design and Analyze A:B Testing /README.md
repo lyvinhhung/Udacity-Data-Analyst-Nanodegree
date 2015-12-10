@@ -107,7 +107,26 @@ Number of clicks : [0.4917,0.5082]; observed .50046; PASS Sanity Check
 ##### 2.1.1 Effect Size Tests
 > For each of your evaluation metrics, give a 95% confidence interval around the difference between the experiment and control groups. Indicate whether each metric is statistically and practically significant.
 
+Gross Conversion:
 
+
+|               | Control Group | Experiment|
+| ------------- |:-------------:| -----:    |
+| Clicks        | 17293 | 17260 |
+| Enrolment     | 3785  | 3423  |
+| Gross Conversion  | 0.2188746892    | 0.1983198146 |
+```
+SE = 0.004371675385
+m = SE * 196 = 0.00856848375
+Pooled Probability = 0.2086
+D hat = -0.02055
+Confidence Interval = [-0.0291,-0.0120]
+
+```
+Result:
+```
+Gross conversion: [-.0291, -.0120], statistically significant, practically significant
+```
 ##### 2.1.2 Effect Size Tests
 > For each of your evaluation metrics, do a sign test using the day-by-day data, and report the p-value of the sign test and whether the result is statistically significant. 
 
