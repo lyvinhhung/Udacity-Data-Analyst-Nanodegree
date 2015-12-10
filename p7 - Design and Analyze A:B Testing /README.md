@@ -21,17 +21,17 @@ by Tommy Ly, in fulfillment of Udacity's [Data Analyst Nanodegree](https://www.u
 > List the standard deviation of each of your evaluation metrics
 
 Calculation ([Data](https://docs.google.com/spreadsheets/d/1MYNUtC47Pg8hdoCjOXaHqF-thheGpUshrFA21BAJnNc/edit#gid=0)): 
-+ Gross conversion: se = sqrt(0.20625*(1-0.20625)/3200) = 0.00715 (correspond to 3200 clicks & 40000 pageviews). For 50000 pageviews, we have new_se = 0.00715 * sqrt(40000/50000) = 0.0202 
-+ Retention: se = sqrt((0.53*(1-0.53))/(5000*(660/40000))) = 0.549
++ Gross conversion: se = sqrt(0.20625*(1-0.20625)/3200) = 0.00715 (correspond to 3200 clicks & 40000 pageviews). For 50000 pageviews, we have new_se = 0.00715 * sqrt(40000/5000) = 0.0202 
++ Retention: se = sqrt((0.53*(1-0.53)/660) * sqrt(40000/5000))) = 0.549
 + Net conversion: se = sqrt(0.1093125*(1-0.1093125)/3200) = 0.0055159 (correspond to 3200 clicks & 40000 pageviews). For 50000 pageviews, we have new_se = 0.00715 * sqrt(40000/5000) = 0.0156 
 
 Final Results:
-
 ```
 Gross conversion: 0.0202
 Retention: 0.0549
 Net conversion: 0.0156
 ```
+Both Gross Conversion and Net Conversion using number of cookies as denominator, which is also unit of diversion. For retention, the denominator is "Number of users enrolled the courseware" which is not similar as Unit of Diversion. Hence, we shoudl perform both analytical estimate and emperical estimate for this metric.
 
 #### 1.3 Sizing
 ##### 1.3.1 Number of Samples vs. Power
