@@ -151,10 +151,39 @@ Net conversion CI: (-0.0116, 0.0018)
 ##### 2.1.2 Effect Size Tests
 > For each of your evaluation metrics, do a sign test using the day-by-day data, and report the p-value of the sign test and whether the result is statistically significant. 
 
+Gross Conversion:
+```
+Number of success: 4
+Number of trials: 23
+Probability: 0.5
+Two-tailed p-value : 0.0026
+```
+p-value = 0.0026 < alpha level = 0.025. Therefore, we agree with the initial hypothesis, that the data is statistically and practically significant.
+
+
+Net Conversion:
+```
+Number of success: 10
+Number of trials: 23
+Probability: 0.5
+Two-tailed p-value : 0.6776
+```
+p-value = 0.6776 > alpha level = 0.025. Therefore, we agree with the initial hypothesis, that the net conversion CI is both statistically and practically insignificant.
+
+##### 2.1.3 Summary
+> State whether you used the Bonferroni correction, and explain why or why not. If there are any discrepancies between the effect size hypothesis tests and the sign tests, describe the discrepancy and why you think it arose.
+
+Bonferroni correction was not used because the metrics in the test has high correlation (high variance) and the Bonferroni correction will be too conservative to it. I completely comprehend the importance to correct if a test is launched and the metrics shows a significant difference, because it's more liely that one of multiple metrics will be falsely positive as the number of metrics increases. However, we would only launch if all evaluation metrics must show a significant change. In that case, there would be no need to use Bonferroni correction. In other words, correction is applied if we are using OR on all metrics, but not if we are testing for AND of all metrics.
+
+### 3. Recommendation:
+> Make a recommendation and briefly describe your reasoning.
+
+
 
 ### References:
 - [Introduction to A/B Testing (Udacity)](https://www.udacity.com/course/viewer#!/c-ud120-nd)
 - [Evan Miller](http://www.evanmiller.org/ab-testing/sample-size.html)
+- [GraphPad](http://graphpad.com/quickcalcs/binomial1.cfm)
 
 ### Files
 - `readme`: main submission file - Analyze & Design A-B Testing
