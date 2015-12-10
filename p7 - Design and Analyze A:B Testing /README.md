@@ -3,7 +3,8 @@ by Tommy Ly, in fulfillment of Udacity's [Data Analyst Nanodegree](https://www.u
 
 ### Experiment Design
 #### Metric Choice
-> 
+> List which metrics you will use as invariant metrics and evaluation metrics here.
+
 
 ### References:
 - [Introduction to Machine Learning (Udacity)](https://www.udacity.com/course/viewer#!/c-ud120-nd)
