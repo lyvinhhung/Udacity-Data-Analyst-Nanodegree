@@ -109,7 +109,6 @@ Number of clicks : [0.4917,0.5082]; observed .50046; PASS Sanity Check
 
 Gross Conversion:
 
-
 |               | Control Group | Experiment|
 | ------------- |:-------------:| -----:    |
 | Clicks        | 17293 | 17260 |
@@ -117,7 +116,7 @@ Gross Conversion:
 | Gross Conversion  | 0.2188746892    | 0.1983198146 |
 ```
 SE = 0.004371675385
-m = SE * 196 = 0.00856848375
+m = SE * 1.96 = 0.00856848375
 Pooled Probability = 0.2086
 D hat = -0.02055
 Confidence Interval = [-0.0291,-0.0120]
@@ -125,8 +124,30 @@ Confidence Interval = [-0.0291,-0.0120]
 ```
 Result:
 ```
-Gross conversion: [-.0291, -.0120], statistically significant, practically significant
+Gross conversion CI: [-.0291, -.0120]
+- statistically significant (CI doesn't contain zero)
+- practically significant (CI doesn't contain d_min value)
 ```
+
+|               | Control Group | Experiment|
+| ------------- |:-------------:| -----:    |
+| Clicks        | 17293 | 17260 |
+| Enrolment     | 2033  | 1945  |
+| Net Conversion  | 0.1175620193    | 0.1126882966 |
+```
+SE = 0.003434133513
+m = SE * 1.96 = 0.0067
+Pooled Probability = 0.2086
+D hat = -0.0049
+Confidence Interval = [-0.0116,-0.0018]
+```
+Result:
+```
+Net conversion CI: (-0.0116, 0.0018)
+- not statistically significant (CI contains zero)
+- not practically significant (CI contain d_min = +/- 0.0075)
+```
+
 ##### 2.1.2 Effect Size Tests
 > For each of your evaluation metrics, do a sign test using the day-by-day data, and report the p-value of the sign test and whether the result is statistically significant. 
 
