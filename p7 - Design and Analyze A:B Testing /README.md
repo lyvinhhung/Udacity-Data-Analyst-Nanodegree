@@ -41,7 +41,9 @@ Both Gross Conversion and Net Conversion using number of cookies as denominator,
 ##### 1.3.1 Number of Samples vs. Power
 > Indicate whether you will use the Bonferroni correction during your analysis phase, and give the number of pageviews you will need to power you experiment appropriately.
 
-No, I did not use Bonferronicorrection during my analysis phase. 
+No, I did not use Bonferronicorrection during my analysis phase. The metrics in the test has high correlation (covariant) and the Bonferroni correction will be too conservative to it.
+
+
 After much consideration from back-of-the-envelope calculation, I realised the amount of pageview for retention as evaluation metrics would need almost half-a-year for testing even if we direct 50% of traffic to that experiment, which is completely not a economic feasible timeline for a A/B Testing result. Therefore, I have iterate my evaluation metrics and use Gross Conversion and Net Conversion as evaluation metrics. Using [Evan Miller](http://www.evanmiller.org/ab-testing/sample-size.html), the result can be referred below:
 
 ```
@@ -58,20 +60,24 @@ Total pageview = 342662.5*2 = 685325
 *Note1 : only 0.08 pageview leads to click.
 *Note2: double pageview because we need total pageview for both experiment & control group
 ```
-
-
-
 ##### 1.3.2 Duration vs. Exposure
 > Indicate what fraction of traffic you would divert to this experiment and, given this, how many days you would need to run the experiment.
+
+With daily traffic of 40000, I'd direct 70% of my traffic (28000) to the experiment, which means it would take us approximately 25 days (685325/28000 = 25) for the experiment. 
+
+> Give your reasoning for the fraction you chose to divert. How risky do you think this experiment would be for Udacity?
+
+The experiment would not affect whole operation of existing paying customers as well as highly motivated students (I'd suspect comprised the majority of the net conversion) and also would not affect Udacity content. Therefore, the whole experiment would not considered as highly risky. However, I'd not direct all traffic to experiment to prevent small bug in the process.
+
 
 ### 2. Experiment Analysis
 #### 2.1 Sanity Checks
 > For each of your invariant metrics, give the 95% confidence interval for the value you expect to observe, the actual observed value, and whether the metric passes your sanity check.
 
 ### References:
-- [Introduction to Machine Learning (Udacity)](https://www.udacity.com/course/viewer#!/c-ud120-nd)
-- [MITx Analytics Edge](https://www.edx.org/course/analytics-edge-mitx-15-071x-0)
-- [scikit-learn Documentation](http://scikit-learn.org/stable/documentation.html)
+- [Introduction to A/B Testing (Udacity)](https://www.udacity.com/course/viewer#!/c-ud120-nd)
+- [Evan Miller](http://www.evanmiller.org/ab-testing/sample-size.html)
+- 
 
 ### Files
 - `readme`: main submission file - Analyze & Design A-B Testing
