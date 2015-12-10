@@ -103,8 +103,8 @@ Results:
 Number of cookies: [0.4977,0.5023]; observed .5006; PASS Sanity Check
 Number of clicks : [0.4917,0.5082]; observed .50046; PASS Sanity Check
 ```
-#### 2.1 Result Analysis
-##### 2.1.1 Effect Size Tests
+#### 2.2 Result Analysis
+##### 2.2.1 Effect Size Tests
 > For each of your evaluation metrics, give a 95% confidence interval around the difference between the experiment and control groups. Indicate whether each metric is statistically and practically significant.
 
 Gross Conversion:
@@ -148,7 +148,7 @@ Net conversion CI: (-0.0116, 0.0018)
 - not practically significant (CI contain d_min = +/- 0.0075)
 ```
 
-##### 2.1.2 Effect Size Tests
+##### 2.2.2 Effect Size Tests
 > For each of your evaluation metrics, do a sign test using the day-by-day data, and report the p-value of the sign test and whether the result is statistically significant. 
 
 Gross Conversion:
@@ -170,16 +170,23 @@ Two-tailed p-value : 0.6776
 ```
 p-value = 0.6776 > alpha level = 0.025. Therefore, we agree with the initial hypothesis, that the net conversion CI is both statistically and practically insignificant.
 
-##### 2.1.3 Summary
+##### 2.2.3 Summary
 > State whether you used the Bonferroni correction, and explain why or why not. If there are any discrepancies between the effect size hypothesis tests and the sign tests, describe the discrepancy and why you think it arose.
 
 Bonferroni correction was not used because the metrics in the test has high correlation (high variance) and the Bonferroni correction will be too conservative to it. I completely comprehend the importance to correct if a test is launched and the metrics shows a significant difference, because it's more liely that one of multiple metrics will be falsely positive as the number of metrics increases. However, we would only launch if all evaluation metrics must show a significant change. In that case, there would be no need to use Bonferroni correction. In other words, correction is applied if we are using OR on all metrics, but not if we are testing for AND of all metrics.
 
-### 3. Recommendation:
+#### 2.3 Recommendation:
 > Make a recommendation and briefly describe your reasoning.
 
+My final recommendation is we should launch the experiment. In order to back-up my recommendation, I'd like come up with 2 reasons:
 
+Gross Conversion: the result have showned Gross Conversion turned out to be negative and practically significant; which is also expected since most people would be discouraged by the time requirement and unlikely to give a proper product trial. This is a good news for Udacity team since it'd lower the cost to take care of these leads which are unlikely to convert. Udacity coach can now focusing on more quality students and the probability of making first purchase after 14-days trial would increase.
 
+Net Conversion: unfortunately, net conversion results are both statistically and practically insignificant and the confidence interval also includes negative numbers. My assumption is for the control group, although the users are not receiving the time requirement recommendation, but along 14 days trial period they have already awared of the time commitment and decided to opt-out. The users from the experiment group didn't get the psychological effect from the screener,  also found no financial commitment for the courseware and also decided to try out, only to opt-out later. As a result, number of users making the payment in both group are statistically insignificant.
+
+Although it didn't affect neversion, I'd highly recommend to launch the experiment since it would cut cost for Udacity team.
+
+### 
 ### References:
 - [Introduction to A/B Testing (Udacity)](https://www.udacity.com/course/viewer#!/c-ud120-nd)
 - [Evan Miller](http://www.evanmiller.org/ab-testing/sample-size.html)
