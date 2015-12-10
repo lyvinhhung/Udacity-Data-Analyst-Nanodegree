@@ -20,6 +20,19 @@ by Tommy Ly, in fulfillment of Udacity's [Data Analyst Nanodegree](https://www.u
 #### 1.2 Measuring Standard Deviation
 > List the standard deviation of each of your evaluation metrics
 
+Calculation ([Data](https://docs.google.com/spreadsheets/d/1MYNUtC47Pg8hdoCjOXaHqF-thheGpUshrFA21BAJnNc/edit#gid=0)): 
++ Gross conversion: se = sqrt(0.20625*(1-0.20625)/3200) = 0.00715 (correspond to 3200 clicks & 40000 pageviews). For 50000 pageviews, we have new_se = 0.00715 * sqrt(40000/50000) = 0.0202 
++ Retention: se = sqrt((0.53*(1-0.53))/(5000*(660/40000))) = 0.549
++ Net conversion: se = sqrt(0.1093125*(1-0.1093125)/3200) = 0.0055159 (correspond to 3200 clicks & 40000 pageviews). For 50000 pageviews, we have new_se = 0.00715 * sqrt(40000/5000) = 0.0156 
+
+Final Results:
+
+```
+Gross conversion: 0.0202
+Retention: 0.0549
+Net conversion: 0.0156
+```
+
 #### 1.3 Sizing
 ##### 1.3.1 Number of Samples vs. Power
 > Indicate whether you will use the Bonferroni correction during your analysis phase, and give the number of pageviews you will need to power you experiment appropriately.
