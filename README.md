@@ -6,7 +6,7 @@ This repository contains project work for Udacity's [Data Analyst Nanodegree](ht
 ### Projects:
 
 - **Project 0** - Incongruent Behavior Psychology - Statistical Analysis
-- **Project 1** - Analyzing the NYC Subway Dataset
+- **Project 1** - Perceptual Phenomenon Testing
 - **Project 2** - Analyzing the NYC Subway Dataset
 - **Project 3** - Data Wrangle OpenStreetMaps Data
 - **Project 4** - Explore and Summarize Data for P2P Lending Prosper Loan
