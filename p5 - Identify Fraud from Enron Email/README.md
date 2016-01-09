@@ -44,13 +44,36 @@ __Question 2: *What features did you end up using in your POI identifier, and wh
 
 I used scikit-learn `SelectKBest` to select best 10 influential features and used those featuers for all the upcoming algorithm. Unsurprisingly, 9 out of 10 features related to financial data and only 1 features called `shared_receipt_with_poi` (messages from/to the POI divided by to/from messages from the person) were attempted to engineere by us. Main purpose of composing `ratio of POI message` is we expect POI contact each other more often than non-POI and the relationship could be non-linear. The initial assumption behind these features is: the relationship between POI is much more stronger than between POI and non-POIs, and if we quickly did back-of-the-envelope Excel scatter plot, there might be truth to that hypothesis. The fact that `shared_receipt_with_poi` is included after using `SelectKBest` proved that this is a crucial features, as they also slightly increased the precision and recall of most of the machine learning algorithms used in later part of the analysis (e.g precision & recall for Support Vector Classifer before adding new feature are `0.503` & `0.223` respectively, while after adding new feature, the results are `0.504` & `0.225`) 
 
-After feature engineering & using `SelectKBest`, I then scaled all features using `min-max scalers`. As briefly investigated through exporting CSV, we can see all email and financial data are varied by several order of magnitudes. Therefore, it is vital that we feature-scaling for the features to be considered evenly. 
+After feature engineering & using `SelectKBest`, I then scaled all features using `min-max scalers`. As briefly investigated through exporting CSV, we can see all email and financial data are varied by several order of magnitudes. Therefore, it is vital that we feature-scaling for the features to be considered evenly. For a comprehensive look on the chosen features, we can look at their respective score after using `SelectKBest` by the table below:
+
+| Selected Features       | Score↑ |
+| :---------------------- | -----: |
+| exercised_stock_options | 22.510 |
+| total_stock_value       | 22.349 |
+| bonus                   | 20.792 |
+| salary                  | 18.289 |
+| deferred_income         | 11.425 |
+| long_term_incentive     |  9.922 |
+| restricted_stock        |  9.284 |
+| total_payments          |  8.772 |
+| shared_receipt_with_poi |  8.589 |
+| loan_advances           |  7.184 |
 
 __Question 3: *What algorithm did you end up using? What other one(s) did you try? How did model performance differ between algorithms?*__
 
-After trying more than 10 algorithm and found K-Mean Clustering, Random Forest Classifer, Support Vector Machine & Logistic Regression (not covering in class) have the potential to be improved further. Without any tuning, K-means clustering performed reasonably sufficient with precision & recall rate both larger than 0.3. Logistic regression is using widely in medical & law field, most prominent case is to predict tumor benign/malignancy or guilty/no-guilty law case and I would love to test, and recently with e-mail spamming classifer. Although initially, the result was not as expected, I believe with further tuning we can come up with a much better result. 
+After trying more than 10 algorithm and found  Random Forest Classifer, Support Vector Machine & Logistic Regression (not covering in class) have the potential to be improved further. Without any tuning, K-means clustering performed reasonably sufficient with precision & recall rate both larger than 0.3. Logistic regression is using widely in medical & law field, most prominent case is to predict tumor benign/malignancy or guilty/no-guilty law case and I would love to test, and recently with e-mail spamming classifer. Although initially, the result was not as expected, I believe with further tuning we can come up with a much better result. 
 
-__Question4: * What does it mean to tune the parameters of an algorithm, and what can happen if you don’t do this well?  How did you tune the parameters of your particular algorithm?__ 
+Post-tuning result is summarized as tabel below:
+
+| Algorithm               | Precision | Recall |
+| :---------------------- |--------|  -----: |
+| Logistic Regression     | 0.382  | 0.415 |
+| Support Vector Classifier | 0.518  | 0.219 |
+| Random Forest Classifier  | 0.321  | 0.158 |
+
+__Question 4: * What does it mean to tune the parameters of an algorithm, and what can happen if you don’t do this well?  How did you tune the parameters of your particular algorithm?__ 
+
+Parameters tuning refers to the adjustment of the algorithm when training, in order to improve the fit on the test set. Parameter can influence the outcome of the learning process, the more tuned the parameters, the more biased the algorithm will be to the training data & test harness. The strategy can be effective but it can also lead to more fragile models & overfit the test harness but don't perform well in practice
 
 With every algorithms, I tried to tune as much as I could with only marginal success & unremmarkable improvement but come up with significant success with Logistic Regression & K-Mean Clustering. Manually searching through the documentation, I came up with these following paremeters:
 
@@ -69,12 +92,14 @@ KMeans(copy_x=True, init='k-means++', max_iter=300, n_clusters=2, n_init=10,
       verbose=0)
 ```
 __Question 5:*What is validation, and what’s a classic mistake you can make if you do it wrong? How did you validate your analysis?*__
-Validation comprises set of techniques to make sure our model generalizes with the remaining part of the dataset. A classic mistakes, which was briefly mistaken by me, is over-fitting where the model performed well on training set but have substantial lower result on test set. In order to overcome such classic mistake, we can conduct cross-validation (provided by the `evaluate` function in `poi_id.py` where I start 1000 trials and divided the dataset into 3:1 training-to-test ratio.
+
+Validation comprises set of techniques to make sure our model generalizes with the remaining part of the dataset. A classic mistakes, which was briefly mistaken by me, is over-fitting where the model performed well on training set but have substantial lower result on test set. In order to overcome such classic mistake, we can conduct cross-validation (provided by the `evaluate` function in `poi_id.py` where I start 1000 trials and divided the dataset into 3:1 training-to-test ratio. Main reason why we would use StratifiedSuffleSplit rather than other splitting techniques avaible is due to the nature of our dataset, which is extremely small with only 14 Persons of Interest. A single split into a training & test set would not give a better estimate of error accuracy. Therefore, we need to randomly split the data into multiple trials while keeping the fraction of POIs in each trials relatively constant.
 
 __Question 6:*Give at least 2 evaluation metrics, and your average performance for each of them. Explain an interpretation of your metrics that says something human-understandable about your algorithm's performance*__
-For this assignment, I used `precision` & `recall` as 2 main evaluation metrics. The best performance belongs to logistic regression (`precision: 0.386` & `recall: 0.4252`) which is also the final model of choice, as logistic regression is also widely used in text classification, we can actually extend this model for email classification if needed. Precision refer to the ratio of true positive (predicted as POI) to the records that are actually POI while recall described ratio of true positives to people flagged as POI. Essentially speaking, with a precision score of 0.386, it tells us if this model predicts 100 POIs, there would be 38 people are actually POIs and the rest 62 are innocent. With recall score of 0.4252, this model finds 42% of all real POIs in prediction. This model is amazingly perfect for finding bad guys without missing anyone, but with 42% probability fo wrong
 
-With a precision score of 0.31, it tells us that if this model predicts 100 POIs, then the chance would be 31 people who are truely POIs and the rest 69 are innocent. On the other hand, with a recall score of 0.81, this model can find 81% of all real POIs in prediction. Due to the nature of the dataset, `accuracy` is not a good measurement as even if non-POI are all flagged, the accuracy score will yield that the model is a success.
+For this assignment, I used `precision` & `recall` as 2 main evaluation metrics. The best performance belongs to logistic regression (`precision: 0.382` & `recall: 0.415`) which is also the final model of choice, as logistic regression is also widely used in text classification, we can actually extend this model for email classification if needed. Precision refer to the ratio of true positive (predicted as POI) to the records that are actually POI while recall described ratio of true positives to people flagged as POI. Essentially speaking, with a precision score of 0.386, it tells us if this model predicts 100 POIs, there would be 38 people are actually POIs and the rest 62 are innocent. With recall score of 0.4252, this model finds 42% of all real POIs in prediction. This model is amazingly perfect for finding bad guys without missing anyone, but with 42% probability fo wrong
+
+With a precision score of 0.38, it tells us that if this model predicts 100 POIs, then the chance would be 38 people who are truely POIs and the rest 62 are innocent. On the other hand, with a recall score of 0.415, this model can find 42% of all real POIs in prediction. Due to the nature of the dataset, `accuracy` is not a good measurement as even if non-POI are all flagged, the accuracy score will yield that the model is a success.
 
 ### References:
 - [Introduction to Machine Learning (Udacity)](https://www.udacity.com/course/viewer#!/c-ud120-nd)
