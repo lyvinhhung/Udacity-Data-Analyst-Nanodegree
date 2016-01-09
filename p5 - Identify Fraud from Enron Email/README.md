@@ -71,7 +71,7 @@ Post-tuning result is summarized as tabel below:
 | Support Vector Classifier | 0.518  | 0.219 |
 | Random Forest Classifier  | 0.321  | 0.158 |
 
-__Question 4: * What does it mean to tune the parameters of an algorithm, and what can happen if you don’t do this well?  How did you tune the parameters of your particular algorithm?__ 
+__Question 4: *What does it mean to tune the parameters of an algorithm, and what can happen if you don’t do this well?  How did you tune the parameters of your particular algorithm?*__ 
 
 Parameters tuning refers to the adjustment of the algorithm when training, in order to improve the fit on the test set. Parameter can influence the outcome of the learning process, the more tuned the parameters, the more biased the algorithm will be to the training data & test harness. The strategy can be effective but it can also lead to more fragile models & overfit the test harness but don't perform well in practice
 
