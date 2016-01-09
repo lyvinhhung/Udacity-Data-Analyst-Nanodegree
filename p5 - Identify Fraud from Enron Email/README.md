@@ -8,7 +8,7 @@ The goal of this project is to use  financial and email data from [Enron corpus]
 
 However, the dataset contains numerous people missing value for each feature which can be described as table below:
 
-| Feature | Number of people missing value |
+| Feature | NaN per feature |
 | :--- | :--: |
 | Loan advances | 142 |
 | Director fees | 129 |
