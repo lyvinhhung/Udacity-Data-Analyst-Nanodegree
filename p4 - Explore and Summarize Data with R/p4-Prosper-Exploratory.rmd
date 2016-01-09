@@ -196,7 +196,7 @@ Here is another interesting insight, the minimum loan amoutn is $1,000 USD and p
 
 ```{r echo=FALSE, Employment_status}
 ##10. Employment status
-ggplot(aes(x = EmploymentStatus), data = prosper) +
+ggplot(aes(x = EmploymentStatus), data = na.omit(prosper)) +
                     geom_bar() +
                     theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
                     ggtitle("Loans by Employment Status")
@@ -312,7 +312,7 @@ Yes, there is few unsual distribution, I was particularly pay attention to the h
 ##19.Prosper Data - BorrowerRate - Prosper Rating
 prosper$ProsperRating.alpha <- factor(prosper$ProsperRating.alpha)
 ggplot(data = prosper, aes(x = ProsperRating.alpha, y = BorrowerRate)) +
-        geom_boxplot(aes(fill = ProsperRating.alpha)) +
+        geom_boxplot() +
         xlab("Prosper Rating") +
         ggtitle("Borrower Rate for Different Prosper Rating")
 ```
@@ -361,8 +361,8 @@ For this graph, we explicitly excluded MonthlyIncome more than 9000 and no incom
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, Employment_Status_Loan_OriginalAmount}
 ##22. Borrower Profile - Employment Status ~ LoanOriginalAmount
-ggplot(aes(x = EmploymentStatus, y = LoanOriginalAmount), data = prosper) +
-                        geom_boxplot(aes(fill = EmploymentStatus)) +
+ggplot(aes(x = EmploymentStatus, y = LoanOriginalAmount), data = na.omit(prosper)) +
+                        geom_boxplot() +
                         scale_y_continuous(limits = c(0,15000)) +
                         theme(axis.text.x = element_text(angle = 90, hjust = 1))
 ```
@@ -382,10 +382,9 @@ prosper$DebtToIncomeRatio.bucket <- factor(prosper$DebtToIncomeRatio.bucket,
                                       "80-90%", "90-100%", ">100%"))
 
 ggplot(aes(x = DebtToIncomeRatio.bucket, y = BorrowerRate), data = prosper) +
-                      geom_boxplot(aes(fill = DebtToIncomeRatio.bucket)) +
+                      geom_boxplot() +
                       ylab("Borrower Rate") +
-                      xlab ("Debt To Income Ratio Bucket")
-                      theme(axis.text.x = element_text(angle = 45, hjust = 1))
+                      xlab ("Debt To Income Ratio Bucket") 
 
 cor(prosper$DebtToIncomeRatio, prosper$BorrowerRate, use = 'complete.obs')
 ```
@@ -396,8 +395,8 @@ As much as I want to believe, although there is some sort of relationship betwee
 #24. Investor profile - Lender Yield vs Rating 
 prosper$ProsperRating.alpha = factor(prosper$ProsperRating..Alpha.,
                                  levels = c("AA","A","B","C","D","E","HR",""))
-ggplot(data = prosper, aes(x = ProsperRating.alpha, y = LenderYield)) +
-        geom_boxplot(aes(fill = ProsperRating.alpha)) +
+ggplot(data = na.omit(prosper), aes(x = ProsperRating.alpha, y = LenderYield)) +
+        geom_boxplot() +
                                xlab("Prosper Rating") +
           ggtitle("Yield for Different Prosper Rating")
 ```
