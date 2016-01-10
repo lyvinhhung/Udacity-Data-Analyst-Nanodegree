@@ -203,13 +203,13 @@ __Null hypothesis__ by creating such mini-course, it will not increase Retention
 
 The mini-course will be randomly assigned to a Control & Experiment Group. The whole courses for Control Group would not change and remained the same while courses for Experiment Group will have this one mini-course (which required them to finish within 14 days)
 
-__Unit of diversion__ is  cookie, users once enrolled in this new mini-course will be tracked by user-id and this change only impacts what happens after a free trial account is created.
+__Unit of diversion__ is  User-IDs, users once enrolled in this new mini-course will be tracked by user-id and this change only impacts what happens after a free trial account is created. The main purpose is we want users to only see this "new offering" one version at a time, and not to confuse user by showing diffrent version option at different time.
 
 __Invariant metric__ is number of cookies since unit of diversion is cookie, and because users are not exposed to this new course after hitting "Free Trials" screener button. 
 
-__Evaluation metric__ is Retention, if the CI shows practically and statistically significant, will increase the eventual revenue by having more people signing up for the program. 
+__Evaluation metric__ is Net Conversion, whether rendering a "new mini-course"  helps increase the ratio of users who make payment over those who decided only to try the program.  If the CI shows practically and statistically significant, this will prove that this initiative will increase the eventual revenue by having more people signing up for the program. 
 
-If Retention is positive and practically significant at the end of the experiment, we can roll out this new course to whole Nanodegree program and added the mini-course as the official course of Data Analyst nanodegree program.
+If Net Conversion is positive and practically significant at the end of the experiment, we can roll out this new course to whole Nanodegree program and added the mini-course as the official course of Data Analyst nanodegree program.
 
 ### References:
 - [Introduction to A/B Testing (Udacity)](https://www.udacity.com/course/viewer#!/c-ud120-nd)
