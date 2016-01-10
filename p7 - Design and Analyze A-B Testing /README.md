@@ -90,9 +90,9 @@ Total Control group pageview: 345543
 Total Experiment group pageview: 344660 
 Total pageview: 690203
 Probability of cookie in control or experiment group: 0.5
-SE = sqrt(0.5*(1-0.5)*(1/345543+1/344660) = 0.0012
-Margin of error (m) = SE * 1.96 = 0.00235
-Confidence Interval = [0.5-m,0.5+m] = [0.4977,0.5023]
+SE = sqrt(0.5*(1-0.5)*(1/345543+1/344660) = 0.0006018
+Margin of error (m) = SE * 1.96 = 0.0011796
+Confidence Interval = [0.5-m,0.5+m] = [0.4988,0.5012]
 Observed value  = 344660/690203 = 0.5006
 
 2. Number of clicks: 
@@ -100,16 +100,16 @@ Total Control group clicks: 28378
 Total Experiment group cliks: 28325
 Total pageview: 56703
 Probability of cookie in control or experiment group: 0.5
-SE = sqrt(0.5*(1-0.5)*(1/28378+1/28325) = 0.0041
-Margin of error (m) = SE * 1.96 = 0.0082
-Confidence Interval = [0.5-m,0.5+m] = [0.4917,0.5082]
+SE = sqrt(0.5*(1-0.5)*(1/28378+1/28325) = 0.0021
+Margin of error (m) = SE * 1.96 = 0.0041
+Confidence Interval = [0.5-m,0.5+m] = [0.4959,0.5041]
 Observed value  = 28378/56703 = 0.50046
 ```
 
 Results:
 ```
-Number of cookies: [0.4977,0.5023]; observed .5006; PASS Sanity Check
-Number of clicks : [0.4917,0.5082]; observed .50046; PASS Sanity Check
+Number of cookies: [0.4988,0.5012]; observed .5006; PASS Sanity Check
+Number of clicks : [0.4959,0.5041]; observed .50046; PASS Sanity Check
 ```
 #### 2.2 Result Analysis
 ##### 2.2.1 Effect Size Tests
