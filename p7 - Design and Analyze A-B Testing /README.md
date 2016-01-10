@@ -19,7 +19,7 @@ by Tommy Ly, in fulfillment of Udacity's [Data Analyst Nanodegree](https://www.u
 + __Number of User-ID__ : Not an ideal metric for both evaluation & invariant metric. The number of users enrol in the free trial is dependent on the experiment, we expect to see different value in the control and experiment group, therefore it cannot be a good invariant metric. Meawhile, the number of visitors between experiement are likely to be different & number of enrolled user can fluctuate in a particular day, which likely to skew the result.
 + __Click-through-probability__ : This is a good invariant metric since the clicks are occurred before the users see the experiment, therefore it is does not depend on our test which is an excellent invariant metric. However, I believe the number of cookies & number of clicks are already sufficient to use as invariant metric & extra metric is nice to have but may not be as critical as the other two.
 
-The expectation for the experiment migh be as follow: the gross conversion will decrease practically significance, which indicate whether the cost will be lower by introducing the new screener; while net conversion will increase statistically significance, which indicate the screener whether or not affect the revenues.
+The expectation for the experiment migh be as follow: the gross conversion will decrease practically significance, which indicate whether the cost will be lower by introducing the new screener; while net conversion will not decrease statistically significance, which indicate the screener whether or not affect the revenues.
 
 #### 1.2 Measuring Standard Deviation
 > List the standard deviation of each of your evaluation metrics
