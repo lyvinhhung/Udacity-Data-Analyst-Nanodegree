@@ -39,7 +39,11 @@ Gross conversion: 0.0202
 Retention: 0.0549
 Net conversion: 0.0156
 ```
-Both Gross Conversion and Net Conversion using number of cookies as denominator, which is also unit of diversion. For retention, the denominator is "Number of users enrolled the courseware" which is not similar as Unit of Diversion. Hence, we shoudl perform both analytical estimate and emperical estimate for this metric.
+>  For each of your evaluation metrics, indicate whether you think the analytic estimate would be comparable to the the empirical variability, or whether you expect them to be different (in which case it might be worth doing an empirical estimate if there is time). Briefly give your reasoning in each case.
+
+Both Gross Conversion and Net Conversion using number of cookies as denominator, which is also unit of diversion. Here, the unit of diversion is equal to unit of analysis, which indicate the analytical estimate would be comparable to the emperical variability. 
+
+For Retention, the denominator is "Number of users enrolled the courseware" which is not similar as Unit of Diversion. The unit of analysis and the unit of diversion are not the same therefore the analytical an the empirical estimates are different.
 
 #### 1.3 Sizing
 ##### 1.3.1 Number of Samples vs. Power
