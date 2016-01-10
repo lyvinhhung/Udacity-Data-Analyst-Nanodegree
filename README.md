@@ -20,4 +20,5 @@ This repository contains project work for Udacity's [Data Analyst Nanodegree](ht
 - Data Analysis with R
 - Intro to Machine Learning
 - Data Visualization and D3.js
+- Intro to HTML, CSS & Javascript
 - Design & Analyze A/B Testing
