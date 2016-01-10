@@ -186,13 +186,13 @@ Bonferroni correction was not used because the metrics in the test has high corr
 #### 2.3 Recommendation:
 > Make a recommendation and briefly describe your reasoning.
 
-My final recommendation is we should launch the experiment. In order to back-up my recommendation, I'd like come up with 2 reasons:
+My final recommendation is we should *NOT* launch the experiment. In order to back-up my recommendation, I'd like come up with 2 reasons:
 
 Gross Conversion: the result have showned Gross Conversion turned out to be negative and practically significant; which is also expected since most people would be discouraged by the time requirement and unlikely to give a proper product trial. This is a good news for Udacity team since it'd lower the cost to take care of these leads which are unlikely to convert. Udacity coach can now focusing on more quality students and the probability of making first purchase after 14-days trial would increase.
 
 Net Conversion: unfortunately, net conversion results are both statistically and practically insignificant and the confidence interval also includes negative numbers. My assumption is for the control group, although the users are not receiving the time requirement recommendation, but along 14 days trial period they have already awared of the time commitment and decided to opt-out. The users from the experiment group didn't get the psychological effect from the screener,  also found no financial commitment for the courseware and also decided to try out, only to opt-out later. As a result, number of users making the payment in both group are statistically insignificant.
 
-Although it didn't affect neversion, I'd highly recommend to launch the experiment since it would cut cost for Udacity team.
+Based on the analysis & reasoning above, gross conversion result is a good outcome because the cost is lower by discouraging users who're unwilling to commmit and unlikely to convert. On the other hand, net conversion results ended up being bot statistically & practically insignificant while the confidence interval does include the negative number of the practical significance boundary; meaning, it's possible that this number went down by an amount that would hurt the business - decrease the revenue. If we consider the initial hypothesis, it does not increase numbers of paid users, which fails the inital goal of launching this feature and likely to be unacceptable risk to launch.
 
 ### 3. Follow-up experiment
 > Give a high-level description of the follow up experiment you would run, what your hypothesis would be, what metrics you would want to measure, what your unit of diversion would be, and your reasoning for these choices.
