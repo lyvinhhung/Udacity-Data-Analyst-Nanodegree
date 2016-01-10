@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Titanic Data Exploration</title>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://dimplejs.org/dist/dimple.v2.0.0.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet"/>
+    <style>
+      h2 {
+        color: black;
+        text-align: center;
+      }
+    </style>
+  </head>
+
+<body class="container">
+	
+	<div class="row">
+		<div id="chart1"></div>
+	</div>
+
+	<div class="row">
+		<div id="chart2"></div>
+	</div>
+
+	<div class="row">
+		<div id="chart3"></div>
+	</div>
+
+	<script type="text/javascript">
+		// 1 - Titanic survivors based on class
+		var width = 590,
+		    height = 400;
+		var svg1 = dimple.newSvg("#chart1", width, height);
+		d3.csv("data/train.csv", function(data){
+			var chart = new dimple.chart(svg1, data);
+		    chart.addCategoryAxis("x", ["Class","Sex"]);
+		    chart.addMeasureAxis("y", "Survived");
+		    chart.addSeries("Sex", dimple.plot.bar);
+			chart.addLegend(65, 10, 510, 20, "right");
+			chart.draw();
+		});
+
+		// 2 - Titanic survivors based on age group
+		var width = 590,
+		    height = 400;
+		var svg2 = dimple.newSvg("#chart2", width, height);
+		d3.csv("data/train.csv", function(data){
+			var chart = new dimple.chart(svg2, data);
+		    x = chart.addCategoryAxis("x", "Age Group");
+		    x.addOrderRule(["N/A", "0-15", "15-30", "30-45", "45-60", "60+"]);
+		    chart.addMeasureAxis("y", "Survived");
+		    chart.addSeries(null,dimple.plot.bar);
+		    chart.addLegend(65, 10, 510, 20, "right");
+			chart.draw();
+		});	
+
+		// 3 - Titanic survivors based on parents/children 
+		var width = 590,
+		    height = 400;
+		var svg3 = dimple.newSvg("#chart3", width, height);
+		d3.csv("data/train.csv", function(data){
+			var chart = new dimple.chart(svg3, data);
+		    chart.addCategoryAxis("y", "Parch");
+		    chart.addMeasureAxis("x", "Survived");
+		    chart.addSeries(null, dimple.plot.bar);
+			chart.draw();
+		});	
+	    
+	</script>
+</body>
+</html>
