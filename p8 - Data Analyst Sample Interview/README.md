@@ -79,3 +79,6 @@ To balance overfitting, we can go for simpler model with fewer parameters to tun
 ##### 5. Future Plan
 
 > If you were to start your data analyst position today, what would be your goals a year from now?
+
+My goal is to gain deeper understanding of data science techniques by improving my knowledge in these following topics: predictive modeling, data analysis, product metrics, statistical ininference & coding skill in Python & R (especially improving coding skill).
+I believe data science will continue to power the future and work with data/analytical related role within a tech company or as a product manager of a data-driven tech company. 
