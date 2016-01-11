@@ -16,9 +16,33 @@ Next, I use validation techniques to make sure our model generalizes with the re
 
 > You are given a ten piece box of chocolate truffles. You know based on the label that six of the pieces have an orange cream filling and four of the pieces have a coconut filling. If you were to eat four pieces in a row, what is the probability that the first two pieces you eat have an orange cream filling and the last two have a coconut filling?
 
+The problem is within `dependent probabilities` sphrere and can be calculated as follow:
+
+Probability of first choice to be orange: 
+```
+P(1st orange): 6/10
+```
+Probability of second choice to be orange: 
+```
+P(2nd orange): 5/9
+```
+Probability of third choice to be coconut: 
+```
+P(3rd coconut): 4/8
+```
+Probability of fourth choice to be coconut: 
+```
+P(4th coconut): 3/7
+```
+Total Probably 
+```
+P(1st orange and 2nd orange and 3rd cocut and 4th coconut) = P(1)*P(2)*P(3)*P(4) = 7.14%
+```
+
 ##### 3. Programming
 
 > Construct a query to find the top 5 states with the highest number of active users. Include the number for each state in the query result.
+
 
 
 > Define a function `first_unique` that takes a string as input and returns the first non-repeated (unique) character in the input string. If there are no unique characters return `None`. Note: Your code should be in Python.
