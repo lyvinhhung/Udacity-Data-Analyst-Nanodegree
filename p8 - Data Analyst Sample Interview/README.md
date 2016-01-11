@@ -6,10 +6,11 @@ by Tommy Ly, in fulfillment of Udacity's [Data Analyst Nanodegree](https://www.u
 
 > Describe a data project you worked on recently.
 
+The goal of my project is to use financial and email data from Enron - which comprised email and financial data of 146 people (records), most of which are senior management of Enron, to come up with a predictive model that could spot an individual as a "Person of Interest (POI). I use `scikit-learn` & various machine learning techniques to predict "Person fo Interest", detecting culpable person using both financial & email-data. 
 
-![First Graph](https://raw.githubusercontent.com/tommyly2010/Udacity-Data-Analyst-Nanodegree/master/p8 - Data Analyst Sample Interview/img/image-1.png)
+First, I used scikit-learn `SelectKBest` to select best 10 influential features and used those featuers for all the upcoming algorithm. After feature engineering & using `SelectKBest`, I then scaled all features using `min-max scalers` so we can prevent data not to have several of magnitudes difference . Next, I use parameter tuning in order to improve the fit on the test set, there're multiple parameters can be tuned for logistic regression. 
 
-
+Next, I use validation techniques to make sure our model generalizes with the remaining part of the dataset. In detail, I split the data into 3:1 ratio & create 1000 trials. Main reason why I'd create too many trials since the dataset is very small and with small number of trials, the data might be bias. Finally, I evaluate the mdel using `precision` & `recall` rather than `accuracy` since if everyone is flagged as Person of Interest, the accuracy would be 100% and shows irrelevant data.
 
 ##### 2. Probability
 
