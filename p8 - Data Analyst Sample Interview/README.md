@@ -19,6 +19,7 @@ by Tommy Ly, in fulfillment of Udacity's [Data Analyst Nanodegree](https://www.u
 
 > Construct a query to find the top 5 states with the highest number of active users. Include the number for each state in the query result.
 
+
 > Define a function `first_unique` that takes a string as input and returns the first non-repeated (unique) character in the input string. If there are no unique characters return `None`. Note: Your code should be in Python.
 
 ##### 4. Data Analysis
