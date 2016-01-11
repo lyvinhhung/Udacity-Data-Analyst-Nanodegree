@@ -42,8 +42,12 @@ P(1st orange and 2nd orange and 3rd cocut and 4th coconut) = P(1)*P(2)*P(3)*P(4)
 ##### 3. Programming
 
 > Construct a query to find the top 5 states with the highest number of active users. Include the number for each state in the query result.
-
-
+```
+SELECT state, SUM(active)
+from users
+GROUP BY state
+ORDER BY SUM(active) DESC
+```
 
 > Define a function `first_unique` that takes a string as input and returns the first non-repeated (unique) character in the input string. If there are no unique characters return `None`. Note: Your code should be in Python.
 
