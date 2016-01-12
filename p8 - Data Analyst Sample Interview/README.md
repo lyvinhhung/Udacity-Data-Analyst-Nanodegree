@@ -38,6 +38,22 @@ Total Probably
 ```
 P(1st orange and 2nd orange and 3rd cocut and 4th coconut) = P(1)*P(2)*P(3)*P(4) = 7.14%
 ```
+> Follow up question: If you were given an identical box of chocolates and again eat four pieces in a row, what is the probability that exactly two contain coconut filling?
+
+Within first 4 pieces of box of chocolates, there're 14 combinations 
+```
+Example:
+Combination 1: Orange, Orange, Orange, Coconut 
+Combination 2: Orange, Coconut, Coconut, Orange
+Combination 3: Orange, Coconut, Coconut, Coconut
+Combination 4: Coconut, Coconut, Coconut, Coconut
+....
+Combination 14.
+
+Within those 14 combinations, there're 5 combinations have exactly 2 coconuts
+
+Therefore, we have P(exactly 2 coconuts) = 5/14 = 35.71%
+```
 
 ##### 3. Programming
 
@@ -48,6 +64,7 @@ SELECT state, SUM(active)
 from users
 GROUP BY state
 ORDER BY SUM(active) DESC
+LIMIT 5
 ```
 
 > Define a function `first_unique` that takes a string as input and returns the first non-repeated (unique) character in the input string. If there are no unique characters return None. Note: Your code should be in Python.
@@ -62,7 +79,7 @@ def first_unique(word):
     for c in word:
         if count[c] == 1:
           return c
-        else
+        else:
           return "None"
 ```
 
