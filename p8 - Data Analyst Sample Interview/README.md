@@ -52,7 +52,7 @@ Combination 14.
 
 Within those 14 combinations, there're 5 combinations have exactly 2 coconuts
 
-Therefore, we have P(exactly 2 coconuts) = 5/14 = 35.71%
+Therefore, we have P(exactly 2 coconuts in 14 combinations) = 5/14 = 35.71%
 ```
 
 ##### 3. Programming
@@ -79,7 +79,7 @@ def first_unique(word):
     for c in word:
         if count[c] == 1:
           return c
-        else:
+        elif count[c] != 1:
           return "None"
 ```
 
@@ -97,5 +97,19 @@ To balance overfitting, we can go for simpler model with fewer parameters to tun
 
 > If you were to start your data analyst position today, what would be your goals a year from now?
 
-My goal is to gain deeper understanding of data science techniques by improving my knowledge in these following topics: predictive modeling, data analysis, product metrics, statistical ininference & coding skill in Python & R (especially improving coding skill).
-I believe data science will continue to power the future and work with data/analytical related role within a tech company or as a product manager of a data-driven tech company. 
+Job I want to apply to : https://careers-uber.icims.com/jobs/13612/global-data-analyst%2c-singapore/job?mobile=false&width=1048&height=500&bga=true&needsRedirect=false&jan1offset=420&jun1offset=420
+
+Within the Uber sphere, my goal is to become technically sufficient in SQL & Python, matching with Uber needs as a Global Data Analyst. 
+
+Within the first 3 months, my goal are:
+
+1. Understand nuts and bolts of every single database scheme in Uber, especially Uber Asia Pacific.
+2. Have a clear knowledge of every Uber metrics/KPIs needed to operate in Asia Pacific.
+3. Ability to do fundamental data analysis task for Uber (A/B testing, statistical inference,etc.)
+
+Within one year, my goal are:
+
+1. Code fluently in Python to develop new innovative metrics to track for Uber.
+2. Query database cold & create new assumptions/hypothesis and test it. For example: I'd suspect Uber customers are increasingly parents (doesn't have time to pick-up children & use Uber for alternative to school-bus) so I'd collect data & conduct a statistical test to test if this is true, and how could we target those new emerging segment.
+3. Develop new data product (an internal platform for Uber drivers or Uber data team).E.g an automate tool to calculate A/B testing result & experiement (split the data & conduct statistical analysis automatically with a few click of a button).
+
