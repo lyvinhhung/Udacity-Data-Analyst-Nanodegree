@@ -40,7 +40,7 @@ P(1st orange and 2nd orange and 3rd cocut and 4th coconut) = P(1)*P(2)*P(3)*P(4)
 ```
 > Follow up question: If you were given an identical box of chocolates and again eat four pieces in a row, what is the probability that exactly two contain coconut filling?
 
-Within first 4 pieces of box of chocolates, there're 14 combinations 
+Within first 4 pieces of box of chocolates, there're 14 combinations, assuming each combinations have similar probability
 ```
 Example:
 Combination 1: Orange, Orange, Orange, Coconut 
@@ -50,9 +50,9 @@ Combination 4: Coconut, Coconut, Coconut, Coconut
 ....
 Combination 14.
 
-Within those 14 combinations, there're 5 combinations have exactly 2 coconuts
+Within those 14 combinations, there're 6 combinations have exactly 2 coconuts
 
-Therefore, we have P(exactly 2 coconuts in 14 combinations) = 5/14 = 35.71%
+Therefore, we have P(exactly 2 coconuts in 14 combinations) = 6/14 = 42.857%
 ```
 
 ##### 3. Programming
