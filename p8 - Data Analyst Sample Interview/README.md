@@ -70,14 +70,24 @@ LIMIT 5
 > Define a function `first_unique` that takes a string as input and returns the first non-repeated (unique) character in the input string. If there are no unique characters return None. Note: Your code should be in Python.
 
 ```
-import collections
+from collections import defaultdict
 def first_unique(word):
-    c = collections.Counter(word)
-    for char in word:
-        if c[char] == 1:
-            return char
-        else:
-            return "None"
+    '''initiate defaultdict for count'''   
+    counts = defaultdict(int)
+    ''' create empty list'''
+    l = []
+    '''loop through each character in a string'''
+    for c in word:
+        counts[c] += 1
+        '''if there's first unique character, append them to list'''
+        if counts[c] == 1:
+            l.append(c)
+    ''' if list only contains 1 character, return the result'''        
+    for c in l:
+        if counts[c] == 1:
+            return c
+    ''' otherwise, return "None"" '''
+    return "None"
 ```
 
 ##### 4. Data Analysis
