@@ -46,6 +46,7 @@ Following the feedback from the 3 interviews, I implemented the following change
 - I flipped the chart from horizontal bar chart to vertical bart chart.
 - I remove the individual age & only shows aggergrate age group.
 - I intended to add few special effect (highlight a chart when mouseover) but this would not be necessary.
+- I switched from Number of Survival to Survival Rates since the amount of passengers in each class/ages group is not similar.
 
 Final rendition of the data visualization is shown below:
 
