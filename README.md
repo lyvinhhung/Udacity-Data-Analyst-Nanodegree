@@ -1,4 +1,3 @@
-# Udacity Data Analyst Nanodegree
 
 ![Certificate](https://raw.githubusercontent.com/lyvinhhung/Udacity-Data-Analyst-Nanodegree/master/certificate.png)
 
