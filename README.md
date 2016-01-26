@@ -1,6 +1,6 @@
 # Udacity Data Analyst Nanodegree
 
-![Certificate](https://raw.githubusercontent.com/lyvinhhung/Udacity-Data-Analyst-Nanodegree/master/certificate.png)
+![Certificate](https://raw.githubusercontent.com/lyvinhhung/Udacity-Data-Analyst-Nanodegree/master/certificate.pdf)
 
 ### About
 This repository contains project work for Udacity's [Data Analyst Nanodegree](https://www.udacity.com/course/nd002).
